@@ -6,7 +6,7 @@ export default function Home() {
     <main className="relative flex min-h-dvh flex-col justify-center overflow-hidden bg-black text-white">
       <div className="relative aspect-[7/3] w-full sm:absolute sm:inset-0 sm:aspect-auto">
         <Image
-          src="/art/placeholder-office.webp"
+          src="/art/office-v1.webp"
           alt="A corner office with a desk and monitor, framed by floor-to-ceiling windows onto an autumn forest"
           fill
           priority
