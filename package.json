@@ -15,7 +15,7 @@
     "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
     "seed:check": "node scripts/check-seed.mjs",
     "seed:import": "python3 scripts/seed_from_sheet.py",
-    "graybox": "node scripts/graybox.mjs ../corner-office-art/graybox"
+    "graybox": "node scripts/graybox.mjs ../art/graybox"
   },
   "dependencies": {
     "next": "16.3.6",
