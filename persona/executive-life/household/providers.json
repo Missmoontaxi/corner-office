@@ -1,0 +1,125 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "PR01",
+      "name": "Maple Row Podiatry",
+      "type": "podiatrist",
+      "scope": "clinical foot care",
+      "release_on_file": "yes",
+      "verified_on": "D-12",
+      "notes": "Off site, accepts Medicare",
+      "source": "Draft"
+    },
+    {
+      "id": "PR02",
+      "name": "Doorstep Foot Care",
+      "type": "mobile podiatrist",
+      "scope": "clinical foot care, home visits",
+      "release_on_file": "yes",
+      "verified_on": "D-35",
+      "notes": "Cancelled T02",
+      "source": "Draft"
+    },
+    {
+      "id": "PR03",
+      "name": "Clearwater Hearing",
+      "type": "audiologist",
+      "scope": "hearing aid clean and check",
+      "release_on_file": "yes",
+      "verified_on": "D-20",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "PR04",
+      "name": "Northside Eye Care",
+      "type": "optometrist",
+      "scope": "eye exams",
+      "release_on_file": "yes",
+      "verified_on": "D-45",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "PR05",
+      "name": "Frame Fix Optical",
+      "type": "optician",
+      "scope": "glasses repair",
+      "release_on_file": "no",
+      "verified_on": "D-24",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "PR06",
+      "name": "Second Street Barbers",
+      "type": "licensed barber",
+      "scope": "haircuts",
+      "release_on_file": "no",
+      "verified_on": "D-9",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "PR07",
+      "name": "Oak Hill Family Dental",
+      "type": "dentist",
+      "scope": "cleanings",
+      "release_on_file": "yes",
+      "verified_on": "D-110",
+      "notes": "Stale, recheck due",
+      "source": "Draft"
+    },
+    {
+      "id": "PR08",
+      "name": "Riverside Primary Care",
+      "type": "primary care practice",
+      "scope": "visits and lab orders",
+      "release_on_file": "yes",
+      "verified_on": "D-60",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "PR09",
+      "name": "Corner Pharmacy",
+      "type": "pharmacy",
+      "scope": "refills and pickup",
+      "release_on_file": "yes",
+      "verified_on": "D-15",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "PR10",
+      "name": "Hearing Supply Direct",
+      "type": "hearing supply retailer",
+      "scope": "batteries and parts",
+      "release_on_file": "no",
+      "verified_on": "D-10",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "PR11",
+      "name": "Companion Rides",
+      "type": "ride service",
+      "scope": "rides with a companion who waits",
+      "release_on_file": "no",
+      "verified_on": "D-20",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "PR12",
+      "name": "Polished Nail Studio",
+      "type": "nail technician",
+      "scope": "cosmetic nail care only",
+      "release_on_file": "no",
+      "verified_on": "D-70",
+      "notes": "Never booked for clinical foot care. The P2 type check",
+      "source": "Draft"
+    }
+  ]
+}

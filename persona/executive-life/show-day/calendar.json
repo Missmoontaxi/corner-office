@@ -1,0 +1,115 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "E01",
+      "day": "D0",
+      "start": "08:30",
+      "end": "09:00",
+      "title": "Brief review with the CEO's office",
+      "attendees": "Alex",
+      "status": "confirmed",
+      "notes": "The morning brief this app renders",
+      "source": "Draft"
+    },
+    {
+      "id": "E02",
+      "day": "D0",
+      "start": "09:00",
+      "end": "09:45",
+      "title": "Capacity review",
+      "attendees": "Alex, Jordan, Julian",
+      "status": "confirmed",
+      "notes": "Jordan walks the setup-hours model behind K33 and K34",
+      "source": "Draft"
+    },
+    {
+      "id": "E03",
+      "day": "D0",
+      "start": "10:00",
+      "end": "10:30",
+      "title": "Weekly team sync",
+      "attendees": "Jordan (runs it), Alex, Sanjay, Priya, Wen, Tomás, Nadia, Julian",
+      "status": "confirmed",
+      "notes": "The conference room meeting from 11/20. On the desk it is text only",
+      "source": "Bible"
+    },
+    {
+      "id": "E04",
+      "day": "D0",
+      "start": "10:30",
+      "end": "11:00",
+      "title": "Insurer call, at Work for all staff",
+      "attendees": "Alex, Tomás, Jordan",
+      "status": "confirmed",
+      "notes": "Decision D1 is decided before this call",
+      "source": "Bible"
+    },
+    {
+      "id": "E05",
+      "day": "D0",
+      "start": "10:45",
+      "end": "11:15",
+      "title": "Mom, foot care",
+      "attendees": "Mom, care lead",
+      "status": "requested, not confirmed",
+      "notes": "Shown on Alex's calendar. Links to task T01. The founder's question, about the founder's mother",
+      "source": "Bible"
+    },
+    {
+      "id": "E06",
+      "day": "D0",
+      "start": "12:30",
+      "end": "13:00",
+      "title": "Lunch, no meetings",
+      "attendees": "Alex",
+      "status": "confirmed",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "E07",
+      "day": "D0",
+      "start": "14:00",
+      "end": "15:00",
+      "title": "Board prep, deck review",
+      "attendees": "Alex, Julian, Tomás",
+      "status": "confirmed",
+      "notes": "Board meets D+3",
+      "source": "Draft"
+    },
+    {
+      "id": "E08",
+      "day": "D0",
+      "start": "15:30",
+      "end": "16:00",
+      "title": "Residence pipeline review",
+      "attendees": "Tomás, Jordan",
+      "status": "confirmed",
+      "notes": "Alex recused. The residence where Mom lives appears by name and stage only",
+      "source": "Draft"
+    },
+    {
+      "id": "E09",
+      "day": "D0",
+      "start": "16:30",
+      "end": "17:00",
+      "title": "Handoff review prep",
+      "attendees": "Sanjay, Priya",
+      "status": "tentative",
+      "notes": "Feeds decision D2 at the next sync",
+      "source": "Draft"
+    },
+    {
+      "id": "E10",
+      "day": "D+3",
+      "start": "09:00",
+      "end": "12:00",
+      "title": "Board meeting",
+      "attendees": "Board, Alex, Julian",
+      "status": "confirmed",
+      "notes": null,
+      "source": "Bible"
+    }
+  ]
+}

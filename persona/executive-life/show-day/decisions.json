@@ -1,0 +1,38 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "D1",
+      "question": "What can we promise?",
+      "choice": "All 40,000 on January 1, or waves care leads can keep",
+      "alternative": "Waves, about half on January 1 (K34) and the rest as setup hours allow",
+      "tradeoff": "Alex wants the yes before the board. Julian's margin holds at 4 percent activation and thins above it",
+      "unknown": "Whether the insurer accepts waves in writing",
+      "where": "On the desk 10/22",
+      "builders_call": "First wave estimated to be half by start of year",
+      "source": "Bible"
+    },
+    {
+      "id": "D2",
+      "question": "Is the handoff complete?",
+      "choice": "Hand Sanjay the morning brief now, or after owners, tests and a callback plan",
+      "alternative": null,
+      "tradeoff": null,
+      "unknown": null,
+      "where": "Text pointing to Tuesday's sync. Room 11/20",
+      "builders_call": "Due Sun 11/15",
+      "source": "Bible"
+    },
+    {
+      "id": "D3",
+      "question": "Where should the model run?",
+      "choice": "90-day open-weight test on two internal tasks, pinned zero-retention host, member traffic stays out",
+      "alternative": null,
+      "tradeoff": null,
+      "unknown": null,
+      "where": "Text pointing to Tuesday's sync. Room 11/20",
+      "builders_call": "Due Sun 11/15",
+      "source": "Bible"
+    }
+  ]
+}

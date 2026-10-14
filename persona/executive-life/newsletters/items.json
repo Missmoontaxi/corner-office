@@ -1,0 +1,12 @@
+{
+  "note": "Newsletter item bodies, written by Claude. Publications are fictional. No statistics unless Paula approves a source. N08 is the planted item, whose text lives in inbox/bodies.json as M09.",
+  "items": {
+    "N01": "Front-desk AI that calls offices on a patient's behalf is becoming routine, and so is the expectation that it says so up front. Offices report they are more willing to help an agent that discloses itself and offers a human.",
+    "N02": "Open-weight models are closing the gap on routine internal work like tagging and short summaries. The appeal for many teams is less about price and more about choosing where the model runs and what data it ever sees.",
+    "N03": "Evals are becoming a standing line item. Teams describe grading their models weekly against their own cases, and promoting a new model only when a person signs off on the evidence.",
+    "N04": "Long-distance caregivers describe the same gap again and again. The emergencies get handled. The follow-ups, refills and small appointments fall through, because nobody nearby owns them.",
+    "N05": "Hearing aids in a drawer. The clean and check is the appointment nobody books, and the batteries are the errand nobody remembers. Audiologists say the routine visits are easy to forget and easy to book once someone owns them.",
+    "N06": "After the visit. The discharge sheet and the after-visit summary list next steps, and many of them never get booked. Clinicians say the paperwork is clear. What's missing is someone to carry it.",
+    "N07": "Employers are asking care vendors for receipts. Renewals increasingly turn on enrollment and tasks completed, and less on promises about outcomes."
+  }
+}

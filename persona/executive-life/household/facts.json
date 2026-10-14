@@ -1,0 +1,93 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "F01",
+      "fact": "Lives on her own at an independent living residence in another state",
+      "fact_source": "per Mom",
+      "dated": "D-400",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F02",
+      "fact": "The residence does not allow foot care on site",
+      "fact_source": "per residence director",
+      "dated": "D-30",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F03",
+      "fact": "No longer drives. Rides go with a companion who waits",
+      "fact_source": "per Mom",
+      "dated": "D-200",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F04",
+      "fact": "Haircut every 4 weeks",
+      "fact_source": "per Mom",
+      "dated": "D-120",
+      "notes": "Superseded by F05",
+      "source": "Draft"
+    },
+    {
+      "id": "F05",
+      "fact": "Haircut every 5 weeks",
+      "fact_source": "per Mom, on her monthly call",
+      "dated": "D-40",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F06",
+      "fact": "Prefers weekday appointments, late morning",
+      "fact_source": "per Mom",
+      "dated": "D-90",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F07",
+      "fact": "Wears hearing aids in both ears",
+      "fact_source": "per audiologist",
+      "dated": "D-180",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F08",
+      "fact": "Medication list on file, as her clinician wrote it",
+      "fact_source": "per primary care office",
+      "dated": "D-60",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F09",
+      "fact": "Health care proxy and advance directive on file, Alex named",
+      "fact_source": "document on file",
+      "dated": "D-400",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F10",
+      "fact": "A neighbor down the hall holds a spare key",
+      "fact_source": "per Mom",
+      "dated": "D-90",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "F11",
+      "fact": "Signed releases on file at the podiatrist, audiologist, optometrist and dentist",
+      "fact_source": "releases on file",
+      "dated": "D-80",
+      "notes": null,
+      "source": "Draft"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "N01",
+      "section": "AI",
+      "publication": "The Agent Desk (fictional)",
+      "item": "Front-desk AI that calls on a patient's behalf now has to say it is AI at the start of the call",
+      "why": "Ties to P5 disclosure",
+      "source": "Draft"
+    },
+    {
+      "id": "N02",
+      "section": "AI",
+      "publication": "The Agent Desk (fictional)",
+      "item": "Open-weight models close the gap on routine tagging work, with hosting choices that keep data in your own cloud",
+      "why": "Context for D3",
+      "source": "Draft"
+    },
+    {
+      "id": "N03",
+      "section": "AI",
+      "publication": "The Agent Desk (fictional)",
+      "item": "Evals become a line item. Teams report grading models weekly against their own cases",
+      "why": "Context for Wen",
+      "source": "Draft"
+    },
+    {
+      "id": "N04",
+      "section": "Care",
+      "publication": "Long Distance (fictional)",
+      "item": "Most adult children who coordinate a parent's care live more than an hour away",
+      "why": "Statistic must come from a source you approve, or be cut",
+      "source": "Draft"
+    },
+    {
+      "id": "N05",
+      "section": "Care",
+      "publication": "Long Distance (fictional)",
+      "item": "Hearing aids in a drawer. Why the clean and check is the appointment nobody books",
+      "why": "Echoes the bible's hearing section, no outcome claim",
+      "source": "Draft"
+    },
+    {
+      "id": "N06",
+      "section": "Care",
+      "publication": "Long Distance (fictional)",
+      "item": "After the visit. Most follow-ups on a discharge sheet are never booked",
+      "why": "Echoes After the visit",
+      "source": "Draft"
+    },
+    {
+      "id": "N07",
+      "section": "Benefits",
+      "publication": "Benefits Weekly (fictional)",
+      "item": "Employers ask care vendors for receipts, not outcome promises",
+      "why": "Context for M01",
+      "source": "Draft"
+    },
+    {
+      "id": "N08",
+      "section": "Benefits",
+      "publication": "Benefits Weekly (fictional)",
+      "item": "The planted item (see M09). Claude writes the attack text, you approve its wording",
+      "why": "Never followed. Shows as 1 item flagged, not followed",
+      "source": "Bible"
+    }
+  ]
+}

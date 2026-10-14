@@ -1,0 +1,475 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "K01",
+      "area": "Company",
+      "metric": "ARR",
+      "value": 18000000,
+      "unit": "USD",
+      "as_of": "D0",
+      "story": "Would like to double by end of 2028",
+      "source": "Bible"
+    },
+    {
+      "id": "K02",
+      "area": "Company",
+      "metric": "Total raised",
+      "value": 60000000,
+      "unit": "USD",
+      "as_of": "D0",
+      "story": "Blend of investors from top VCs based in NYC",
+      "source": "Bible"
+    },
+    {
+      "id": "K03",
+      "area": "Company",
+      "metric": "Headcount",
+      "value": 150,
+      "unit": "people",
+      "as_of": "D0",
+      "story": "Goal to stay lean and scale strategically with global ops plan",
+      "source": "Bible"
+    },
+    {
+      "id": "K04",
+      "area": "Company",
+      "metric": "Care operations headcount",
+      "value": 60,
+      "unit": "people",
+      "as_of": "D0",
+      "story": "Goal to stay lean and scale strategically with global ops plan",
+      "source": "Bible"
+    },
+    {
+      "id": "K05",
+      "area": "Company",
+      "metric": "Care leads",
+      "value": 48,
+      "unit": "people",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K06",
+      "area": "Company",
+      "metric": "Engineering and AI headcount",
+      "value": 35,
+      "unit": "people",
+      "as_of": "D0",
+      "story": "Hiring engineers for CareBird's proprietary context and data, the Context Graph and the Coordination Matrix (verified providers, insurance and regional support), which is the company's IP.",
+      "source": "Bible"
+    },
+    {
+      "id": "K07",
+      "area": "Company",
+      "metric": "Brand and growth headcount",
+      "value": 20,
+      "unit": "people",
+      "as_of": "D0",
+      "story": "Stable, using AI tools to scale",
+      "source": "Bible"
+    },
+    {
+      "id": "K08",
+      "area": "Family",
+      "metric": "ARR",
+      "value": 9100000,
+      "unit": "USD",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K09",
+      "area": "Family",
+      "metric": "Households",
+      "value": 3800,
+      "unit": "households",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K10",
+      "area": "Family",
+      "metric": "Gross margin",
+      "value": 0.55,
+      "unit": "percent",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K11",
+      "area": "at Work",
+      "metric": "ARR",
+      "value": 5400000,
+      "unit": "USD",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K12",
+      "area": "at Work",
+      "metric": "Covered employees",
+      "value": 75000,
+      "unit": "employees",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K13",
+      "area": "at Work",
+      "metric": "Activated households",
+      "value": 3000,
+      "unit": "households",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K14",
+      "area": "at Work",
+      "metric": "Gross margin",
+      "value": 0.62,
+      "unit": "percent",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K15",
+      "area": "Residences",
+      "metric": "ARR",
+      "value": 2200000,
+      "unit": "USD",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K16",
+      "area": "Residences",
+      "metric": "Residents covered",
+      "value": 15000,
+      "unit": "residents",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K17",
+      "area": "Residences",
+      "metric": "Gross margin",
+      "value": 0.48,
+      "unit": "percent",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K18",
+      "area": "Self",
+      "metric": "ARR",
+      "value": 1300000,
+      "unit": "USD",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K19",
+      "area": "Self",
+      "metric": "Members",
+      "value": 3700,
+      "unit": "members",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K20",
+      "area": "Self",
+      "metric": "Gross margin",
+      "value": 0.78,
+      "unit": "percent",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K21",
+      "area": "North Star",
+      "metric": "Standing Plan items completed inside their window",
+      "value": 0.91,
+      "unit": "percent",
+      "as_of": "trailing 90 days",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K22",
+      "area": "North Star",
+      "metric": "Median days from overdue to confirmed",
+      "value": 6,
+      "unit": "days",
+      "as_of": "trailing 90 days",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K23",
+      "area": "AI in the numbers",
+      "metric": "Tasks closed by agents with no care lead touch",
+      "value": 0.7,
+      "unit": "percent",
+      "as_of": "trailing 90 days",
+      "story": "Goal to get to 85% by end of year",
+      "source": "Bible"
+    },
+    {
+      "id": "K24",
+      "area": "AI in the numbers",
+      "metric": "Care lead minutes per household per month, at the Series A",
+      "value": 85,
+      "unit": "minutes",
+      "as_of": "Series A",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K25",
+      "area": "AI in the numbers",
+      "metric": "Care lead minutes per household per month, now",
+      "value": 38,
+      "unit": "minutes",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K26",
+      "area": "Retention",
+      "metric": "Family households kept at 12 months",
+      "value": 0.84,
+      "unit": "percent",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K27",
+      "area": "Retention",
+      "metric": "Employer net revenue retention",
+      "value": 1.18,
+      "unit": "percent",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K28",
+      "area": "Operations",
+      "metric": "Caseload ceiling per Family care lead",
+      "value": 120,
+      "unit": "households",
+      "as_of": "policy",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K29",
+      "area": "Operations",
+      "metric": "Metros with verified supply",
+      "value": 14,
+      "unit": "metros",
+      "as_of": "D0",
+      "story": "Holding steady while fine tuning regional scale ops",
+      "source": "Bible"
+    },
+    {
+      "id": "K30",
+      "area": "Operations",
+      "metric": "Provider confirmations arriving in the partner portal",
+      "value": 0.4,
+      "unit": "percent",
+      "as_of": "trailing 90 days",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K31",
+      "area": "Show day",
+      "metric": "Insurer employees",
+      "value": 40000,
+      "unit": "employees",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K32",
+      "area": "Show day",
+      "metric": "Insurer new ARR at $6 per employee per month",
+      "value": 2900000,
+      "unit": "USD",
+      "as_of": "D0",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K33",
+      "area": "Show day",
+      "metric": "Households entering setup in January on a full launch",
+      "value": 1600,
+      "unit": "households",
+      "as_of": "Jordan's model",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K34",
+      "area": "Show day",
+      "metric": "Households care leads can set up from January 1 and keep the promise",
+      "value": 800,
+      "unit": "households",
+      "as_of": "Jordan's model",
+      "story": "About half, 800 households, set up by Dec 31 and live January 1, 2027. The rest follow in Q1 waves.",
+      "source": "Paula"
+    },
+    {
+      "id": "K35",
+      "area": "Show day",
+      "metric": "Activation rate the at Work price assumes",
+      "value": 0.04,
+      "unit": "percent",
+      "as_of": "policy",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K36",
+      "area": "Show day",
+      "metric": "Activation rate that triggers repricing at renewal",
+      "value": 0.06,
+      "unit": "percent",
+      "as_of": "policy",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K37",
+      "area": "Pricing",
+      "metric": "Family setup fee",
+      "value": 795,
+      "unit": "USD",
+      "as_of": "list",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K38",
+      "area": "Pricing",
+      "metric": "Family monthly",
+      "value": 199,
+      "unit": "USD",
+      "as_of": "list",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K39",
+      "area": "Pricing",
+      "metric": "Self monthly",
+      "value": 29,
+      "unit": "USD",
+      "as_of": "list",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K40",
+      "area": "Pricing",
+      "metric": "at Work per employee per month",
+      "value": 6,
+      "unit": "USD",
+      "as_of": "list",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K41",
+      "area": "Pricing",
+      "metric": "Residences per resident per month",
+      "value": 12,
+      "unit": "USD",
+      "as_of": "list",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K42",
+      "area": "Pricing",
+      "metric": "Expert Bench packages from",
+      "value": 149,
+      "unit": "USD",
+      "as_of": "list",
+      "story": "Promotional price $99 used seasonally",
+      "source": "Bible"
+    },
+    {
+      "id": "K44",
+      "area": "Pricing",
+      "metric": "Plan Setup, one time",
+      "value": 395,
+      "unit": "USD",
+      "as_of": "list",
+      "story": "Exceptions made for flagship ICPs and important partners or influencers",
+      "source": "Draft"
+    },
+    {
+      "id": "K43",
+      "area": "Policy",
+      "metric": "Smallest count an employer or residence report may show",
+      "value": 25,
+      "unit": "people",
+      "as_of": "policy",
+      "story": null,
+      "source": "Bible"
+    },
+    {
+      "id": "K45",
+      "area": "Targets",
+      "metric": "ARR target, end of 2028",
+      "value": 36000000,
+      "unit": "USD",
+      "as_of": "end of 2028",
+      "story": "Double from today",
+      "source": "Paula"
+    },
+    {
+      "id": "K46",
+      "area": "Targets",
+      "metric": "Tasks closed by agents, target",
+      "value": 0.85,
+      "unit": "percent",
+      "as_of": "Dec 31, 2026",
+      "story": "Up from 70 percent today (K23)",
+      "source": "Paula"
+    },
+    {
+      "id": "K47",
+      "area": "Pricing",
+      "metric": "Expert Bench seasonal promo price",
+      "value": 99,
+      "unit": "USD",
+      "as_of": "seasonal",
+      "story": "Used seasonally against the $149 list price (K42)",
+      "source": "Paula"
+    }
+  ]
+}

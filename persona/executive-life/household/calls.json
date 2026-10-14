@@ -1,0 +1,24 @@
+{
+  "note": "Seeded provider call transcripts (P5). Drafted by Claude from the World Guardrails disclosure wording. Every agent turn that opens a call must disclose it is AI, name the member and offer the care lead. Agents never talk to the member. Nothing here was placed. The demo has no call tool.",
+  "calls": [
+    {
+      "id": "CL01",
+      "task": "T01",
+      "provider": "PR01",
+      "when": "D-1 16:20",
+      "channel": "phone",
+      "release_on_file": true,
+      "outcome": "requested, not confirmed",
+      "next": "Agent calls back D0 09:00",
+      "turns": [
+        { "speaker": "agent", "text": "Hi, this is an AI agent calling for CareBird on behalf of our member, Donna. I can connect you with her care lead, Erika, at any point. Do you have a minute to talk about a podiatry visit?" },
+        { "speaker": "front_desk", "text": "Sure. Is she a current patient?" },
+        { "speaker": "agent", "text": "Not yet. Her signed release is on file with your office, sent by her care lead. She needs routine foot care, and her residence doesn't allow it on site, so we're looking for an office visit or your off-site schedule." },
+        { "speaker": "front_desk", "text": "The doctor does off-site visits on some weekdays. I'd have to check with her tomorrow morning before I can offer a time." },
+        { "speaker": "agent", "text": "That works. She prefers a weekday, late morning, and her ride comes with a companion who waits. Could I call you back tomorrow at 9:00?" },
+        { "speaker": "front_desk", "text": "Nine is fine. I'll have the schedule then." },
+        { "speaker": "agent", "text": "Thank you. To be clear, nothing is booked until you confirm a time. I'll call at 9:00, and if anything comes up sooner, Erika is the person to reach." }
+      ]
+    }
+  ]
+}

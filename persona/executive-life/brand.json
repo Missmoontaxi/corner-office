@@ -1,0 +1,138 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "S01",
+      "setting": "Company name",
+      "value": "CareBird",
+      "notes": "Working name, chosen Tue 10/13. Locks Tue 10/27. Every generated line reads this cell",
+      "source": "Bible"
+    },
+    {
+      "id": "S02",
+      "setting": "Pronunciation",
+      "value": "CARE-bird",
+      "notes": "Two syllables, no spelling question",
+      "source": "Bible"
+    },
+    {
+      "id": "S03",
+      "setting": "Company domain",
+      "value": "carebird.example",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "S04",
+      "setting": "HQ",
+      "value": "Manhattan, Flatiron neighborhood",
+      "notes": "near VC offices and tech startups",
+      "source": "Bible"
+    },
+    {
+      "id": "S05",
+      "setting": "Stage",
+      "value": "Series B, closed early 2026",
+      "notes": "Raise and ARR live on KPIs",
+      "source": "Bible"
+    },
+    {
+      "id": "S06",
+      "setting": "Brand line",
+      "value": "Every family has a chief of staff. Usually it's you.",
+      "notes": "Researching alterntive copy",
+      "source": "Bible"
+    },
+    {
+      "id": "S16",
+      "setting": "The line",
+      "value": "Not urgent, but important.",
+      "notes": "What CareBird covers sits below it",
+      "source": "Bible"
+    },
+    {
+      "id": "S17",
+      "setting": "The promise",
+      "value": "CareBird keeps paying attention.",
+      "notes": "Attention is always given by CareBird, never an alarm about the member",
+      "source": "Bible"
+    },
+    {
+      "id": "S18",
+      "setting": "Member phrase",
+      "value": "Everyone keeps The List. CareBird runs it.",
+      "notes": "The List is how members name the stack",
+      "source": "Bible"
+    },
+    {
+      "id": "S19",
+      "setting": "Buyer argument",
+      "value": "It's priority attention, not a luxury.",
+      "notes": "For employers, insurers and benefits partners",
+      "source": "Bible"
+    },
+    {
+      "id": "S07",
+      "setting": "Show day (D0)",
+      "value": "A Tuesday. Board meets D+3",
+      "notes": "Tuesday so the 10:00 sync sits on D0",
+      "source": "Draft"
+    },
+    {
+      "id": "S08",
+      "setting": "Time zone",
+      "value": "America/New_York",
+      "notes": null,
+      "source": "Draft"
+    },
+    {
+      "id": "S09",
+      "setting": "Mom's name",
+      "value": "Donna",
+      "notes": "No state, no age. Shown on the calendar and in her household",
+      "source": "Paula"
+    },
+    {
+      "id": "S10",
+      "setting": "Household code word",
+      "value": "Ciao!",
+      "notes": "Her care lead opens every call with it",
+      "source": "Paula"
+    },
+    {
+      "id": "S11",
+      "setting": "Mom's care lead name",
+      "value": "Erika",
+      "notes": "Named human who calls Mom monthly",
+      "source": "Paula"
+    },
+    {
+      "id": "S12",
+      "setting": "Mom's backup care lead name",
+      "value": "Tommy",
+      "notes": null,
+      "source": "Paula"
+    },
+    {
+      "id": "S13",
+      "setting": "Cousin's name",
+      "value": "Sai",
+      "notes": "View-only on the Household Map (the P3 test case)",
+      "source": "Paula"
+    },
+    {
+      "id": "S14",
+      "setting": "The residence (generic label)",
+      "value": "her independent living residence",
+      "notes": "Never a real or named facility",
+      "source": "Draft"
+    },
+    {
+      "id": "S15",
+      "setting": "The insurer (generic label)",
+      "value": "a 40,000-employee insurer",
+      "notes": "Never named. Size lives on KPIs",
+      "source": "Bible"
+    }
+  ]
+}

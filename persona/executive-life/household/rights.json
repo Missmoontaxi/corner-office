@@ -1,0 +1,59 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "R01",
+      "granted_by": "Mom",
+      "holder": "Mom",
+      "rights": "view, book, pay, decide",
+      "basis": "root of the map",
+      "granted_on": "D-400",
+      "source": "Draft"
+    },
+    {
+      "id": "R02",
+      "granted_by": "Mom",
+      "holder": "Alex",
+      "rights": "view, book, pay",
+      "basis": "granted on a call with her care lead",
+      "granted_on": "D-90",
+      "source": "Draft"
+    },
+    {
+      "id": "R03",
+      "granted_by": "Mom",
+      "holder": "Alex",
+      "rights": "decide, only when Mom cannot",
+      "basis": "health care proxy on file (F09)",
+      "granted_on": "D-400",
+      "source": "Draft"
+    },
+    {
+      "id": "R04",
+      "granted_by": "Mom",
+      "holder": "Sai",
+      "rights": "view",
+      "basis": "granted on a call with her care lead",
+      "granted_on": "D-60",
+      "source": "Draft"
+    },
+    {
+      "id": "R05",
+      "granted_by": "Mom",
+      "holder": "Care lead",
+      "rights": "book within the Standing Plan",
+      "basis": "CareBird service agreement",
+      "granted_on": "D-90",
+      "source": "Draft"
+    },
+    {
+      "id": "R06",
+      "granted_by": "Mom",
+      "holder": "CareBird agents",
+      "rights": "call providers with a release on file",
+      "basis": "releases on file (F11)",
+      "granted_on": "D-80",
+      "source": "Draft"
+    }
+  ]
+}

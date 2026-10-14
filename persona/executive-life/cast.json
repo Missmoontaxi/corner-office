@@ -1,0 +1,104 @@
+{
+  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "rows": [
+    {
+      "id": "C01",
+      "name": "Alex Ellery",
+      "role": "Founder and CEO",
+      "pronouns": "She/Her",
+      "age": 46,
+      "email": "alex@carebird.example",
+      "voice": "Warm, direct, dryly funny, impatient with vague status",
+      "wants": "A yes for the insurer and a clean story for the board",
+      "source": "Bible"
+    },
+    {
+      "id": "C02",
+      "name": "Jordan",
+      "role": "COO and Head of Operations. Runs the Tuesday 10:00 sync and every regional launch",
+      "pronouns": "He/Him",
+      "age": 51,
+      "email": "jordan@carebird.example",
+      "voice": "Calm, numerate. \"I can staff a promise. I can't staff a press release.\"",
+      "wants": "A launch their care leads can keep",
+      "source": "Bible"
+    },
+    {
+      "id": "C03",
+      "name": "Sanjay",
+      "role": "Engineering lead",
+      "pronouns": "He/Him",
+      "age": 45,
+      "email": "sanjay@carebird.example",
+      "voice": "Unimpressed by demos. Asks who gets paged",
+      "wants": "Owners, tests and a runbook before he takes the prototype",
+      "source": "Bible"
+    },
+    {
+      "id": "C04",
+      "name": "Priya",
+      "role": "Head of Product",
+      "pronouns": "She/Her",
+      "age": 42,
+      "email": "priya@carebird.example",
+      "voice": "Edits every screen down to the verb",
+      "wants": "Statuses members read right the first time",
+      "source": "Bible"
+    },
+    {
+      "id": "C05",
+      "name": "Wen",
+      "role": "Models and evals lead",
+      "pronouns": "She/Her",
+      "age": 38,
+      "email": "wen@carebird.example",
+      "voice": "Measured. Speaks in counts",
+      "wants": "Evidence before any model is promoted",
+      "source": "Bible"
+    },
+    {
+      "id": "C06",
+      "name": "Tomás",
+      "role": "CMO. Runs the employer and residence pipeline",
+      "pronouns": "He/Him",
+      "age": 41,
+      "email": "tomas@carebird.example",
+      "voice": "Quick, funny. \"Healthcare sells reassurance. We sell receipts.\"",
+      "wants": "The insurer deal, announced on stage",
+      "source": "Bible"
+    },
+    {
+      "id": "C07",
+      "name": "Nadia",
+      "role": "Security and privacy lead",
+      "pronouns": "She/Her",
+      "age": 43,
+      "email": "nadia@carebird.example",
+      "voice": "Dry, exact. Treats every inbox as hostile",
+      "wants": "The reporting floor in the contract",
+      "source": "Bible"
+    },
+    {
+      "id": "C08",
+      "name": "Julian",
+      "role": "CFO",
+      "pronouns": "He/Him",
+      "age": 40,
+      "email": "julian@carebird.example",
+      "voice": "Plainspoken, margin-minded",
+      "wants": "Activation terms that keep $6 from becoming unlimited concierge",
+      "source": "Bible"
+    },
+    {
+      "id": "C09",
+      "name": "Dr. Sofia Patel",
+      "role": "Fractional clinical and safety adviser",
+      "pronouns": "She/Her",
+      "age": 37,
+      "email": "sofia.patel@carebird.example",
+      "voice": "Kind, firm, short sentences",
+      "wants": "Every clinical question routed to a clinician",
+      "source": "Bible"
+    }
+  ]
+}
