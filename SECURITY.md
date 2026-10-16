@@ -10,9 +10,11 @@ Every credential this project uses is listed here. If it is not in this table, i
 | `AI_GATEWAY_API_KEY` (dev) | Paula's `.env.local` only | Local development | $10 key budget | Expires every 30 days |
 | `ANTHROPIC_EVAL_KEY` | GitHub Actions secret | `ci-evals` workspace in the Moontaxi Lab Console org | $15 monthly workspace limit | 90 days |
 | `OPENAI_EVAL_KEY` | GitHub Actions secret | OpenAI CI project | $10 hard limit | 90 days |
-| `UPSTASH_REDIS_REST_TOKEN` | Vercel environment variables | One Redis database | $5 monthly budget cap | 90 days |
+| `SPIKE_GATEWAY_KEY` (`spike-1-dollar`) | Paula's `.env.local` only | Spike tests | $1 key budget, already spent | Delete after the spike |
+| Anthropic BYOK key (`vercel-byok`) | Vercel team AI Gateway BYOK settings | `gateway` workspace in the Moontaxi Lab Console org | $60 monthly workspace limit ($1 during the spike) | 90 days, revocable from the Console |
+| `UPSTASH_REDIS_REST_TOKEN` | Vercel environment variables | One Redis database | $20 monthly budget cap (Upstash's minimum) | 90 days |
 
-No standing text-model key lives in the app. A BYOK Anthropic key may join this table after the Tue 10/13 spike, as a capped, listed exception.
+No standing text-model key lives in the app. The Anthropic BYOK key is the one capped, listed exception. It lives in Vercel's gateway settings, never in the app, and the app still reaches the gateway through OIDC (spike notes in `docs/spikes/2026-10-14-byok.md`).
 
 ## Guards from the first commit
 
