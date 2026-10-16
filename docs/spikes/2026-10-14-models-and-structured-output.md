@@ -16,7 +16,7 @@ Run with `ai` 7.0.122, `@ai-sdk/gateway` 4.0.100 and `zod` 4.6.5 (each at least 
 
 - Every dot-form slug in the plan is correct, and the gateway's listed prices match the roster table.
 - `openai/omni-moderation-latest` is **not** on the gateway. The November moderation alias has to be direct-only, with its own capped key.
-- **Not yet tested: the direct driver.** The Anthropic eval key lives only in GitHub secrets and there is no OpenAI key yet. The direct half of the contract test should run in CI, where the secret is, once the contract test exists in the repo.
+- **Direct driver, Fri 10/16.** `pnpm check:direct` runs in the manual `direct-models` workflow with the CI eval keys ([run 38941312781](https://github.com/Missmoontaxi/corner-office/actions/runs/38941312781)). All three Claude models answered at their direct IDs (`claude-haiku-5-5`, `claude-sonnet-5-5`, `claude-opus-5-5`), and structured output went out as Claude's native `output_config`, so the direct path uses native structured outputs as the plan wants. `ANTHROPIC_EVAL_KEY` is 106 characters with no whitespace and no repeat, so the feared double paste did not happen. OpenAI is skipped until Paula creates `OPENAI_EVAL_KEY` in the `corner-office-ci` project.
 
 ## 2. Effort and structured output through AI SDK 7
 
