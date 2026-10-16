@@ -1,10 +1,10 @@
-// Renders the 9:16 gray-box blockout from scene/manifest.json.
+// Renders the 9:16 gray-box blockout from scene/graybox-manifest.json.
 // Usage: node scripts/graybox.mjs <outDir>   (writes labeled and unlabeled PNGs)
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
-const m = JSON.parse(fs.readFileSync("scene/manifest.json", "utf8"));
+const m = JSON.parse(fs.readFileSync("scene/graybox-manifest.json", "utf8"));
 const W = m.canvas.width, H = m.canvas.height;
 const X = (p) => (p / 100) * W, Y = (p) => (p / 100) * H;
 const vp = m.vanishing_point;

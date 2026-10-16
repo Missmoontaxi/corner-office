@@ -16,7 +16,7 @@ export default defineConfig({
   },
   webServer: {
     command: `pnpm build && pnpm start --port ${PORT}`,
-    url: `http://localhost:${PORT}/dev/graybox`,
+    url: `http://localhost:${PORT}/dev/scene`,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },

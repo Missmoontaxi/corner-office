@@ -1,192 +1,42 @@
 {
-  "version": "graybox-v2",
-  "canvas": {
-    "width": 1170,
-    "height": 2080,
-    "aspect": "9:16"
+  "version": "art-v1",
+  "source": {
+    "file": "CornerOfficeA.png",
+    "width": 2960,
+    "height": 1648,
+    "note": "Paula's locked painting, Fri 10/16. Kept outside git in art/source/. Object boxes are percent of this image."
   },
-  "units": "percent of canvas width (x) and height (y)",
-  "vanishing_point": {
-    "x": 50,
-    "y": 44
+  "phone": {
+    "crop_x0": 26.4,
+    "crop_x1": 73.5,
+    "extend_bottom_px": 143,
+    "note": "Phones show this crop, plus a band repeating the desk front edge under the painting so the dock never covers the drawer pull."
+  },
+  "canvas": {
+    "width": 1395,
+    "height": 1791,
+    "units": "the phone canvas, in pixels of the source"
   },
   "zones": {
-    "ceiling_croppable": {
-      "y0": 0,
-      "y1": 25
-    },
-    "safe_frame": {
-      "x0": 4,
-      "x1": 96,
-      "y0": 18.75,
-      "y1": 100,
-      "note": "about 9:13, bottom-anchored"
-    },
-    "dock_band": {
-      "y0": 92,
-      "y1": 100,
-      "note": "nothing live"
-    }
-  },
-  "set_dressing": {
-    "far_wall": {
-      "x0": 6,
-      "x1": 88,
-      "y0": 17,
-      "y1": 56
-    },
-    "glass_left_run": {
-      "x0": 32,
-      "x1": 59,
-      "y0": 21,
-      "y1": 52
-    },
-    "door": {
-      "x0": 59,
-      "x1": 74,
-      "y0": 21,
-      "y1": 44,
-      "future_live": {
-        "x0": 59.5,
-        "x1": 73.5,
-        "y0": 26,
-        "y1": 42
-      }
-    },
-    "interior_wall_right": {
-      "x0": 74,
-      "x1": 88,
-      "y0": 21,
-      "y1": 52
-    },
-    "side_wall_interior": {
-      "x0": 88,
-      "x1": 100,
-      "y0": 12,
-      "y1": 60
-    },
-    "desk_top": {
-      "x0": 0,
-      "x1": 100,
-      "y0": 60,
-      "y1": 88
-    },
-    "desk_front": {
-      "x0": 0,
-      "x1": 100,
-      "y0": 88,
-      "y1": 100
-    }
+    "safe_frame": { "x0": 0, "x1": 100, "y0": 0, "y1": 100, "note": "the whole phone canvas" },
+    "dock_band": { "y0": 92, "y1": 100, "note": "percent of the phone canvas, nothing live" }
   },
   "objects": [
-    {
-      "id": "frame_large",
-      "live": "10/22",
-      "x0": 8,
-      "x1": 27,
-      "y0": 18,
-      "y1": 33,
-      "hit_y0": 25
-    },
-    {
-      "id": "frame_small",
-      "live": "later",
-      "x0": 9,
-      "x1": 23,
-      "y0": 35,
-      "y1": 43
-    },
-    {
-      "id": "monitor",
-      "live": "10/22",
-      "x0": 25,
-      "x1": 75,
-      "y0": 44,
-      "y1": 66,
-      "screen": {
-        "x0": 26.5,
-        "x1": 73.5,
-        "y0": 45.2,
-        "y1": 60.8
-      },
-      "stand": {
-        "x0": 45,
-        "x1": 55,
-        "y0": 61,
-        "y1": 66
-      }
-    },
-    {
-      "id": "lamp",
-      "live": "10/30",
-      "x0": 6,
-      "x1": 21,
-      "y0": 47,
-      "y1": 63
-    },
-    {
-      "id": "calendar",
-      "live": "10/22",
-      "x0": 6,
-      "x1": 22,
-      "y0": 65,
-      "y1": 73
-    },
-    {
-      "id": "letter_tray",
-      "live": "10/22",
-      "x0": 77,
-      "x1": 94,
-      "y0": 63,
-      "y1": 72
-    },
-    {
-      "id": "keyboard",
-      "live": "10/22",
-      "x0": 25,
-      "x1": 57,
-      "y0": 71,
-      "y1": 77
-    },
-    {
-      "id": "mouse",
-      "live": "10/22",
-      "x0": 60,
-      "x1": 74,
-      "y0": 71,
-      "y1": 77
-    },
-    {
-      "id": "cards",
-      "live": "10/30",
-      "x0": 78,
-      "x1": 93,
-      "y0": 75,
-      "y1": 80
-    },
-    {
-      "id": "phone",
-      "live": "set dressing",
-      "x0": 9,
-      "x1": 25,
-      "y0": 80,
-      "y1": 86
-    },
-    {
-      "id": "coffee",
-      "live": "10/22",
-      "x0": 75,
-      "x1": 90,
-      "y0": 81,
-      "y1": 88
-    },
-    {
-      "id": "drawer_pull",
-      "live": "10/22",
-      "x0": 40,
-      "x1": 60,
-      "y0": 88.5,
-      "y1": 91.5
-    }
+    { "id": "frame_large", "live": "10/22", "box": { "x0": 55.0, "x1": 62.3, "y0": 12.6, "y1": 27.6 } },
+    { "id": "frame_small", "live": "later", "box": { "x0": 55.0, "x1": 62.3, "y0": 29.7, "y1": 43.4 } },
+    { "id": "monitor", "live": "10/22", "box": { "x0": 40.5, "x1": 59.3, "y0": 47.1, "y1": 74.1 } },
+    { "id": "lamp", "live": "10/30", "box": { "x0": 32.2, "x1": 38.3, "y0": 45.8, "y1": 73.5 }, "hit": { "x0": 32.2, "x1": 38.3, "y0": 45.8, "y1": 66.6 } },
+    { "id": "calendar", "live": "10/22", "box": { "x0": 34.3, "x1": 40.1, "y0": 67.1, "y1": 77.2 }, "hit": { "x0": 34.2, "x1": 40.1, "y0": 67.0, "y1": 77.4 } },
+    { "id": "letter_tray", "live": "10/22", "box": { "x0": 56.9, "x1": 68.6, "y0": 64.3, "y1": 76.1 }, "hit": { "x0": 59.6, "x1": 68.6, "y0": 64.3, "y1": 76.1 } },
+    { "id": "keyboard", "live": "10/22", "box": { "x0": 40.3, "x1": 61.1, "y0": 78.3, "y1": 83.3 }, "hit": { "x0": 40.3, "x1": 61.1, "y0": 76.2, "y1": 86.6 } },
+    { "id": "mouse", "live": "10/22", "box": { "x0": 63.1, "x1": 66.0, "y0": 79.7, "y1": 83.1 }, "hit": { "x0": 61.3, "x1": 67.2, "y0": 76.2, "y1": 86.6 } },
+    { "id": "cards", "live": "10/30", "box": { "x0": 67.1, "x1": 71.4, "y0": 76.5, "y1": 80.8 }, "hit": { "x0": 67.4, "x1": 73.3, "y0": 76.2, "y1": 86.6 } },
+    { "id": "coffee", "live": "10/22", "box": { "x0": 28.3, "x1": 32.4, "y0": 75.0, "y1": 84.8 }, "hit": { "x0": 26.6, "x1": 32.5, "y0": 74.6, "y1": 85.0 } },
+    { "id": "phone", "live": "set dressing", "box": { "x0": 35.0, "x1": 39.1, "y0": 83.0, "y1": 88.4 } },
+    { "id": "drawer_pull", "live": "10/22", "box": { "x0": 45.8, "x1": 54.1, "y0": 89.6, "y1": 94.5 }, "hit": { "x0": 45.8, "x1": 54.1, "y0": 86.8, "y1": 97.2 } }
+  ],
+  "desktop_only": [
+    { "id": "door", "live": "11/20", "box": { "x0": 66.75, "x1": 76.75, "y0": 17.0, "y1": 67.0 } },
+    { "id": "wall_screen", "live": "idea", "box": { "x0": 81.3, "x1": 95.3, "y0": 20.0, "y1": 46.9 }, "note": "Paula's idea: the right-wall frame doubles as a screen on desktop, after the freeze" }
   ]
 }

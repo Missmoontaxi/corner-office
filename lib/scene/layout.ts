@@ -1,6 +1,6 @@
-// Phone scene layout, per Desk Addendum section 2.2.
-// The 9:16 canvas fits the screen's width and sits on the bottom edge. A short screen crops ceiling,
-// and a screen too short for the safe frame scales the scene down until the safe frame fits.
+// Phone scene layout over Paula's locked painting (scene/manifest.json, art-v1).
+// Phones show a crop of the wide painting plus a band of desk front below it. The canvas fits the
+// screen's width and sits on the bottom edge, and scales down only if a screen is too short for it.
 // Hit areas are padded to 44 points, then kept clear of the top bar and the dock band.
 import manifest from "@/scene/manifest.json";
 
@@ -13,7 +13,7 @@ export const CHROME_GAP = 4;
 export type Box = { x0: number; x1: number; y0: number; y1: number };
 export type Rect = { left: number; top: number; width: number; height: number };
 
-type ManifestObject = Box & { id: string; live: string; hit_y0?: number };
+type ManifestObject = { id: string; live: string; box: Box; hit?: Box };
 
 export type HitArea = { id: string; live: string; object: Rect; hit: Rect };
 
@@ -27,14 +27,22 @@ export type SceneLayout = {
 };
 
 const ASPECT = manifest.canvas.height / manifest.canvas.width;
+const { crop_x0, crop_x1 } = manifest.phone;
+const PAINT_SHARE = manifest.source.height / manifest.canvas.height;
 
-// Everything that gets a button, now or later. The phone is set dressing until Paula says otherwise.
-export function liveTargets(): { id: string; live: string; box: Box }[] {
-  const objects = (manifest.objects as ManifestObject[])
+// Source-image percent to phone-canvas percent.
+export function toCanvas(b: Box): Box {
+  const x = (v: number) => ((v - crop_x0) / (crop_x1 - crop_x0)) * 100;
+  const y = (v: number) => v * PAINT_SHARE;
+  return { x0: x(b.x0), x1: x(b.x1), y0: y(b.y0), y1: y(b.y1) };
+}
+
+// Everything that gets a button on phones. The phone on the desk is set dressing, and the door and the
+// wall screen sit outside the phone crop, so phones reach those through the button row instead.
+export function liveTargets(): { id: string; live: string; box: Box; hit: Box }[] {
+  return (manifest.objects as ManifestObject[])
     .filter((o) => o.live !== "set dressing")
-    .map((o) => ({ id: o.id, live: o.live, box: { ...o, y0: o.hit_y0 ?? o.y0 } }));
-  const door = manifest.set_dressing.door;
-  return [...objects, { id: "door", live: "future", box: door.future_live }];
+    .map((o) => ({ id: o.id, live: o.live, box: toCanvas(o.box), hit: toCanvas(o.hit ?? o.box) }));
 }
 
 function toRect(b: Box, scene: Rect): Rect {
@@ -71,10 +79,11 @@ export function layoutScene(width: number, height: number): SceneLayout {
   const minTop = topBar.top + topBar.height + CHROME_GAP;
   const maxBottom = dock.top - CHROME_GAP;
 
-  const hits = liveTargets().map(({ id, live, box }) => {
+  const hits = liveTargets().map(({ id, live, box, hit: hitBox }) => {
     const object = toRect(box, scene);
-    const [l, r] = padAxis(object.left, object.width);
-    let [t, b] = padAxis(object.top, object.height);
+    const h = toRect(hitBox, scene);
+    const [l, r] = padAxis(h.left, h.width);
+    let [t, b] = padAxis(h.top, h.height);
     // Slide or trim away from the chrome. The test then proves the result is still 44 by 44.
     if (t < minTop) {
       t = minTop;

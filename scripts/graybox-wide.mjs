@@ -1,4 +1,4 @@
-// Renders the 16:9 wide gray-box (v2: glass corner on the left, interior wall and door on the right) from scene/manifest.json. The center 9:16 strip is the phone view:
+// Renders the 16:9 wide gray-box (v2: glass corner on the left, interior wall and door on the right) from scene/graybox-manifest.json. The center 9:16 strip is the phone view:
 // every live object, the door and the frames sit there at the same canvas positions as the portrait,
 // so a painting of the wide view crops straight to the phone master.
 // Usage: node scripts/graybox-wide.mjs <outDir>   (writes labeled and unlabeled PNGs)
@@ -6,7 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
-const m = JSON.parse(fs.readFileSync("scene/manifest.json", "utf8"));
+const m = JSON.parse(fs.readFileSync("scene/graybox-manifest.json", "utf8"));
 const W = m.canvas.width, H = m.canvas.height;
 const WW = Math.round((H * 16) / 9);
 const OX = (WW - W) / 2;

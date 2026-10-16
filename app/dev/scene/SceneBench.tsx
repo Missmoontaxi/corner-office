@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import manifest from "@/scene/manifest.json";
-import { layoutScene, type Box, type Rect } from "@/lib/scene/layout";
+import { layoutScene, type Rect } from "@/lib/scene/layout";
 
 function subscribe(onChange: () => void) {
   window.addEventListener("resize", onChange);
@@ -11,36 +11,30 @@ function subscribe(onChange: () => void) {
 const readSize = () => `${window.innerWidth}x${window.innerHeight}`;
 
 const px = (r: Rect) => ({ left: r.left, top: r.top, width: r.width, height: r.height });
+const art = (w: number, ext: string) => `/art/office-phone-${manifest.version}-${w}.${ext}`;
 
-function boxIn(b: Box, scene: Rect): Rect {
-  return {
-    left: scene.left + (b.x0 / 100) * scene.width,
-    top: scene.top + (b.y0 / 100) * scene.height,
-    width: ((b.x1 - b.x0) / 100) * scene.width,
-    height: ((b.y1 - b.y0) / 100) * scene.height,
-  };
-}
-
-// The gray-box drawn in the browser with live hit areas over it, for the viewport matrix.
-export default function GrayboxScene() {
+// The phone scene over Paula's painting with live hit areas drawn on top, for the viewport matrix.
+export default function SceneBench() {
   const size = useSyncExternalStore(subscribe, readSize, () => "");
   if (!size) return null;
   const [w, h] = size.split("x").map(Number) as [number, number];
   const l = layoutScene(w, h);
-  const sd = manifest.set_dressing;
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-neutral-900" data-testid="viewport">
-      <div className="absolute bg-[#8f8f8f]" style={px(l.scene)} data-testid="scene" />
-      {[sd.far_wall, sd.glass_left_run, sd.door, sd.interior_wall_right, sd.side_wall_interior, sd.desk_top, sd.desk_front].map(
-        (b, i) => (
-          <div key={i} className="absolute border border-neutral-700/40 bg-neutral-400/60" style={px(boxIn(b, l.scene))} />
-        ),
-      )}
-      {manifest.objects.map((o) => (
-        <div key={o.id} className="absolute rounded bg-neutral-300" style={px(boxIn(o, l.scene))} />
-      ))}
-      <div className="pointer-events-none absolute border-2 border-dashed border-sky-400" style={px(l.safeFrame)} data-testid="safe-frame" />
+      <picture>
+        <source type="image/avif" srcSet={`${art(750, "avif")} 750w, ${art(1080, "avif")} 1080w, ${art(1170, "avif")} 1170w`} sizes="100vw" />
+        <img
+          src={art(1170, "webp")}
+          srcSet={`${art(750, "webp")} 750w, ${art(1080, "webp")} 1080w, ${art(1170, "webp")} 1170w`}
+          sizes="100vw"
+          alt="A corner office with a walnut desk and a dark monitor, floor-to-ceiling windows onto an autumn Hudson Valley forest"
+          className="absolute"
+          style={px(l.scene)}
+          data-testid="scene"
+        />
+      </picture>
+      <div className="pointer-events-none absolute border-2 border-dashed border-sky-400/70" style={px(l.safeFrame)} data-testid="safe-frame" />
       {l.hits.map((t) => (
         <div key={t.id} className="pointer-events-none absolute" style={px(t.object)} data-testid={`obj-${t.id}`} />
       ))}

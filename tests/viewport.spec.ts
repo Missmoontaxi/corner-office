@@ -18,7 +18,7 @@ const EPS = 0.5;
 for (const [width, height, label] of SIZES) {
   test(`${width}x${height} (${label})`, async ({ page }) => {
     await page.setViewportSize({ width, height });
-    await page.goto("/dev/graybox");
+    await page.goto("/dev/scene");
     await page.getByTestId("safe-frame").waitFor();
 
     const m = await page.evaluate(() => {
