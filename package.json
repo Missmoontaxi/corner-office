@@ -18,7 +18,8 @@
     "graybox": "node scripts/graybox.mjs ../art/graybox",
     "test:viewport": "playwright test",
     "check:direct": "node scripts/check-direct-models.mjs",
-    "check:mcp": "node scripts/check-mcp.mjs"
+    "check:mcp": "node scripts/check-mcp.mjs",
+    "graybox:wide": "node scripts/graybox-wide.mjs ../art/graybox"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "4.0.68",
