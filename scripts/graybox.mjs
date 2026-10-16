@@ -34,13 +34,9 @@ function svg(labeled) {
   s += poly([[wall.x1, wall.y0], [100, 0], [100, 70], [wall.x1, wall.y1]], "#9a9a9a"); // right wall
   // Glass runs, door, side windows
   s += rect(sd.glass_left_run, "#d3d8dc") + mullions(sd.glass_left_run, 3, 2);
-  s += rect(sd.glass_right_run, "#d3d8dc") + mullions(sd.glass_right_run, 2, 2);
+  s += rect(sd.interior_wall_right, "#b3aa9e"); // interior wall: the door leads to a hallway, not outside
   s += rect(sd.door, "#e3d6c4") + mullions(sd.door, 1, 1);
-  s += poly([[88.6, 18], [99.5, 6], [99.5, 64], [88.6, 54]], "#cdd2d6");
-  for (const t of [0.33, 0.66]) {
-    const x = 88.6 + (99.5 - 88.6) * t, yt = 18 + (6 - 18) * t, yb = 54 + (64 - 54) * t;
-    s += `<line x1="${X(x)}" y1="${Y(yt)}" x2="${X(x)}" y2="${Y(yb)}" stroke="#3a3a3a" stroke-width="6"/>`;
-  }
+  s += poly([[88.6, 18], [99.5, 6], [99.5, 64], [88.6, 54]], "#9a948c"); // interior side wall
   // Desk in perspective, then its front edge
   s += poly([[6, 60], [94, 60], [100, 74], [100, 88], [0, 88], [0, 74]], "#6f6f6f");
   s += rect(sd.desk_front, "#4f4f4f");
@@ -74,7 +70,7 @@ function svg(labeled) {
 
 const out = process.argv[2] ?? ".";
 fs.mkdirSync(out, { recursive: true });
-for (const [name, labeled] of [["graybox-v1-upload.png", false], ["graybox-v1-labeled.png", true]]) {
+for (const [name, labeled] of [["graybox-v2-upload.png", false], ["graybox-v2-labeled.png", true]]) {
   await sharp(Buffer.from(svg(labeled))).png().toFile(path.join(out, name));
   console.log("wrote", path.join(out, name));
 }

@@ -32,7 +32,7 @@ export default function GrayboxScene() {
   return (
     <div className="fixed inset-0 overflow-hidden bg-neutral-900" data-testid="viewport">
       <div className="absolute bg-[#8f8f8f]" style={px(l.scene)} data-testid="scene" />
-      {[sd.far_wall, sd.glass_left_run, sd.door, sd.glass_right_run, sd.side_wall_windows, sd.desk_top, sd.desk_front].map(
+      {[sd.far_wall, sd.glass_left_run, sd.door, sd.interior_wall_right, sd.side_wall_interior, sd.desk_top, sd.desk_front].map(
         (b, i) => (
           <div key={i} className="absolute border border-neutral-700/40 bg-neutral-400/60" style={px(boxIn(b, l.scene))} />
         ),

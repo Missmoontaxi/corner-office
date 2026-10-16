@@ -1,4 +1,4 @@
-// Renders the 16:9 wide gray-box from scene/manifest.json. The center 9:16 strip is the phone view:
+// Renders the 16:9 wide gray-box (v2: glass corner on the left, interior wall and door on the right) from scene/manifest.json. The center 9:16 strip is the phone view:
 // every live object, the door and the frames sit there at the same canvas positions as the portrait,
 // so a painting of the wide view crops straight to the phone master.
 // Usage: node scripts/graybox-wide.mjs <outDir>   (writes labeled and unlabeled PNGs)
@@ -39,16 +39,17 @@ function svg(labeled) {
   s += `<rect x="0" y="0" width="${WW}" height="${H}" fill="#b9b9b9"/>`; // ceiling
   s += poly([[L, wall.y1], [R, wall.y1], [R, 100], [L, 100]], "#858585"); // floor
   s += rect({ x0: FAR_LEFT, x1: wall.x1, y0: wall.y0, y1: wall.y1 }, "#a6a6a6"); // far wall, widened
-  s += poly([[L, lEdge(wall.y0)], [FAR_LEFT, wall.y0], [FAR_LEFT, wall.y1], [L, lEdge(wall.y1)]], "#7d7d7d"); // left side wall
+  // Left side wall is glass: the corner of the corner office
+  s += poly([[L, lEdge(wall.y0)], [FAR_LEFT, wall.y0], [FAR_LEFT, wall.y1], [L, lEdge(wall.y1)]], "#cdd2d6");
+  for (const x of [-70, -82, -96]) s += line(x, lEdge(wall.y0) + ((wall.y0 - lEdge(wall.y0)) * (x - L)) / (FAR_LEFT - L), x, lEdge(wall.y1) + ((wall.y1 - lEdge(wall.y1)) * (x - L)) / (FAR_LEFT - L));
   // Glass: the portrait's two runs and door, plus a new run on the widened far wall
   const leftRun = { x0: -55, x1: -5, y0: 21, y1: 52 };
   s += rect(leftRun, "#d3d8dc") + mullions(leftRun, 4, 2);
   s += rect(sd.glass_left_run, "#d3d8dc") + mullions(sd.glass_left_run, 3, 2);
-  s += rect(sd.glass_right_run, "#d3d8dc") + mullions(sd.glass_right_run, 2, 2);
+  s += rect(sd.interior_wall_right, "#b3aa9e"); // interior wall beside the door
   s += rect(sd.door, "#e3d6c4") + mullions(sd.door, 1, 1);
-  // Right glass wall: the corner, running toward the viewer past the strip
-  s += poly([[88.6, rTop(88.6)], [R, rTop(R)], [R, rBot(R)], [88.6, rBot(88.6)]], "#cdd2d6");
-  for (const x of [94, 99.5, 112, 130, 155, 185]) s += line(x, rTop(x), x, rBot(x));
+  // Right side wall is interior, so the door reads as leading to a hallway, not outside
+  s += poly([[88.6, rTop(88.6)], [R, rTop(R)], [R, rBot(R)], [88.6, rBot(88.6)]], "#9a948c");
   // Desk, a little wider than the strip so it does not end at the crop line
   s += poly([[6, 60], [94, 60], [108, 88], [-8, 88]], "#6f6f6f");
   s += rect({ x0: -8, x1: 108, y0: 88, y1: 100 }, "#4f4f4f");
@@ -75,7 +76,7 @@ function svg(labeled) {
 
 const out = process.argv[2] ?? ".";
 fs.mkdirSync(out, { recursive: true });
-for (const [name, labeled] of [["graybox-wide-v1-upload.png", false], ["graybox-wide-v1-labeled.png", true]]) {
+for (const [name, labeled] of [["graybox-wide-v2-upload.png", false], ["graybox-wide-v2-labeled.png", true]]) {
   await sharp(Buffer.from(svg(labeled))).png().toFile(path.join(out, name));
   console.log("wrote", path.join(out, name), `${WW}x${H}, phone strip x ${OX} to ${OX + W}`);
 }

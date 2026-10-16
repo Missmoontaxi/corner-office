@@ -1,5 +1,5 @@
 {
-  "version": "graybox-v1",
+  "version": "graybox-v2",
   "canvas": {
     "width": 1170,
     "height": 2080,
@@ -53,13 +53,13 @@
         "y1": 42
       }
     },
-    "glass_right_run": {
+    "interior_wall_right": {
       "x0": 74,
       "x1": 88,
       "y0": 21,
       "y1": 52
     },
-    "side_wall_windows": {
+    "side_wall_interior": {
       "x0": 88,
       "x1": 100,
       "y0": 12,
