@@ -16,9 +16,13 @@
     "seed:check": "node scripts/check-seed.mjs",
     "seed:import": "python3 scripts/seed_from_sheet.py",
     "graybox": "node scripts/graybox.mjs ../art/graybox",
-    "test:viewport": "playwright test"
+    "test:viewport": "playwright test",
+    "check:direct": "node scripts/check-direct-models.mjs"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "4.0.68",
+    "@ai-sdk/openai": "4.0.81",
+    "ai": "7.0.122",
     "next": "16.3.6",
     "react": "19.3.0",
     "react-dom": "19.3.0"
