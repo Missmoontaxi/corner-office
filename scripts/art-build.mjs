@@ -38,6 +38,15 @@ for (const [w, kb] of Object.entries(AVIF_BUDGET)) {
     console.log(`${ok ? "ok  " : "OVER"} ${file} ${size}KB (budget ${budget}KB)`);
   }
 }
+// The full painting for desktop and the home page. Next's image optimizer serves smaller sizes from it.
+const WIDE_BUDGET = 400;
+const wide = await sharp(src).webp({ quality: 80 }).toBuffer();
+const wideFile = path.join(out, `office-wide-${m.version}.webp`);
+fs.writeFileSync(wideFile, wide);
+const wideKb = Math.round(wide.length / 1024);
+if (wideKb > WIDE_BUDGET) over++;
+console.log(`${wideKb <= WIDE_BUDGET ? "ok  " : "OVER"} ${wideFile} ${wideKb}KB (budget ${WIDE_BUDGET}KB)`);
+
 if (over) {
   console.error(`${over} file(s) over budget`);
   process.exit(1);
