@@ -1,3 +1,9 @@
 allowBuilds:
   unrs-resolver: true
   sharp: true
+  # Pulled in by promptfoo. Neither tsx nor promptfoo needs their build scripts here, so they stay off.
+  "@playwright/browser-chromium": false
+  "@swc/core": false
+  esbuild: false
+  onnxruntime-node: false
+  protobufjs: false
