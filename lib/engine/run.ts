@@ -24,6 +24,8 @@ export type RunInput<T> = {
   owner?: boolean;
   judgedModel?: string;
   sources?: Receipt["sources"];
+  // Evals pin one model so each vendor is scored on its own, with no fallback.
+  model?: string;
 };
 
 export type RunResult<T> = { output: T; receipt: Receipt };
@@ -37,7 +39,8 @@ export class RunFailed extends Error {
 const micro = (usd: unknown) => (usd == null || usd === "" ? null : Math.round(Number(usd) * 1e6));
 
 export async function runStructured<T>(input: RunInput<T>): Promise<RunResult<T>> {
-  const r = route(input.task, { mode: input.mode, owner: input.owner, judgedModel: input.judgedModel });
+  const routed = route(input.task, { mode: input.mode, owner: input.owner, judgedModel: input.judgedModel });
+  const r = input.model ? { ...routed, chain: [input.model], reason: `${input.task}, pinned to ${input.model} for evaluation.` } : routed;
   const { timeouts } = policy().routing;
   const driver = activeDriver();
   const attempts: Attempt[] = [];
@@ -48,7 +51,8 @@ export async function runStructured<T>(input: RunInput<T>): Promise<RunResult<T>
 
   for (const model of r.chain) {
     const started = performance.now();
-    const totalMs = vendorOf(model) === "openai" ? timeouts.total_ms_openai : timeouts.total_ms;
+    const taskTotal = policy().routing.tasks[input.task]?.total_ms;
+    const totalMs = taskTotal ?? (vendorOf(model) === "openai" ? timeouts.total_ms_openai : timeouts.total_ms);
     const ctrl = new AbortController();
     let sawEvent = false;
     let timedOut = false;
@@ -68,6 +72,8 @@ export async function runStructured<T>(input: RunInput<T>): Promise<RunResult<T>
         providerOptions,
         abortSignal: ctrl.signal,
       });
+      // These settle after the stream; if the stream errors first they reject, so mark them handled.
+      for (const p of [res.usage, res.finishReason, res.providerMetadata, res.output]) Promise.resolve(p).catch(() => {});
       for await (const part of res.fullStream) {
         if (!sawEvent && part.type !== "start" && part.type !== "start-step") {
           sawEvent = true;

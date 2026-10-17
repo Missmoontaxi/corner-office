@@ -1,0 +1,10 @@
+# Digest evals, smoke configuration: Paula's cases on the production primary, judged by the other
+# vendor's small model. The full matrix (both mid-tier models) is promptfooconfig.full.yaml.
+description: Daily Digest evals, smoke
+prompts: ["{{case_id}}"]
+providers:
+  - id: file://provider.ts
+    label: claude-sonnet-5-5
+    config: { model: claude-sonnet-5-5 }
+tests: file://loaders/csv-to-assertions.ts
+evaluateOptions: { maxConcurrency: 4 }

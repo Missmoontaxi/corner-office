@@ -36,7 +36,7 @@ export function briefSources(day: DayV1): Receipt["sources"] {
 
 export async function runBrief(
   day: DayV1,
-  opts: { task?: "desk.brief.precompute" | "desk.brief.live"; mode?: Mode; client: Receipt["client"]; runKind: Receipt["runKind"]; owner?: boolean },
+  opts: { task?: "desk.brief.precompute" | "desk.brief.live"; mode?: Mode; client: Receipt["client"]; runKind: Receipt["runKind"]; owner?: boolean; model?: string },
 ): Promise<RunResult<BriefV1>> {
   const { system, prompt } = briefMessages(day);
   return runStructured({
@@ -49,6 +49,7 @@ export async function runBrief(
     runKind: opts.runKind,
     mode: opts.mode,
     owner: opts.owner,
+    model: opts.model,
     sources: briefSources(day),
   });
 }

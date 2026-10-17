@@ -1,0 +1,12 @@
+# Digest evals, full matrix: both mid-tier models on every case, each judged by the other vendor.
+description: Daily Digest evals, full matrix
+prompts: ["{{case_id}}"]
+providers:
+  - id: file://provider.ts
+    label: claude-sonnet-5-5
+    config: { model: claude-sonnet-5-5 }
+  - id: file://provider.ts
+    label: gpt-6.1-sol
+    config: { model: gpt-6.1-sol }
+tests: file://loaders/csv-to-assertions.ts
+evaluateOptions: { maxConcurrency: 4 }

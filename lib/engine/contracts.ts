@@ -35,6 +35,7 @@ export const RoutingPolicy = z.object({
       max_output: z.number(),
       schema: z.string().optional(),
       cross_vendor: z.boolean().optional(),
+      total_ms: z.number().optional(),
     }),
   ),
   timeouts: z.object({ first_event_ms: z.number(), total_ms: z.number(), total_ms_openai: z.number() }),

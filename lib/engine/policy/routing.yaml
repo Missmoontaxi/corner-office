@@ -11,7 +11,7 @@ tasks:
   guard.screen:          { alias: text.small, effort: low,    max_output: 400, schema: ScreenVerdict } # proposed 600
   judge.online:          { alias: text.small, cross_vendor: true, effort: low, max_output: 600 }
   judge.ci:              { alias: text.small, cross_vendor: true, effort: low, max_output: 600 }
-  eval.fixture:          { alias: text.frontier, effort: medium, max_output: 8000 }
+  eval.fixture:          { alias: text.frontier, effort: medium, max_output: 8000, total_ms: 180000 }  # offline, never visitor-facing
 timeouts:
   first_event_ms: 8000     # floor; measured p95 was 5.1s (Opus)
   total_ms: 30000          # floor for Claude routes

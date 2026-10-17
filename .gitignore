@@ -16,3 +16,6 @@ art-source/
 # Playwright output
 playwright-report/
 test-results/
+
+# Local eval runs; scorecard results reach git only through results PRs
+evals/results/local/

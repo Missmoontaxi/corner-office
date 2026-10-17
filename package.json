@@ -22,7 +22,13 @@
     "graybox:wide": "node scripts/graybox-wide.mjs ../art/graybox",
     "art:build": "node scripts/art-build.mjs",
     "brief": "tsx --env-file-if-exists=.env.local scripts/brief.ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "eval": "tsx --env-file-if-exists=.env.local scripts/eval-run.ts",
+    "eval:full": "tsx --env-file-if-exists=.env.local scripts/eval-run.ts --full",
+    "eval:view": "tsx scripts/eval-view.ts",
+    "eval:pull": "tsx scripts/eval-pull.ts",
+    "eval:fixtures": "tsx --env-file-if-exists=.env.local scripts/eval-fixtures.ts",
+    "eval:check-days": "tsx scripts/eval-check-days.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "4.0.68",
