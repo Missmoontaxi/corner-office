@@ -1,0 +1,18 @@
+# Model registry. Every text model carries its gateway slug and its direct API ID, both resolved by
+# scripts/check-direct-models.mjs (direct) and the gateway contract run (spike 2026-10-14).
+# Prices are list prices in USD per 1M tokens. Receipts report list price even on Paula's own key.
+version: 2026-10-17.1
+models:
+  claude-haiku-5-5:  { vendor: anthropic, gateway: anthropic/claude-haiku-5.5,  direct: claude-haiku-5-5,  in: 0.10, out: 0.50, no_retire_before: 2027-10-07 }
+  claude-sonnet-5-5: { vendor: anthropic, gateway: anthropic/claude-sonnet-5.5, direct: claude-sonnet-5-5, in: 2.00, out: 10.00, no_retire_before: 2027-09-28 }
+  claude-opus-5-5:   { vendor: anthropic, gateway: anthropic/claude-opus-5.5,   direct: claude-opus-5-5,   in: 4.00, out: 20.00, no_retire_before: 2027-09-22 }
+  gpt-6-luna:        { vendor: openai,    gateway: openai/gpt-6-luna,           direct: gpt-6-luna,        in: 0.10, out: 0.50 }
+  gpt-6.1-sol:       { vendor: openai,    gateway: openai/gpt-6.1-sol,          direct: gpt-6.1-sol,       in: 2.00, out: 10.00 }
+aliases:
+  text.small:    { primary: claude-haiku-5-5,  fallback: gpt-6-luna }
+  text.mid:      { primary: claude-sonnet-5-5, fallback: gpt-6.1-sol }
+  text.frontier: { primary: claude-opus-5-5,   fallback: gpt-6.1-sol, access: [owner] }
+blocked:
+  - gpt-6-astra
+  - claude-fable-5-1
+  - "*:fast"
