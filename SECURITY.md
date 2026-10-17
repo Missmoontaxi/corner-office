@@ -9,8 +9,7 @@ Every credential this project uses is listed here. If it is not in this table, i
 | AI Gateway (production) | None. Vercel OIDC | Corner Office project | $45 monthly project budget, $45 prepaid, auto top-up off | Not applicable |
 | `AI_GATEWAY_API_KEY` (dev) | Paula's `.env.local` only | Local development | $10 key budget | Expires every 30 days |
 | `ANTHROPIC_EVAL_KEY` | GitHub Actions secret | `ci-evals` workspace in the Moontaxi Lab Console org | $15 monthly workspace limit | 90 days |
-| `OPENAI_EVAL_KEY` | GitHub Actions secret | OpenAI CI project | $10 hard limit | 90 days |
-| `SPIKE_GATEWAY_KEY` (`spike-1-dollar`) | Paula's `.env.local` only | Spike tests | $1 key budget, already spent | Delete after the spike |
+| `OPENAI_EVAL_KEY` | GitHub Actions secret | Service account in the OpenAI `corner-office-ci` project | $10 hard limit | Expires every 90 days |
 | Anthropic BYOK key (`vercel-byok`) | Vercel team AI Gateway BYOK settings | `gateway` workspace in the Moontaxi Lab Console org | $60 monthly workspace limit | 90 days, revocable from the Console |
 | `UPSTASH_REDIS_REST_TOKEN` | Paula's `.env.local` for spikes; Vercel environment variables (Sensitive) when the rate limiter ships | One Redis database | $20 monthly budget cap (Upstash's minimum); at the cap the database is rate-limited, not billed | 90 days |
 | `BLOB_READ_WRITE_TOKEN` | Vercel environment variables, added by the store connection | `corner-office-snapshots` store only (public reads, token for writes) | Vercel usage limits and Spend Management | Remove once writes run on OIDC, which the spike showed works |
