@@ -29,9 +29,17 @@ The rejection is HTTP 402 with error type `quota_for_entity_exceeded` and the me
 - **Key budgets work.** Once the gateway counts the spend, every later request on the key is refused.
 - **They are soft, and they lag.** Call 4 crossed the limit and completed, as Vercel's docs say. Call 5 also completed, even though the key was already over budget, because the gateway's spend count did not include call 4 yet when call 5 arrived. Call 6 still read $1.28, so the count trails by about one request. Final spend was about $1.60 on a $1.00 budget.
 - **Overshoot is roughly the cost of one or two requests in flight**, and more with parallel requests. For the $10 dev key, with requests capped well under $0.50, that is a few dollars at most.
-- **This says nothing about the production path.** Production calls the gateway through OIDC with no key, so key budgets never apply there. The team's zero-balance behavior is still open, and Paula is asking Vercel support in writing. Until Vercel answers, the app's own per-request and daily caps are the hard ceiling, and the $45 gateway balance is a soft backstop.
+- **This says nothing about the production path.** Production calls the gateway through OIDC with no key, so key budgets never apply there. The team's zero-balance behavior is answered in the next section.
+
+## Zero balance on the production path (answered Sat 10/17)
+
+The throwaway-team test was dropped, so Paula asked Vercel support in writing. Their answer, for a Pro team with a card on file and auto top-up off:
+- When the AI Gateway prepaid balance reaches $0, further requests are **rejected and not billed to the card on file**. The gateway credit is separate from Pro plan billing.
+- The client receives **HTTP 402 Payment Required**, saying the team has no positive credit balance.
+
+So the prepaid balance is a hard ceiling for non-BYOK gateway spend, on Vercel's written word rather than our own test. The app's caps stay in front of it, and Claude calls on Paula's key are bounded separately by the `gateway` workspace limit.
 
 ## Follow-ups
 
 - The app's caps should count spend from the response's own token usage at the moment each request finishes, and never wait for the gateway's count.
-- Treat a 402 with `quota_for_entity_exceeded` as a budget stop, not a retryable error.
+- Treat any 402 from the gateway as a budget stop, never a retry. A key budget answers with `quota_for_entity_exceeded`; an empty team balance answers 402 too. Both should send visitors to replay and alert Paula.
