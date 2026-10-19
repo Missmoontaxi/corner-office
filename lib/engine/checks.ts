@@ -24,19 +24,32 @@ function numbersIn(text: string): number[] {
 
 const key = (n: number) => Number(n.toPrecision(3));
 
+function timesIn(text: string): number[] {
+  return [...text.matchAll(/\b(\d{1,2}):(\d{2})\b/g)].map((m) => Number(m[1]) * 60 + Number(m[2]));
+}
+
 function groundedSet(day: DayV1): Set<number> {
   const { planted: _p, ...material } = day;
+  const text = JSON.stringify(material);
   const set = new Set<number>();
   const add = (n: number) => {
     for (const v of [n, n * 100, n / 100]) set.add(key(v));
   };
-  for (const n of numbersIn(JSON.stringify(material))) add(n);
-  for (const k of day.kpis) if (typeof k.value === "number") add(k.value);
+  const given = numbersIn(text);
+  for (const k of day.kpis) if (typeof k.value === "number") given.push(k.value);
+  const unique = [...new Set(given)];
+  for (const n of unique) add(n);
+  // Paula's rule (Sun 10/18): numbers worked out from the material pass. That covers the gap between
+  // two times (a 15-minute overlap from 10:30 and 10:45) and the sum or difference of two figures.
+  const times = [...new Set(timesIn(text))];
+  for (const a of times) for (const b of times) if (a > b) { add(a - b); add((a - b) / 60); }
+  for (const a of unique) for (const b of unique) { add(a + b); if (a > b) add(a - b); }
   return set;
 }
 
-// R2: no invented numbers. Every figure in the brief exists in the material, allowing unit scaling
-// ($18M for 18000000) and percent forms (35% for 0.35), compared at three significant digits.
+// R2: no invented numbers. Every figure in the brief exists in the material or is worked out from it
+// (a time gap, or the sum or difference of two figures), allowing unit scaling ($18M for 18000000) and
+// percent forms (35% for 0.35), compared at three significant digits.
 export function numbersGrounded(brief: BriefV1, day: DayV1): CheckResult {
   const grounded = groundedSet(day);
   const missing = [...new Set(numbersIn(briefText(brief)).filter((n) => n > SMALL && !grounded.has(key(n))))];

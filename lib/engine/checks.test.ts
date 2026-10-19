@@ -24,6 +24,13 @@ describe("numbersGrounded", () => {
   it("does not read units out of words like 'by' and 'minutes'", () => {
     expect(numbersGrounded(brief("40,000 by Friday, 15 minutes late"), day).passed).toBe(true);
   });
+  it("passes figures worked out from the material", () => {
+    expect(numbersGrounded(brief("The calls overlap by 15 minutes"), { ...day, calendar: [...day.calendar, { id: "E02", start: "D0 10:45", end: "11:15", title: "Mom" }], kpis: day.kpis.slice(0, 3) }).passed).toBe(true);
+    expect(numbersGrounded(brief("40,000 members against 18M ARR leaves 17,960,000"), day).passed).toBe(true);
+  });
+  it("still fails a ratio or projection the brief computes itself", () => {
+    expect(numbersGrounded(brief("Growth of 450x"), day).passed).toBe(false);
+  });
   it("fails an invented figure", () => {
     const r = numbersGrounded(brief("ARR is $21M"), day);
     expect(r.passed).toBe(false);
