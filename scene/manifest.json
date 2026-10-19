@@ -4,7 +4,7 @@
     "file": "CornerOfficeA.png",
     "width": 2960,
     "height": 1648,
-    "note": "Paula's locked painting, Fri 10/16. Kept outside git in art/source/. Object boxes are percent of this image."
+    "note": "Paula's locked painting, Fri 10/16. Kept outside git in art/source/. Object boxes are percent of this image. On phones the mouse, cards, mug and calendar draw smaller than the gray-box 160-pixel rule; Paula accepted this Sun 10/18, since every tap area is 44 points or more."
   },
   "phone": {
     "crop_x0": 26.4,

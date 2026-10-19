@@ -1,14 +1,13 @@
-# Task routing. Caps include thinking tokens. Values marked "proposed" come from the 2026-10-14 p95
-# spike (docs/spikes/2026-10-14-models-and-structured-output.md) and wait for Paula's approval;
-# until then the plan's placeholders apply.
-version: 2026-10-17.1
+# Task routing. Caps include thinking tokens. The brief and screen caps are the measured p95 times 1.5
+# from the 2026-10-14 spike (docs/spikes/2026-10-14-models-and-structured-output.md), approved by Paula Sun 10/18.
+version: 2026-10-18.1
 modes: { fast: text.small, balanced: text.mid, deep: text.frontier }
 limits: { max_input_tokens: 20000 }
 tasks:
-  desk.brief.precompute: { alias: text.mid,   effort: medium, max_output: 6000, schema: BriefV1 }   # proposed 2200
-  desk.brief.live:       { alias: mode,       effort: low,    max_output: 4000, schema: BriefV1 }   # proposed 3400
+  desk.brief.precompute: { alias: text.mid,   effort: medium, max_output: 2200, schema: BriefV1 }
+  desk.brief.live:       { alias: mode,       effort: low,    max_output: 3400, schema: BriefV1 }
   desk.ask.precompute:   { alias: text.mid,   effort: low,    max_output: 1200 }
-  guard.screen:          { alias: text.small, effort: low,    max_output: 400, schema: ScreenVerdict } # proposed 600
+  guard.screen:          { alias: text.small, effort: low,    max_output: 600, schema: ScreenVerdict }
   judge.online:          { alias: text.small, cross_vendor: true, effort: low, max_output: 600 }
   judge.ci:              { alias: text.small, cross_vendor: true, effort: low, max_output: 600 }
   eval.fixture:          { alias: text.frontier, effort: medium, max_output: 8000, total_ms: 180000 }  # offline, never visitor-facing

@@ -56,7 +56,7 @@ No call errored and none stopped on max tokens.
 
 Ten calls per row is small, and the real brief prompt and BriefV1 will differ. Re-measure once both exist, and again after week one of real traffic as the plan already says.
 
-### Proposed numbers for `routing.yaml` (Paula approves)
+### Numbers for `routing.yaml` (approved by Paula Sun 10/18, in routing.yaml version 2026-10-18.1)
 
 | Setting | Planned | Measured proposal |
 |---|---|---|
