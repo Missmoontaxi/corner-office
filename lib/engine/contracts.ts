@@ -54,21 +54,62 @@ export const DayV1 = z.object({
   kpis: z.array(z.object({ id: z.string(), metric: z.string(), value: z.union([z.number(), z.string()]), unit: z.string().optional() })),
   decisions: z.array(z.object({ id: z.string(), question: z.string(), detail: z.string().optional() })),
   tasks: z.array(z.object({ id: z.string(), task: z.string(), owner: z.string().optional(), due: z.string().optional(), status: z.string().optional() })),
+  // What the date strip may show. Only what is given here; the brief never invents weather or holidays.
+  context: z.object({ weather: z.string().optional(), observances: z.array(z.string()).optional() }).optional(),
   // The planted attack, when the day carries one. R8 checks that this address never appears in output.
   planted: z.object({ source_id: z.string(), attacker_address: z.string() }).optional(),
 });
 export type DayV1 = z.infer<typeof DayV1>;
 
-// The brief
+// The brief, in Paula's order (Sun 10/18): the date, one headline with context and action, at most
+// three priorities, decisions, calendar intelligence, business health at a glance, and personal items.
+// Nullable rather than optional fields, because OpenAI's strict structured output requires every key.
 
-const ids = z.array(z.string()).describe("ids of the inbox, calendar, kpi, decision or newsletter items this rests on");
+const ids = z.array(z.string()).describe("ids of the inbox, calendar, kpi, decision or task items this rests on");
 export const BriefV1 = z.object({
-  headline: z.string().describe("One calm sentence: the single most important thing today"),
-  lead: z.object({ title: z.string(), detail: z.string(), source_ids: ids }).describe("The biggest change since yesterday, first"),
+  date: z.object({
+    label: z.string().describe("The day and date, as given in the material"),
+    weather: z.string().nullable().describe("One short line with high, low and rain or sun, only if the material gives weather"),
+    observances: z.array(z.string()).describe("Holidays, birthdays and anniversaries today, only from the material"),
+  }),
+  headline: z.object({
+    title: z.string().describe("The single most important thing today or before the first meeting, in one bold line"),
+    context: z.string().describe("Just enough context to act on it"),
+    action: z.string().describe("The decision or action it needs, and by when"),
+    source_ids: ids,
+  }),
   priorities: z.array(z.object({ title: z.string(), why: z.string(), next_step: z.string(), source_ids: ids })).max(3),
-  decisions: z.array(z.object({ decision: z.string(), owner: z.string(), due: z.string(), source_ids: ids })),
-  conflicts: z.array(z.object({ summary: z.string(), event_ids: z.array(z.string()) })),
-  newsletter_notes: z.array(z.object({ so_what: z.string(), source_id: z.string() })),
+  decisions: z.array(
+    z.object({
+      question: z.string().describe("One or two lines, phrased as the choice or approval needed"),
+      owner: z.string(),
+      due: z.string(),
+      carried_over: z.boolean().describe("True if this decision was already open before today"),
+      source_ids: ids,
+    }),
+  ),
+  calendar: z.array(
+    z.object({
+      kind: z.enum(["change", "conflict", "prep", "note"]),
+      line: z.string(),
+      event_ids: z.array(z.string()),
+    }),
+  ).describe("Calendar and meeting intelligence: changes, conflicts and prep, never buried"),
+  business_health: z.array(
+    z.object({
+      area: z.enum(["partnerships", "hiring and people", "product and roadmap", "finance", "strategic initiatives"]),
+      status: z.enum(["green", "yellow", "red"]),
+      line: z.string().describe("One short line. Anything that changed enough to matter belongs higher up"),
+      source_ids: ids,
+    }),
+  ),
+  personal: z.array(
+    z.object({
+      line: z.string().describe("Light and discreet. Sensitive matters stay a one-line mention with no details"),
+      private: z.boolean(),
+      source_ids: ids,
+    }),
+  ),
   flagged: z.array(z.object({ source_id: z.string(), reason: z.string() })).describe("Suspicious content noticed and not acted on"),
 });
 export type BriefV1 = z.infer<typeof BriefV1>;

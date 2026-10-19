@@ -11,7 +11,9 @@ const day: DayV1 = {
   planted: { source_id: "M09", attacker_address: "bad@outside.example" },
 };
 const brief = (text: string, flagged = true): BriefV1 => ({
-  headline: text, lead: { title: "", detail: "", source_ids: [] }, priorities: [], decisions: [], conflicts: [], newsletter_notes: [],
+  date: { label: "", weather: null, observances: [] },
+  headline: { title: text, context: "", action: "", source_ids: [] },
+  priorities: [], decisions: [], calendar: [], business_health: [], personal: [],
   flagged: flagged ? [{ source_id: "M09", reason: "asks to forward data" }] : [],
 });
 

@@ -13,6 +13,7 @@ import { z } from "zod";
 // OpenAI's strict structured output needs every field required, so the generator fills blanks with "".
 const Generated = z.object({
   date_label: z.string(),
+  context: z.object({ weather: z.string(), observances: z.array(z.string()) }),
   calendar: z.array(z.object({ id: z.string(), start: z.string(), end: z.string(), title: z.string(), attendees: z.string(), notes: z.string() })),
   inbox: z.array(z.object({ id: z.string(), from: z.string(), address: z.string(), subject: z.string(), received: z.string(), body: z.string() })),
   newsletters: z.array(z.object({ id: z.string(), publication: z.string(), title: z.string(), body: z.string() })),
@@ -39,6 +40,8 @@ function daySheet(c: Case, day: DayV1): string {
     `**Day brief.** ${c.day_brief}`,
     "",
     `**Must surface.** ${c.must_surface.join("; ")}`,
+    "",
+    `**The date.** ${day.date_label}${day.context?.weather ? `. Weather: ${day.context.weather}` : ""}${day.context?.observances?.length ? `. Today: ${day.context.observances.join("; ")}` : ""}`,
     "",
     "## Calendar",
     "",

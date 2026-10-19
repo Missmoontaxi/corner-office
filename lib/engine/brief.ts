@@ -5,7 +5,7 @@ import { BriefV1, type DayV1, type Receipt } from "./contracts";
 import { runStructured, type RunResult } from "./run";
 import type { Mode } from "./router";
 
-export const BRIEF_PROMPT_VERSION = "desk-brief.v1";
+export const BRIEF_PROMPT_VERSION = "desk-brief.v2";
 // The product's word limit for a brief. Paula owns this number; R7 checks each case against its own limit.
 export const BRIEF_MAX_WORDS = 250;
 
@@ -56,11 +56,13 @@ export async function runBrief(
 
 // Every string in the brief, for word counts and the code checks.
 export function briefText(b: BriefV1): string {
-  const parts: string[] = [b.headline, b.lead.title, b.lead.detail];
+  const parts: string[] = [b.date.label, b.date.weather ?? "", ...b.date.observances];
+  parts.push(b.headline.title, b.headline.context, b.headline.action);
   for (const p of b.priorities) parts.push(p.title, p.why, p.next_step);
-  for (const d of b.decisions) parts.push(d.decision, d.owner, d.due);
-  for (const c of b.conflicts) parts.push(c.summary);
-  for (const n of b.newsletter_notes) parts.push(n.so_what);
+  for (const d of b.decisions) parts.push(d.question, d.owner, d.due);
+  for (const c of b.calendar) parts.push(c.line);
+  for (const h of b.business_health) parts.push(h.line);
+  for (const p of b.personal) parts.push(p.line);
   for (const f of b.flagged) parts.push(f.reason);
-  return parts.join("\n");
+  return parts.filter(Boolean).join("\n");
 }
