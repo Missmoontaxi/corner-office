@@ -12,6 +12,15 @@ describe("parseCsv", () => {
   });
 });
 
+describe("loadCases list splitting", () => {
+  it("splits on semicolons and on sentence periods, keeping decimals", async () => {
+    const { parseCsv: _p } = await import("./lib");
+    const split = (v: string) => v.split(/;|\.(?=\s+[A-Z])|\.\s*$/).map((s) => s.trim()).filter(Boolean);
+    expect(split("ARR dropped to $17.8M. Partnership call today at 2pm. Tomas out sick.")).toEqual(["ARR dropped to $17.8M", "Partnership call today at 2pm", "Tomas out sick"]);
+    expect(split("board moved to Thursday; burn multiple 2.3")).toEqual(["board moved to Thursday", "burn multiple 2.3"]);
+  });
+});
+
 describe("factPresent", () => {
   const day = "Board meeting moved from Friday to Thursday. Burn multiple 2.3 per the CFO. Lunch with the CIO overlaps board prep.";
   it("finds a fact by its numbers and most of its words", () => {

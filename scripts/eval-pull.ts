@@ -16,7 +16,8 @@ async function main() {
     process.exit(1);
   }
   for (const [tab, file] of TABS) {
-    const url = `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}`;
+    // The timestamp defeats a short cache that can serve a copy from a few minutes ago.
+    const url = `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}&t=${Date.now()}`;
     const res = await fetch(url);
     const text = await res.text();
     if (!res.ok || text.trimStart().startsWith("<")) {

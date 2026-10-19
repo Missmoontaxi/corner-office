@@ -6,7 +6,7 @@ import path from "node:path";
 import { DayV1 } from "../lib/engine/contracts";
 import { runStructured } from "../lib/engine/run";
 import { loadShowDay } from "../lib/engine/sources/seed";
-import { DIGEST, dayPath, loadCases, type Case } from "../evals/lib";
+import { DIGEST, caseDate, dayPath, loadCases, type Case } from "../evals/lib";
 
 import { z } from "zod";
 
@@ -73,11 +73,25 @@ function daySheet(c: Case, day: DayV1): string {
   return lines.join("\n");
 }
 
+// Names that earlier days already used (outside people and companies), so the two weeks stay consistent.
+function earlierDays(c: Case): string {
+  const before = loadCases().filter((k) => k.case_id < c.case_id && fs.existsSync(dayPath(k.case_id)));
+  if (!before.length) return "";
+  const names = new Set<string>();
+  for (const k of before) {
+    const d = DayV1.parse(JSON.parse(fs.readFileSync(dayPath(k.case_id), "utf8")));
+    for (const m of d.inbox) if (!m.address.endsWith("@carebird.example")) names.add(`${m.from} <${m.address}>`);
+    for (const e of d.calendar) for (const n of (e.attendees ?? "").split(",")) if (n.trim() && /\s/.test(n.trim())) names.add(n.trim());
+  }
+  return `<earlier_days>\nThese days come before this one in the same two weeks. Reuse these names for the same people and companies, and keep their facts consistent:\n${[...names].slice(0, 60).join("\n")}\n</earlier_days>`;
+}
+
 async function build(c: Case) {
   const system = fs.readFileSync(path.join(process.cwd(), "prompts", "eval-fixture.v1.md"), "utf8");
   const prompt = [
     `<company_background>\n${JSON.stringify(background(), null, 1)}\n</company_background>`,
-    `<case>\n${JSON.stringify({ scenario: c.scenario, day_brief: c.day_brief, must_surface: c.must_surface }, null, 1)}\n</case>`,
+    earlierDays(c),
+    `<case>\n${JSON.stringify({ date: caseDate(c.day) ?? c.day, scenario: c.scenario, day_brief: c.day_brief, must_surface: c.must_surface }, null, 1)}\n</case>`,
     "Build the day.",
   ].join("\n\n");
   const { output, receipt } = await runStructured({
@@ -92,7 +106,7 @@ async function build(c: Case) {
   });
   const seed = loadShowDay();
   const kpis = output.kpis.map((k) => ({ ...k, value: /^-?[\d.]+$/.test(k.value) ? Number(k.value) : k.value }));
-  let day: DayV1 = { ...output, kpis, day_id: c.case_id, persona: seed.persona };
+  let day: DayV1 = { ...output, kpis, date_label: caseDate(c.day) ?? output.date_label, day_id: c.case_id, persona: seed.persona };
   if (/advers/i.test(c.scenario) && seed.planted) {
     const planted = seed.inbox.find((m) => m.id === seed.planted!.source_id)!;
     const id = `M${String(day.inbox.length + 1).padStart(2, "0")}`;
@@ -102,7 +116,8 @@ async function build(c: Case) {
   fs.mkdirSync(path.join(DIGEST, "days"), { recursive: true });
   fs.writeFileSync(dayPath(c.case_id), JSON.stringify(day, null, 1) + "\n");
   fs.writeFileSync(path.join(DIGEST, "days", `${c.case_id}.md`), daySheet(c, day));
-  console.log(`${c.case_id}: ${day.calendar.length} events, ${day.inbox.length} emails${day.planted ? " (planted attack added)" : ""}, ${receipt.route.model}, $${(receipt.costMicroUsd / 1e6).toFixed(3)}`);
+  const tries = receipt.route.attempts.map((a) => `${a.model} ${a.outcome} ${(a.ms / 1000).toFixed(0)}s`).join(", ");
+  console.log(`${c.case_id}: ${day.date_label}, ${day.calendar.length} events, ${day.inbox.length} emails${day.planted ? " (planted attack added)" : ""}, $${(receipt.costMicroUsd / 1e6).toFixed(3)} [${tries}]`);
 }
 
 async function main() {
