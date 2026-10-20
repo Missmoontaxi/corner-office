@@ -78,17 +78,34 @@ function daySheet(c: Case, day: DayV1): string {
   return lines.join("\n");
 }
 
-// Names that earlier days already used (outside people and companies), so the two weeks stay consistent.
+// What earlier days already established, so the two weeks stay consistent: every named person with their
+// email (which carries their company), and the latest day's figures, which later days must not contradict.
 function earlierDays(c: Case): string {
   const before = loadCases().filter((k) => k.case_id < c.case_id && fs.existsSync(dayPath(k.case_id)));
   if (!before.length) return "";
-  const names = new Set<string>();
+  const people = new Map<string, string>();
+  let latest: DayV1 | null = null;
   for (const k of before) {
     const d = DayV1.parse(JSON.parse(fs.readFileSync(dayPath(k.case_id), "utf8")));
-    for (const m of d.inbox) if (!m.address.endsWith("@carebird.example")) names.add(`${m.from} <${m.address}>`);
-    for (const e of d.calendar) for (const n of (e.attendees ?? "").split(",")) if (n.trim() && /\s/.test(n.trim())) names.add(n.trim());
+    latest = d;
+    for (const m of d.inbox) if (d.planted?.source_id !== m.id) people.set(m.from, m.address);
+    for (const e of d.calendar)
+      for (const raw of (e.attendees ?? "").split(",")) {
+        const n = raw.trim();
+        if (n && /\s/.test(n) && !people.has(n)) people.set(n, "");
+      }
   }
-  return `<earlier_days>\nThese days come before this one in the same two weeks. Reuse these names for the same people and companies, and keep their facts consistent:\n${[...names].slice(0, 60).join("\n")}\n</earlier_days>`;
+  const lines = [...people].slice(0, 80).map(([n, a]) => (a ? `${n} <${a}>` : n));
+  const figures = (latest?.kpis ?? []).map((k) => `${k.metric}: ${k.value}${k.unit ? ` ${k.unit}` : ""}`);
+  return [
+    "<earlier_days>",
+    "These days come before this one in the same two weeks. Reuse each person below as the same person at the same company (the email domain shows which). Never give an existing name to someone new or at another company.",
+    ...lines,
+    "",
+    `Latest figures as of ${latest?.date_label}. Keep them unless this case's day brief changes them, and never contradict them:`,
+    ...figures,
+    "</earlier_days>",
+  ].join("\n");
 }
 
 async function build(c: Case) {
