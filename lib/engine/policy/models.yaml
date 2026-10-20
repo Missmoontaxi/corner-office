@@ -1,7 +1,7 @@
 # Model registry. Every text model carries its gateway slug and its direct API ID, both resolved by
 # scripts/check-direct-models.mjs (direct) and the gateway contract run (spike 2026-10-14).
 # Prices are list prices in USD per 1M tokens. Receipts report list price even on Paula's own key.
-version: 2026-10-17.1
+version: 2026-10-20.1
 models:
   claude-haiku-5-5:  { vendor: anthropic, gateway: anthropic/claude-haiku-5.5,  direct: claude-haiku-5-5,  in: 0.10, out: 0.50, no_retire_before: 2027-10-07 }
   claude-sonnet-5-5: { vendor: anthropic, gateway: anthropic/claude-sonnet-5.5, direct: claude-sonnet-5-5, in: 2.00, out: 10.00, no_retire_before: 2027-09-28 }
@@ -11,6 +11,7 @@ models:
 aliases:
   text.small:    { primary: claude-haiku-5-5,  fallback: gpt-6-luna }
   text.mid:      { primary: claude-sonnet-5-5, fallback: gpt-6.1-sol }
+  text.brief:    { primary: gpt-6.1-sol,       fallback: claude-sonnet-5-5 }  # ADR 0005, Paula's pick from the 10/20 eval run
   text.frontier: { primary: claude-opus-5-5,   fallback: gpt-6.1-sol, access: [owner] }
 blocked:
   - gpt-6-astra

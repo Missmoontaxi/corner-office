@@ -4,7 +4,7 @@ description: Daily Digest evals, smoke
 prompts: ["{{case_id}}"]
 providers:
   - id: file://provider.ts
-    label: claude-sonnet-5-5
-    config: { model: claude-sonnet-5-5 }
+    label: gpt-6.1-sol
+    config: { model: gpt-6.1-sol }
 tests: file://loaders/csv-to-assertions.ts
 evaluateOptions: { maxConcurrency: 4 }
