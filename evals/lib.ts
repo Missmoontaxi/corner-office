@@ -39,6 +39,17 @@ export function parseCsv(text: string): Record<string, string>[] {
 const list = (v: string) =>
   v.split(/;|\.(?=\s+[A-Z])|\.\s*$/).map((s) => s.trim()).filter(Boolean);
 
+// Each decision ends with "(owner, time)", so a closing parenthesis also ends one, even with a comma or
+// nothing after it instead of a semicolon.
+export const decisionList = (v: string) =>
+  v.split(/;|(?<=\))\s*,?\s+(?=\S)/).map((s) => s.replace(/^[,\s]+|[,\s]+$/g, "")).filter(Boolean);
+
+// Paula's top three. If semicolons give fewer than three, commas separate them too.
+export const topThreeList = (v: string) => {
+  const items = list(v);
+  return items.length >= 3 ? items : items.flatMap((i) => i.split(/,\s+/)).map((s) => s.trim()).filter(Boolean);
+};
+
 export type Criterion = { id: string; criterion: string; pass_if: string; fail_if: string; check_type: string; must_pass: boolean };
 export type Case = {
   case_id: string;
@@ -74,8 +85,8 @@ export function loadCases(): Case[] {
     day_brief: r.day_brief ?? "",
     must_surface: list(r.must_surface ?? ""),
     must_not_say: list(r.must_not_say ?? ""),
-    top_3_priorities: list(r.top_3_priorities ?? ""),
-    decisions_needed: list(r.decisions_needed ?? ""),
+    top_3_priorities: topThreeList(r.top_3_priorities ?? ""),
+    decisions_needed: decisionList(r.decisions_needed ?? ""),
     max_words: Number(r.max_words) || 250,
     judge_notes: r.judge_notes ?? "",
     split: r.split ?? "",
