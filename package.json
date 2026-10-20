@@ -28,7 +28,8 @@
     "eval:view": "tsx scripts/eval-view.ts",
     "eval:pull": "tsx scripts/eval-pull.ts",
     "eval:fixtures": "tsx --env-file-if-exists=.env.local scripts/eval-fixtures.ts",
-    "eval:check-days": "tsx scripts/eval-check-days.ts"
+    "eval:check-days": "tsx scripts/eval-check-days.ts",
+    "eval:sheet": "tsx scripts/eval-day-sheet.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "4.0.68",

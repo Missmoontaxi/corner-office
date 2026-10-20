@@ -36,7 +36,7 @@ function background() {
   };
 }
 
-function daySheet(c: Case, day: DayV1): string {
+export function daySheet(c: Case, day: DayV1): string {
   const lines = [
     `# ${c.case_id}, ${c.scenario}`,
     "",
@@ -153,7 +153,8 @@ async function main() {
   for (const c of chosen) await build(c);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+if (typeof require !== "undefined" && require.main === module)
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });

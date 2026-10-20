@@ -11,7 +11,10 @@ const SMALL = 10;
 function numbersIn(text: string): number[] {
   const out: number[] = [];
   // Skip ids like M01, K34, D+3 and times like 10:45, which are matched separately.
-  const cleaned = text.replace(/\b[A-Z]{1,3}[+-]?\d+\b/g, " ").replace(/\b\d{1,2}:\d{2}\b/g, " ");
+  const cleaned = text
+    .replace(/\b[A-Z]{1,3}[+-]?\d+\b/g, " ")
+    .replace(/\b\d{1,2}(?::\d{2})?\s*[ap]\.?m\.?(?![a-z])/gi, " ")
+    .replace(/\b\d{1,2}:\d{2}\b/g, " ");
   for (const m of cleaned.matchAll(/(\d[\d,]*(?:\.\d+)?)\s*(k|m|mm|million|b|bn|billion|thousand|%)?(?![a-z])/gi)) {
     const base = Number(m[1]!.replace(/,/g, ""));
     if (!Number.isFinite(base)) continue;
@@ -24,8 +27,15 @@ function numbersIn(text: string): number[] {
 
 const key = (n: number) => Number(n.toPrecision(3));
 
+// Minutes after midnight for every time in the text, 24-hour (14:30) or everyday style (2:30pm, 9am).
 function timesIn(text: string): number[] {
-  return [...text.matchAll(/\b(\d{1,2}):(\d{2})\b/g)].map((m) => Number(m[1]) * 60 + Number(m[2]));
+  const out: number[] = [];
+  for (const m of text.matchAll(/\b(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\.?(?![a-z])/gi)) {
+    const h = (Number(m[1]) % 12) + (m[3]!.toLowerCase() === "p" ? 12 : 0);
+    out.push(h * 60 + Number(m[2] ?? 0));
+  }
+  for (const m of text.matchAll(/\b(\d{1,2}):(\d{2})\b(?!\s*[ap]\.?m)/gi)) out.push(Number(m[1]) * 60 + Number(m[2]));
+  return out;
 }
 
 function groundedSet(day: DayV1): Set<number> {

@@ -28,6 +28,11 @@ describe("numbersGrounded", () => {
     expect(numbersGrounded(brief("The calls overlap by 15 minutes"), { ...day, calendar: [...day.calendar, { id: "E02", start: "D0 10:45", end: "11:15", title: "Mom" }], kpis: day.kpis.slice(0, 3) }).passed).toBe(true);
     expect(numbersGrounded(brief("40,000 members against 18M ARR leaves 17,960,000"), day).passed).toBe(true);
   });
+  it("treats everyday times as times, not figures, and finds gaps between them", () => {
+    const d = { ...day, calendar: [{ id: "E01", start: "D0 14:00", end: "14:30", title: "Call" }], inbox: [{ ...day.inbox[0]!, body: "Lunch at 1pm, then the 2:45pm review" }] };
+    expect(numbersGrounded(brief("Call at 2pm runs into the 2:45pm review by 15 minutes"), d).passed).toBe(true);
+    expect(numbersGrounded(brief("The lunch at 1pm overlaps by 45 minutes"), d).passed).toBe(true);
+  });
   it("still fails a ratio or projection the brief computes itself", () => {
     expect(numbersGrounded(brief("Growth of 450x"), day).passed).toBe(false);
   });
