@@ -1,5 +1,5 @@
 // MCP smoke test. Connects pinned to the 2026-07-28 protocol (no fallback), lists tools, checks each declares readOnlyHint,
-// and calls each once. Usage: node scripts/check-mcp.mjs <server url>
+// calls each once, and fails if any response carries the planted attacker address or quarantine evidence. Usage: node scripts/check-mcp.mjs <server url>
 import { Client, StreamableHTTPClientTransport } from "@modelcontextprotocol/client";
 
 const url = new URL(process.argv[2] ?? "http://localhost:3000/mcp");
@@ -16,6 +16,7 @@ for (const t of tools) {
   try {
     const r = await client.callTool({ name: t.name, arguments: {} });
     if (r.isError || !r.content?.length) called = "empty or error";
+    else if (/capacity-review@outside\.example|Evidence:/i.test(JSON.stringify(r.content))) called = "leaked forbidden text";
   } catch (e) {
     called = String(e?.message ?? e).slice(0, 200);
   }

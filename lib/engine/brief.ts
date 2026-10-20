@@ -4,6 +4,8 @@ import path from "node:path";
 import { BriefV1, type DayV1, type Receipt } from "./contracts";
 import { runStructured, type RunResult } from "./run";
 import type { Mode } from "./router";
+import { allowlistFor, filterBrief, filterGuardrails } from "./guard/filter";
+import { isQuarantined, quarantine, screenDay, screenGuardrails } from "./guard/screen";
 
 export const BRIEF_PROMPT_VERSION = "desk-brief.v4";
 // The product's word limit for a brief. Paula owns this number; R7 checks each case against its own limit.
@@ -71,4 +73,33 @@ export function briefText(b: BriefV1): string {
   for (const p of b.personal) parts.push(p.line);
   for (const f of b.flagged) parts.push(f.reason);
   return parts.filter(Boolean).join("\n");
+}
+
+// The guarded brief, as the desk runs it. The screen quarantines suspicious items before the model reads the
+// day, the brief carries a neutral flag for each one, and the output filter strips any address not in the
+// material the model was allowed to read. Every layer that acts is logged on the receipt.
+// With screen "off" the screen is skipped, which is how the screen-off replay is recorded.
+export type GuardedBrief = RunResult<BriefV1> & { quarantined: string[]; stripped: string[] };
+
+export async function runGuardedBrief(
+  day: DayV1,
+  opts: Parameters<typeof runBrief>[1] & { screen?: "on" | "off"; screenLive?: boolean },
+): Promise<GuardedBrief> {
+  const screened = opts.screen === "off" ? [] : await screenDay(day, { live: opts.screenLive ?? false, client: opts.client, save: opts.screenLive });
+  const material = quarantine(day, screened);
+  const quarantined = screened.filter(isQuarantined).map((s) => s.item.id);
+  const { output, receipt } = await runBrief(material, opts);
+
+  // The model never saw a quarantined item, so the pipeline adds its flag. The reason names only the kind of problem.
+  const flagged = [...output.flagged];
+  for (const id of quarantined)
+    if (!flagged.some((f) => f.source_id === id)) flagged.push({ source_id: id, kind: "suspicious", reason: "Screened before the brief was written. Quarantined, not followed." });
+
+  const { brief, stripped } = filterBrief({ ...output, flagged }, allowlistFor(material));
+  return {
+    output: brief,
+    receipt: { ...receipt, guardrails: [...receipt.guardrails, ...screenGuardrails(screened), ...filterGuardrails(stripped)] },
+    quarantined,
+    stripped,
+  };
 }

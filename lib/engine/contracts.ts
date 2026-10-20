@@ -125,7 +125,16 @@ export const BriefV1 = z.object({
 });
 export type BriefV1 = z.infer<typeof BriefV1>;
 
-export const ScreenVerdict = z.object({ suspicious: z.boolean(), category: z.string(), reason: z.string() });
+// The guard screen's verdict on one untrusted item. evidence and reason are web-only receipt detail.
+export const ScreenCategory = z.enum(["none", "instruction_to_assistant", "data_exfiltration", "hidden_or_concealed", "impersonation", "other"]);
+export const ScreenVerdict = z.object({
+  suspicious: z.boolean(),
+  category: ScreenCategory,
+  confidence: z.enum(["low", "medium", "high"]),
+  evidence: z.string().describe("The exact sentence that triggered the verdict, or an empty string"),
+  reason: z.string().describe("One short line"),
+});
+export type ScreenVerdict = z.infer<typeof ScreenVerdict>;
 
 // The receipt, plan section 3.9
 

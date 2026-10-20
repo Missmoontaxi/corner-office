@@ -29,7 +29,9 @@
     "eval:pull": "tsx scripts/eval-pull.ts",
     "eval:fixtures": "tsx --env-file-if-exists=.env.local scripts/eval-fixtures.ts",
     "eval:check-days": "tsx scripts/eval-check-days.ts",
-    "eval:sheet": "tsx scripts/eval-day-sheet.ts"
+    "eval:sheet": "tsx scripts/eval-day-sheet.ts",
+    "guard:screen": "tsx --env-file-if-exists=.env.local scripts/guard-screen.ts",
+    "guard:replay": "tsx --env-file-if-exists=.env.local scripts/guard-replay.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "4.0.68",

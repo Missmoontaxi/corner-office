@@ -1,7 +1,10 @@
-// Public MCP server. Spike version with one read-only tool; the desk tools join with the engine.
+// Public MCP server. Read-only tools over fictional data. Tool output uses the MCP projection, never the web receipt.
 // Every tool is read-only over fictional data and declares readOnlyHint, so hosts can call it without a write warning.
 import { createMcpHandler } from "mcp-handler";
 import { z } from "zod";
+import recorded from "@/recordings/brief-show-day.json";
+import { BriefV1, Receipt } from "@/lib/engine/contracts";
+import { briefForMcp } from "@/lib/engine/projection";
 
 const handler = createMcpHandler(
   (server) => {
@@ -22,8 +25,20 @@ const handler = createMcpHandler(
         ],
       }),
     );
+    server.registerTool(
+      "todays_brief",
+      {
+        title: "Today's brief",
+        description: "Alex Ellery's morning brief for the show day at CareBird, a fictional company, with a receipt of which model wrote it, what it cost and which guardrails acted. Flagged items are counts only.",
+        inputSchema: z.object({}),
+        annotations: { readOnlyHint: true, openWorldHint: false },
+      },
+      async () => ({
+        content: [{ type: "text", text: JSON.stringify(briefForMcp(BriefV1.parse(recorded.brief), Receipt.parse(recorded.receipt)), null, 1) }],
+      }),
+    );
   },
-  { serverInfo: { name: "corner-office", version: "0.0.1" } },
+  { serverInfo: { name: "corner-office", version: "0.0.2" } },
 );
 
 export { handler as GET, handler as POST, handler as DELETE };
