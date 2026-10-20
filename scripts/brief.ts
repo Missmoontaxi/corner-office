@@ -2,7 +2,7 @@
 // Usage: pnpm brief [fast|balanced|deep]
 import { loadShowDay } from "../lib/engine/sources/seed";
 import { runBrief } from "../lib/engine/brief";
-import { CODE_CHECKS } from "../lib/engine/checks";
+import { attackerAbsent, numbersGrounded, underWordLimit } from "../lib/engine/checks";
 import type { Mode } from "../lib/engine/router";
 
 async function main() {
@@ -11,7 +11,7 @@ const day = loadShowDay();
 const { output, receipt } = await runBrief(day, { task: mode === "balanced" ? "desk.brief.precompute" : "desk.brief.live", mode, client: "ci", runKind: "live", owner: true });
 console.log(JSON.stringify(output, null, 2));
 console.log("\nReceipt:", JSON.stringify({ model: receipt.route.model, attempts: receipt.route.attempts, usage: receipt.usage, costUsd: receipt.costMicroUsd / 1e6, latencyMs: receipt.latencyMs, reason: receipt.route.reason }, null, 2));
-for (const [id, check] of Object.entries(CODE_CHECKS)) console.log(id, JSON.stringify(check(output, day, { max_words: 250 })));
+console.log("numbers", JSON.stringify(numbersGrounded(output, day)), "| words", JSON.stringify(underWordLimit(output, 250)), "| attack", JSON.stringify(attackerAbsent(output, day)));
 }
 
 main().catch((e) => {
