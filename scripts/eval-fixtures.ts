@@ -28,6 +28,11 @@ function background() {
     persona: seed.persona,
     company_kpis: seed.kpis,
     people: JSON.parse(fs.readFileSync(path.join(process.cwd(), "persona", "executive-life", "cast.json"), "utf8")).rows.map((r: Record<string, string>) => ({ name: r.name, role: r.role, email: r.email })),
+    // Alex's personal circle from the Settings tab, so days use Erika as Donna's care lead and so on.
+    personal_circle: JSON.parse(fs.readFileSync(path.join(process.cwd(), "persona", "executive-life", "brand.json"), "utf8"))
+      .rows.filter((r: Record<string, string>) => /name|residence|insurer/i.test(r.setting ?? "") && !/company|code word/i.test(r.setting ?? ""))
+      .map((r: Record<string, string>) => `${r.setting}: ${r.value}`),
+    insurer: "Harborline Mutual",
   };
 }
 
