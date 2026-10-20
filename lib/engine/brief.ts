@@ -5,7 +5,7 @@ import { BriefV1, type DayV1, type Receipt } from "./contracts";
 import { runStructured, type RunResult } from "./run";
 import type { Mode } from "./router";
 
-export const BRIEF_PROMPT_VERSION = "desk-brief.v2";
+export const BRIEF_PROMPT_VERSION = "desk-brief.v3";
 // The product's word limit for a brief. Paula owns this number; R7 checks each case against its own limit.
 export const BRIEF_MAX_WORDS = 250;
 
@@ -13,15 +13,21 @@ function template() {
   return fs.readFileSync(path.join(process.cwd(), "prompts", `${BRIEF_PROMPT_VERSION}.md`), "utf8");
 }
 
-export function briefMessages(day: DayV1) {
+// Decisions still open from an earlier day, so the brief can mark the ones that carry over.
+export type OpenDecision = { question: string; detail?: string };
+
+export function briefMessages(day: DayV1, openBefore: OpenDecision[] = []) {
   const system = template()
     .replaceAll("{{name}}", day.persona.name.split(" ")[0]!)
     .replaceAll("{{role}}", day.persona.role)
     .replaceAll("{{company}}", day.persona.company)
-    .replaceAll("{{max_words}}", String(BRIEF_MAX_WORDS));
+    .replaceAll("{{max_words}}", String(BRIEF_MAX_WORDS))
+    // Models overshoot a stated limit, so the prompt also gives a target about 20 percent lower.
+    .replaceAll("{{target_words}}", String(Math.round((BRIEF_MAX_WORDS * 0.8) / 10) * 10));
   // Stable instructions go first for prompt caching. The day goes last, as data inside a fence.
   const { planted: _omit, ...material } = day;
-  const prompt = `Today is ${day.date_label}. Write today's brief from this material.\n\n<material>\n${JSON.stringify(material, null, 1)}\n</material>`;
+  const before = openBefore.length ? `\n\n<open_before_today>\n${JSON.stringify(openBefore, null, 1)}\n</open_before_today>` : "";
+  const prompt = `Today is ${day.date_label}. Write today's brief from this material.${before}\n\n<material>\n${JSON.stringify(material, null, 1)}\n</material>`;
   return { system, prompt };
 }
 
@@ -36,9 +42,9 @@ export function briefSources(day: DayV1): Receipt["sources"] {
 
 export async function runBrief(
   day: DayV1,
-  opts: { task?: "desk.brief.precompute" | "desk.brief.live"; mode?: Mode; client: Receipt["client"]; runKind: Receipt["runKind"]; owner?: boolean; model?: string },
+  opts: { task?: "desk.brief.precompute" | "desk.brief.live"; mode?: Mode; client: Receipt["client"]; runKind: Receipt["runKind"]; owner?: boolean; model?: string; openBefore?: OpenDecision[] },
 ): Promise<RunResult<BriefV1>> {
-  const { system, prompt } = briefMessages(day);
+  const { system, prompt } = briefMessages(day, opts.openBefore);
   return runStructured({
     task: opts.task ?? "desk.brief.precompute",
     system,

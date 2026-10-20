@@ -101,6 +101,14 @@ export function loadDay(caseId: string): DayV1 {
   return DayV1.parse(JSON.parse(fs.readFileSync(dayPath(caseId), "utf8")));
 }
 
+// The previous case day's open decisions stand in for yesterday's brief, since cases run as consecutive days.
+export function openBefore(caseId: string) {
+  const ids = loadCases().map((c) => c.case_id).sort();
+  const prev = ids[ids.indexOf(caseId) - 1];
+  if (!prev || !fs.existsSync(dayPath(prev))) return [];
+  return loadDay(prev).decisions.map(({ question, detail }) => ({ question, detail }));
+}
+
 // Paula stages cases as consecutive working days ("Mon, week 1" to "Fri, week 2"). Week 1 starts on
 // WEEK_ONE_MONDAY, so every day file gets a real, consistent date instead of one the model picks.
 export const WEEK_ONE_MONDAY = "2026-11-09";

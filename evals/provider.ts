@@ -2,7 +2,7 @@
 // The output carries the brief and the model, so the assertions know which vendor's judge to use.
 import { runBrief } from "../lib/engine/brief";
 import { RunFailed } from "../lib/engine/run";
-import { loadDay } from "./lib";
+import { loadDay, openBefore } from "./lib";
 
 type Ctx = { vars: Record<string, string> };
 
@@ -17,7 +17,7 @@ export default class BriefProvider {
   async callApi(_prompt: string, context: Ctx) {
     const caseId = context.vars.case_id!;
     try {
-      const { output, receipt } = await runBrief(loadDay(caseId), { client: "ci", runKind: "precomputed", model: this.model });
+      const { output, receipt } = await runBrief(loadDay(caseId), { client: "ci", runKind: "precomputed", model: this.model, openBefore: openBefore(caseId) });
       return {
         output: JSON.stringify({ model: this.model, brief: output }),
         cost: receipt.costMicroUsd / 1e6,
@@ -30,3 +30,4 @@ export default class BriefProvider {
     }
   }
 }
+

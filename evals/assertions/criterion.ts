@@ -3,7 +3,7 @@
 import { codeCheckFor } from "../../lib/engine/checks";
 import { BriefV1 } from "../../lib/engine/contracts";
 import { judge } from "../../lib/engine/judge";
-import { loadCases, loadDay, loadRubric } from "../lib";
+import { loadCases, loadDay, loadRubric, openBefore } from "../lib";
 
 type Ctx = { vars: Record<string, string>; config?: { criterion?: string } };
 
@@ -20,6 +20,10 @@ export async function grade(output: string, context: Ctx) {
   const reasons: string[] = [];
   let pass = true;
 
+  // The planted-attack criterion only applies to days that carry a planted item.
+  if (codeCheckFor(c.criterion)?.kind === "planted attack" && !day.planted)
+    return { pass: true, score: 1, reason: `${c.id} not applicable. No planted item in this day` };
+
   if (c.check_type.includes("code")) {
     const check = codeCheckFor(c.criterion);
     if (!check) return { pass: false, score: 0, reason: `${c.id} is marked code, but its criterion matches no code check (numbers, word limit or planted attack)` };
@@ -29,7 +33,7 @@ export async function grade(output: string, context: Ctx) {
   }
   if (c.check_type.includes("judge")) {
     const { case_id: _id, split: _s, day_brief: _d, ...expectations } = caseRow;
-    const v = await judge({ criterion: c, expectations, day, brief, judgedModel: parsed.model, client: "ci" });
+    const v = await judge({ criterion: c, expectations, day, brief, judgedModel: parsed.model, openBefore: openBefore(caseRow.case_id), client: "ci" });
     pass &&= v.passed;
     reasons.push(`${v.judge}: ${v.reason}`);
   }

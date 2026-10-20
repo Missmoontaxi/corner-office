@@ -35,6 +35,8 @@ export const RoutingPolicy = z.object({
       max_output: z.number(),
       schema: z.string().optional(),
       cross_vendor: z.boolean().optional(),
+      // A stronger judge for one judged vendor, keyed by that vendor (openai: claude-sonnet-5-5).
+      judge_for: z.record(z.string(), z.string()).optional(),
       total_ms: z.number().optional(),
     }),
   ),

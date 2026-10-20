@@ -14,6 +14,8 @@ export type JudgeInput = {
   day: DayV1;
   brief: BriefV1;
   judgedModel: string;
+  // Decisions open before today, which the brief saw too, so carry-over marks can be checked.
+  openBefore?: { question: string; detail?: string }[];
   client: Receipt["client"];
 };
 
@@ -24,6 +26,7 @@ export async function judge(input: JudgeInput) {
   const prompt = [
     `<criterion id="${c.id}">\n${c.criterion}\nPass if: ${c.pass_if || "(not given)"}\nFail if: ${c.fail_if || "(not given)"}\n</criterion>`,
     `<expectations>\n${JSON.stringify(input.expectations, null, 1)}\n</expectations>`,
+    ...(input.openBefore?.length ? [`<open_before_today>\nDecisions that were open yesterday. Some were settled since. Only those the material still shows as open should carry over.\n${JSON.stringify(input.openBefore)}\n</open_before_today>`] : []),
     `<material>\n${JSON.stringify(material)}\n</material>`,
     `<brief>\n${JSON.stringify(input.brief, null, 1)}\n</brief>`,
   ].join("\n\n");

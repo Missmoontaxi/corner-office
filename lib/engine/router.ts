@@ -38,6 +38,11 @@ export function route(task: string, opts: { mode?: Mode; owner?: boolean; judged
   if (t.cross_vendor && opts.judgedModel) {
     const judged = vendorOf(opts.judgedModel);
     chain = chain.filter((m) => vendorOf(m) !== judged);
+    const pick = t.judge_for?.[judged];
+    if (pick) {
+      if (vendorOf(pick) === judged) throw new Error(`${task} would judge ${opts.judgedModel} with ${pick}, the same vendor`);
+      chain = [pick, ...chain.filter((m) => m !== pick)];
+    }
     why = `${task}, ${alias}, ${chain[0]}, the other vendor from ${opts.judgedModel}.`;
   }
   for (const m of chain) {
