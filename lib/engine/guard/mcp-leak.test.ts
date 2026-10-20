@@ -19,7 +19,11 @@ const forbidden = [
   ...day.newsletters.flatMap((n) => sentencesOf(n.body)),
 ];
 
-const recordings = fs.readdirSync(path.join(process.cwd(), "recordings")).filter((f) => f.endsWith(".json"));
+// Recorded runs only, meaning files that carry a brief and its receipt. The scorecard holds counts.
+const recordings = fs
+  .readdirSync(path.join(process.cwd(), "recordings"))
+  .filter((f) => f.endsWith(".json"))
+  .filter((f) => "brief" in JSON.parse(fs.readFileSync(path.join(process.cwd(), "recordings", f), "utf8")));
 
 describe("MCP leak contract", () => {
   it("has something to look for", () => {
