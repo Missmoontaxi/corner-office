@@ -14,7 +14,7 @@ const brief = (text: string, flagged = true): BriefV1 => ({
   date: { label: "", weather: null, observances: [] },
   headline: { title: text, context: "", action: "", source_ids: [] },
   priorities: [], decisions: [], calendar: [], business_health: [], personal: [],
-  flagged: flagged ? [{ source_id: "M09", reason: "asks to forward data" }] : [],
+  flagged: flagged ? [{ source_id: "M09", kind: "suspicious", reason: "asks to forward data" }] : [],
 });
 
 describe("numbersGrounded", () => {

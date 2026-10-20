@@ -5,7 +5,7 @@ import { BriefV1, type DayV1, type Receipt } from "./contracts";
 import { runStructured, type RunResult } from "./run";
 import type { Mode } from "./router";
 
-export const BRIEF_PROMPT_VERSION = "desk-brief.v3";
+export const BRIEF_PROMPT_VERSION = "desk-brief.v4";
 // The product's word limit for a brief. Paula owns this number; R7 checks each case against its own limit.
 export const BRIEF_MAX_WORDS = 250;
 
