@@ -120,7 +120,7 @@ export function KpiDoc({ data }: { data: DeskData }) {
       <div className="space-y-4 text-sm">
         {[...groups].map(([area, ks]) => (
           <section key={area}>
-            <h3 className="mb-1 text-xs font-semibold tracking-wide text-black/50 uppercase">{area}</h3>
+            <h3 className="mb-1 text-sm font-bold text-[#1f2d55]">{area}</h3>
             <dl className="divide-y divide-black/10">
               {ks.map((k) => (
                 <div key={k.id} className="flex justify-between gap-4 py-1">

@@ -9,8 +9,6 @@ export type Scorecard = {
 export type Provider = { id: string; name: string; type: string; scope: string; verified_on: string; notes?: string };
 export type Call = { id: string; task: string; provider: string; when: string; channel: string; outcome: string; next: string; turns: { speaker: string; text: string }[] };
 
-export const NUMBER_WORDS = ["no", "one", "two", "three", "four", "five", "six"];
-
 // "verified N days ago" from the show day, where dates are written as D-12.
 export function daysAgo(d: string) {
   const m = d.match(/^D-(\d+)$/);
@@ -27,4 +25,23 @@ export function plainDay(text: string) {
     .replace(/\bD-(\d+)\b/g, "$1 days ago")
     .replace(/\bD\+1\b/g, "tomorrow")
     .replace(/\bD\+(\d+)\b/g, "in $1 days");
+}
+
+// The seed's weather line, such as "High 58 Low 42 Sunny", as numbers and a sky with its emoji.
+export type Weather = { high: number | null; low: number | null; sky: string; emoji: string };
+const SKY: [RegExp, string][] = [
+  [/thunder|storm/i, "\u26c8\ufe0f"],
+  [/snow/i, "\u2744\ufe0f"],
+  [/rain|shower|drizzle/i, "\ud83c\udf27\ufe0f"],
+  [/partly|mostly sunny|some sun/i, "\u26c5"],
+  [/cloud|overcast|gray|grey/i, "\u2601\ufe0f"],
+  [/fog|mist/i, "\ud83c\udf2b\ufe0f"],
+  [/sun|clear|bright/i, "\u2600\ufe0f"],
+];
+export function parseWeather(text?: string | null): Weather | null {
+  if (!text) return null;
+  const high = text.match(/high\D*(-?\d+)/i)?.[1];
+  const low = text.match(/low\D*(-?\d+)/i)?.[1];
+  const sky = text.replace(/high\D*-?\d+|low\D*-?\d+/gi, "").replace(/[,.]/g, " ").trim();
+  return { high: high ? Number(high) : null, low: low ? Number(low) : null, sky, emoji: SKY.find(([r]) => r.test(sky))?.[1] ?? "" };
 }

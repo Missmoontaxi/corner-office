@@ -4,13 +4,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { AskV1, BriefV1, Receipt } from "@/lib/engine/contracts";
 import { loadVerdicts, untrustedItems, verdictKey } from "@/lib/engine/guard/screen";
-import { policy } from "@/lib/engine/policy";
 import { loadShowDay } from "@/lib/engine/sources/seed";
 
 const ROOT = process.cwd();
 const readJson = <T,>(...p: string[]): T => JSON.parse(fs.readFileSync(path.join(ROOT, ...p), "utf8")) as T;
 
-import { NUMBER_WORDS, type Call, type Check, type Provider, type Scorecard } from "./shared";
+import { parseWeather, type Call, type Check, type Provider, type Scorecard } from "./shared";
 
 export function loadDesk() {
   const day = loadShowDay();
@@ -36,8 +35,6 @@ export function loadDesk() {
   const screened = items.filter((i) => verdicts[verdictKey(i)]);
   const quarantined = screened.filter((i) => verdicts[verdictKey(i)]!.suspicious);
 
-  // The honesty line's provider count comes from the makers of the text models we route to.
-  const vendors = new Set(Object.entries(policy().models.models).filter(([id]) => !policy().models.blocked.includes(id)).map(([, m]) => m.vendor));
 
   // Paula's Builder's calls, from the seed's Decisions tab. A cell that still reads "Due ..." has no call yet.
   // The brief model never sees these, so the call sits beside the brief instead of steering it.
@@ -75,7 +72,9 @@ export function loadDesk() {
       ...day.decisions.map((d) => [d.id, `Open decision, ${d.question}`]),
       ...day.tasks.map((t) => [t.id, `Task, ${t.task}`]),
     ]) as Record<string, string>,
-    honesty: `Fictional executive, seeded data, live models from ${NUMBER_WORDS[vendors.size] ?? vendors.size} providers. Built by Paula McMahon.`,
+    // Paula's wording, Thu 10/22.
+    honesty: "A day in the life of a fictional CareBird with seeded data and routed through live models. Built by PM",
+    weather: parseWeather(day.context?.weather),
   };
 }
 

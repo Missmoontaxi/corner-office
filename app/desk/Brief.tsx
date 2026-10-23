@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import type { DeskData } from "@/lib/desk/data";
-import { plainDay } from "@/lib/desk/shared";
 
 const STATUS: Record<string, string> = { green: "bg-emerald-500", yellow: "bg-amber-400", red: "bg-rose-500" };
 const usd = (micro: number) => `$${(micro / 1e6).toFixed(micro < 10_000 ? 4 : 3)}`;
 const nyTime = (iso: string) =>
   new Date(iso).toLocaleString("en-US", { timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+
+const noSubscribe = () => () => {};
+const todayInNewYork = () => new Date().toLocaleDateString("en-US", { timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric" });
 
 function Section({ title, onReceipt, children }: { title: string; onReceipt: () => void; children: React.ReactNode }) {
   return (
@@ -15,7 +17,7 @@ function Section({ title, onReceipt, children }: { title: string; onReceipt: () 
       <div className="mb-2 flex items-center justify-between gap-2">
         <h3 className="text-xs font-semibold tracking-wide text-white/60 uppercase">{title}</h3>
         <button type="button" onClick={onReceipt} className="min-h-11 rounded-full px-3 text-xs font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
-          Show me how
+          How
         </button>
       </div>
       {children}
@@ -42,16 +44,25 @@ export function BriefView({ data }: { data: DeskData }) {
   const show = (section: string) => () => setReceipt(section);
   const suspicious = b.flagged.filter((f) => f.kind === "suspicious");
   const verify = b.flagged.filter((f) => f.kind === "verify");
+  const wx = data.weather;
+  // The visitor's real date in New York, filled in after load so the static page never shows a stale one.
+  const today = useSyncExternalStore(noSubscribe, todayInNewYork, () => "");
 
   if (receipt) return <ReceiptSheet data={data} section={`the ${receipt.toLowerCase()}`} onBack={() => setReceipt(null)} />;
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-white/60">
-        {plainDay(b.date.label)}
-        {b.date.weather ? ` · ${b.date.weather}` : ""}
-        {b.date.observances.length ? ` · ${b.date.observances.join(", ")}` : ""}
-      </p>
+      <div className="flex items-baseline justify-between gap-3 text-sm text-white/60">
+        <p>
+          {today ? `${today}. ` : ""}Board meeting in 3 days.
+          {b.date.observances.length ? ` ${b.date.observances.join(", ")}.` : ""}
+        </p>
+        {wx && wx.high != null && wx.low != null ? (
+          <p className="shrink-0 text-right whitespace-nowrap tabular-nums" aria-label={`High ${wx.high}, low ${wx.low}, ${wx.sky}`}>
+            {wx.emoji} <b className="text-white">{wx.high}</b>&deg; / <b className="text-white">{wx.low}</b>&deg;
+          </p>
+        ) : null}
+      </div>
 
       <Section title="Headline" onReceipt={show("Headline")}>
         <h2 className="text-lg leading-snug font-semibold">{b.headline.title.replace(/\*\*/g, "")}</h2>

@@ -24,7 +24,7 @@ export function AskView({ data }: { data: DeskData }) {
           <div className="mb-2 flex items-start justify-between gap-2">
             <h2 className="text-lg leading-snug font-semibold">{a.question}</h2>
             <button type="button" onClick={() => setReceipt(true)} className="min-h-11 shrink-0 rounded-full px-3 text-xs font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
-              Show me how
+              How
             </button>
           </div>
           <ul className="space-y-2 text-sm">
