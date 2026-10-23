@@ -56,7 +56,7 @@ export function Desk({ data }: { data: DeskData }) {
   const decisions = data.brief.decisions.length;
   const headline = `Today: ${decisions} Decision${decisions === 1 ? "" : "s"}`;
   const wx = data.weather;
-  const weatherLine = wx && wx.high != null && wx.low != null ? `${wx.emoji} ${wx.high}\u00b0 / ${wx.low}\u00b0` : "";
+  const weatherLine = wx && wx.high != null && wx.low != null ? `${wx.emoji} ${wx.high}\u00b0/${wx.low}\u00b0` : "";
 
   // The wake zoom. The room scales toward the monitor for about 400ms, then the monitor opens. Instant under reduced motion.
   const go = (next: Open) => {
@@ -106,12 +106,13 @@ export function Desk({ data }: { data: DeskData }) {
         </picture>
 
         {/* The sleeping monitor. Nothing on it scrolls or animates. */}
-        <div className="absolute flex flex-col items-center justify-center gap-1 overflow-hidden rounded-sm text-center" style={px(screen)}>
-          <span className="text-[clamp(0.55rem,3cqw,0.9rem)] text-white/60 tabular-nums">
+        {/* Sizes use the screen's own width (cqw), so both lines scale with the painted monitor. The top line never wraps. */}
+        <div className="absolute flex flex-col items-center justify-center gap-1 overflow-hidden rounded-sm text-center [container-type:inline-size]" style={px(screen)}>
+          <span className="text-[clamp(0.4rem,5.6cqw,0.9rem)] whitespace-nowrap text-white/60 tabular-nums">
             {time ? `${time} in New York` : ""}
             {time && weatherLine ? ` \u00b7 ${weatherLine}` : ""}
           </span>
-          <span className={`${headlineFont.className} text-[clamp(0.8rem,5cqw,1.6rem)] leading-tight font-semibold tracking-tight`}>{headline}</span>
+          <span className={`${headlineFont.className} text-[clamp(0.8rem,13cqw,1.6rem)] leading-tight font-semibold tracking-tight`}>{headline}</span>
           {roomy ? <span className="px-2 text-[0.6rem] text-white/50">{data.honesty}</span> : null}
         </div>
 
