@@ -23,7 +23,7 @@
   },
   "objects": [
     { "id": "frame_large", "live": "10/22", "box": { "x0": 55.0, "x1": 62.3, "y0": 12.6, "y1": 27.6 } },
-    { "id": "frame_small", "live": "later", "box": { "x0": 55.0, "x1": 62.3, "y0": 29.7, "y1": 43.4 } },
+    { "id": "frame_small", "live": "10/22", "box": { "x0": 55.0, "x1": 62.3, "y0": 29.7, "y1": 43.4 } },
     { "id": "monitor", "live": "10/22", "box": { "x0": 40.5, "x1": 59.3, "y0": 47.1, "y1": 74.1 } },
     { "id": "lamp", "live": "10/30", "box": { "x0": 32.2, "x1": 38.3, "y0": 45.8, "y1": 73.5 }, "hit": { "x0": 32.2, "x1": 38.3, "y0": 45.8, "y1": 66.6 } },
     { "id": "calendar", "live": "10/22", "box": { "x0": 34.3, "x1": 40.1, "y0": 67.1, "y1": 77.2 }, "hit": { "x0": 34.2, "x1": 40.1, "y0": 67.0, "y1": 77.4 } },
@@ -40,6 +40,7 @@
     { "id": "wall_screen", "live": "idea", "box": { "x0": 81.3, "x1": 95.3, "y0": 20.0, "y1": 46.9 }, "note": "Paula's idea: the right-wall frame doubles as a screen on desktop, after the freeze" }
   ],
   "openings": {
-    "frame_large": { "x0": 55.524, "x1": 61.943, "y0": 13.319, "y1": 26.972, "note": "The canvas opening inside the black liner, measured from the master's pixels Thu 10/22. Wall pieces are drawn here, over the painting." }
+    "frame_large": { "x0": 55.524, "x1": 61.943, "y0": 13.319, "y1": 26.972, "note": "The canvas opening inside the black liner, measured from the master's pixels Thu 10/22. Wall pieces are drawn here, over the painting." },
+    "frame_small": { "x0": 55.389, "x1": 61.875, "y0": 30.492, "y1": 42.688, "note": "Measured the same way, Thu 10/22." }
   }
 }

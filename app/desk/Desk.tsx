@@ -21,7 +21,7 @@ const px = (r: Rect) => ({ left: r.left, top: r.top, width: r.width, height: r.h
 const art = (w: number, ext: string) => `/art/office-phone-${manifest.version}-${w}.${ext}`;
 
 type Tab = "brief" | "ask" | "calendar" | "kpis";
-type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" } | { kind: "art" };
+type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" } | { kind: "art"; id: string };
 
 // What each live object does on 10/22. Anything not listed is set dressing, painted but not a button.
 const ACTIONS: Record<string, { label: string; open: Open }> = {
@@ -30,7 +30,8 @@ const ACTIONS: Record<string, { label: string; open: Open }> = {
   calendar: { label: "Alex's calendar", open: { kind: "monitor", tab: "calendar" } },
   letter_tray: { label: "The numbers, in the letter tray", open: { kind: "monitor", tab: "kpis" } },
   keyboard: { label: "Ask one of six questions", open: { kind: "monitor", tab: "ask" } },
-  frame_large: { label: "The painting on the wall", open: { kind: "art" } },
+  frame_large: { label: "The painting \u201cgm\u201d on the wall", open: { kind: "art", id: "gm" } },
+  frame_small: { label: "The painting \u201ccheers\u201d on the wall", open: { kind: "art", id: "cheers" } },
   coffee: { label: "What this morning's AI cost", open: { kind: "coffee" } },
   drawer_pull: { label: "Open the Engine Room", open: { kind: "engine" } },
 };
@@ -84,10 +85,12 @@ export function Desk({ data }: { data: DeskData }) {
   // The painted screen sits in the upper part of the monitor box.
   const screen: Rect = { left: monitor.left + monitor.width * 0.06, top: monitor.top + monitor.height * 0.05, width: monitor.width * 0.88, height: monitor.height * 0.62 };
   const roomy = screen.width > 200;
-  // The wall piece sits in the large frame's canvas opening, measured from the master painting.
-  const piece = wall.pieces[0]!;
-  const op = toCanvas(manifest.openings.frame_large);
-  const opening: Rect = { left: l.scene.left + (op.x0 / 100) * l.scene.width, top: l.scene.top + (op.y0 / 100) * l.scene.height, width: ((op.x1 - op.x0) / 100) * l.scene.width, height: ((op.y1 - op.y0) / 100) * l.scene.height };
+  // Each wall piece sits in its frame's canvas opening, measured from the master painting.
+  const openingOf = (frame: keyof typeof manifest.openings): Rect => {
+    const op = toCanvas(manifest.openings[frame]);
+    return { left: l.scene.left + (op.x0 / 100) * l.scene.width, top: l.scene.top + (op.y0 / 100) * l.scene.height, width: ((op.x1 - op.x0) / 100) * l.scene.width, height: ((op.y1 - op.y0) / 100) * l.scene.height };
+  };
+  const piece = open?.kind === "art" ? wall.pieces.find((p) => p.id === open.id) : undefined;
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-neutral-950 text-white">
@@ -112,10 +115,12 @@ export function Desk({ data }: { data: DeskData }) {
         </picture>
 
         {/* The sleeping monitor. Nothing on it scrolls or animates. */}
-        <picture>
-          <source type="image/avif" srcSet={`/art/wall/${piece.id}-frame.avif`} />
-          <img src={`/art/wall/${piece.id}-frame.webp`} alt="" aria-hidden className="pointer-events-none absolute object-cover shadow-[inset_0_0_6px_rgba(0,0,0,0.6)] select-none" style={px(opening)} draggable={false} />
-        </picture>
+        {wall.pieces.map((p) => (
+          <picture key={p.id}>
+            <source type="image/avif" srcSet={`/art/wall/${p.id}-frame.avif`} />
+            <img src={`/art/wall/${p.id}-frame.webp`} alt="" aria-hidden className="pointer-events-none absolute object-cover select-none" style={px(openingOf(p.frame as keyof typeof manifest.openings))} draggable={false} />
+          </picture>
+        ))}
 
         {/* Sizes use the screen's own width (cqw), so both lines scale with the painted monitor. The top line never wraps. */}
         <div className="absolute flex flex-col items-center justify-center gap-1 overflow-hidden rounded-sm text-center [container-type:inline-size]" style={px(screen)}>
@@ -172,9 +177,9 @@ export function Desk({ data }: { data: DeskData }) {
         </Frame>
       </Dialog>
 
-      <Dialog open={open?.kind === "art"} onClose={close} label={`${piece.title}, a painting by Paula McMahon`} className="h-[100dvh] w-[100vw] sm:h-auto sm:max-h-[92dvh] sm:w-[min(560px,96vw)] sm:rounded-2xl">
+      <Dialog open={open?.kind === "art"} onClose={close} label={piece ? `${piece.title}, a painting by Paula McMahon` : "On the wall"} className="h-[100dvh] w-[100vw] sm:h-auto sm:max-h-[92dvh] sm:w-[min(560px,96vw)] sm:rounded-2xl">
         <Frame title="On the wall" onClose={close} honesty={data.honesty}>
-          <Placard piece={piece} />
+          {piece ? <Placard piece={piece} /> : null}
         </Frame>
       </Dialog>
 

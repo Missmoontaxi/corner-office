@@ -1,16 +1,17 @@
-// Builds one wall piece from a Midjourney export kept outside git in ../art/source. Writes a copy cut to the
-// large frame's opening (scene/manifest.json, openings.frame_large) for the wall, and a full-shape copy for the
+// Builds one wall piece from a Midjourney export kept outside git in ../art/source. Writes a copy cut to its
+// frame's opening (scene/manifest.json, openings) for the wall, and a full-shape copy for the
 // tap view, each as AVIF and WebP under a budget. The piece's title, credit and prompt live in scene/wall.json.
-// Usage: node scripts/art-wall.mjs <file in ../art/source> <id>
+// Usage: node scripts/art-wall.mjs <file in ../art/source> <id> [frame_large | frame_small]
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
-const [file, id] = process.argv.slice(2);
+const [file, id, frame = "frame_large"] = process.argv.slice(2);
 if (!file || !id) throw new Error("Usage: node scripts/art-wall.mjs <file in ../art/source> <id>");
 const src = path.join("..", "art", "source", file);
 const m = JSON.parse(fs.readFileSync("scene/manifest.json", "utf8"));
-const o = m.openings.frame_large;
+const o = m.openings[frame];
+if (!o) throw new Error(`No opening for ${frame} in scene/manifest.json`);
 // The opening's shape in the master painting's pixels.
 const ratio = ((o.x1 - o.x0) * m.source.width) / ((o.y1 - o.y0) * m.source.height);
 const out = path.join("public", "art", "wall");
