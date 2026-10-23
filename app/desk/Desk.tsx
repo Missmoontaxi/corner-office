@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import manifest from "@/scene/manifest.json";
-import { layoutScene, type Rect } from "@/lib/scene/layout";
+import wall from "@/scene/wall.json";
+import { layoutScene, toCanvas, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
 import { headlineFont } from "../fonts";
 import { AskView } from "./Ask";
@@ -20,7 +21,7 @@ const px = (r: Rect) => ({ left: r.left, top: r.top, width: r.width, height: r.h
 const art = (w: number, ext: string) => `/art/office-phone-${manifest.version}-${w}.${ext}`;
 
 type Tab = "brief" | "ask" | "calendar" | "kpis";
-type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" };
+type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" } | { kind: "art" };
 
 // What each live object does on 10/22. Anything not listed is set dressing, painted but not a button.
 const ACTIONS: Record<string, { label: string; open: Open }> = {
@@ -29,6 +30,7 @@ const ACTIONS: Record<string, { label: string; open: Open }> = {
   calendar: { label: "Alex's calendar", open: { kind: "monitor", tab: "calendar" } },
   letter_tray: { label: "The numbers, in the letter tray", open: { kind: "monitor", tab: "kpis" } },
   keyboard: { label: "Ask one of six questions", open: { kind: "monitor", tab: "ask" } },
+  frame_large: { label: "The painting on the wall", open: { kind: "art" } },
   coffee: { label: "What this morning's AI cost", open: { kind: "coffee" } },
   drawer_pull: { label: "Open the Engine Room", open: { kind: "engine" } },
 };
@@ -82,6 +84,10 @@ export function Desk({ data }: { data: DeskData }) {
   // The painted screen sits in the upper part of the monitor box.
   const screen: Rect = { left: monitor.left + monitor.width * 0.06, top: monitor.top + monitor.height * 0.05, width: monitor.width * 0.88, height: monitor.height * 0.62 };
   const roomy = screen.width > 200;
+  // The wall piece sits in the large frame's canvas opening, measured from the master painting.
+  const piece = wall.pieces[0]!;
+  const op = toCanvas(manifest.openings.frame_large);
+  const opening: Rect = { left: l.scene.left + (op.x0 / 100) * l.scene.width, top: l.scene.top + (op.y0 / 100) * l.scene.height, width: ((op.x1 - op.x0) / 100) * l.scene.width, height: ((op.y1 - op.y0) / 100) * l.scene.height };
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-neutral-950 text-white">
@@ -106,6 +112,11 @@ export function Desk({ data }: { data: DeskData }) {
         </picture>
 
         {/* The sleeping monitor. Nothing on it scrolls or animates. */}
+        <picture>
+          <source type="image/avif" srcSet={`/art/wall/${piece.id}-frame.avif`} />
+          <img src={`/art/wall/${piece.id}-frame.webp`} alt="" aria-hidden className="pointer-events-none absolute object-cover shadow-[inset_0_0_6px_rgba(0,0,0,0.6)] select-none" style={px(opening)} draggable={false} />
+        </picture>
+
         {/* Sizes use the screen's own width (cqw), so both lines scale with the painted monitor. The top line never wraps. */}
         <div className="absolute flex flex-col items-center justify-center gap-1 overflow-hidden rounded-sm text-center [container-type:inline-size]" style={px(screen)}>
           <span className="text-[clamp(0.4rem,5.6cqw,0.9rem)] whitespace-nowrap text-white/60 tabular-nums">
@@ -158,6 +169,12 @@ export function Desk({ data }: { data: DeskData }) {
       <Dialog open={open?.kind === "engine"} onClose={close} label="Engine Room" className="h-[100dvh] w-[100vw] sm:h-[92dvh] sm:w-[min(760px,96vw)] sm:rounded-2xl">
         <Frame title="Engine Room" onClose={close} honesty={data.honesty}>
           <EngineRoom data={data} />
+        </Frame>
+      </Dialog>
+
+      <Dialog open={open?.kind === "art"} onClose={close} label={`${piece.title}, a painting by Paula McMahon`} className="h-[100dvh] w-[100vw] sm:h-auto sm:max-h-[92dvh] sm:w-[min(560px,96vw)] sm:rounded-2xl">
+        <Frame title="On the wall" onClose={close} honesty={data.honesty}>
+          <Placard piece={piece} />
         </Frame>
       </Dialog>
 
@@ -254,3 +271,26 @@ function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; set
     </Frame>
   );
 }
+
+// The wall piece and its placard. A second tap shows the prompt, so every piece has its provenance on the page.
+function Placard({ piece }: { piece: (typeof wall.pieces)[number] }) {
+  const [prompt, setPrompt] = useState(false);
+  return (
+    <figure className="space-y-3">
+      <picture>
+        <source type="image/avif" srcSet={`/art/wall/${piece.id}-full.avif`} />
+        <img src={`/art/wall/${piece.id}-full.webp`} alt={piece.alt} className="mx-auto max-h-[60dvh] w-auto rounded-sm border-[6px] border-[#2a2018] shadow-lg" />
+      </picture>
+      <figcaption className="mx-auto max-w-sm rounded-md bg-[#f7f3ea] p-4 text-sm text-[#1d1b18]">
+        <p className="text-base font-semibold italic">{piece.title}</p>
+        <p>{piece.credit}, {piece.made}</p>
+        <p className="mt-2 text-xs text-black/60">{piece.curation}</p>
+        <button type="button" onClick={() => setPrompt((p) => !p)} className="mt-2 min-h-11 rounded-full text-xs font-medium text-sky-800 underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-sky-700">
+          {prompt ? "Hide the prompt" : "Show the prompt"}
+        </button>
+        {prompt ? <p className="mt-1 font-mono text-[0.7rem] leading-relaxed text-black/70">{piece.prompt}</p> : null}
+      </figcaption>
+    </figure>
+  );
+}
+

@@ -21,6 +21,7 @@
     "check:mcp": "node scripts/check-mcp.mjs",
     "graybox:wide": "node scripts/graybox-wide.mjs ../art/graybox",
     "art:build": "node scripts/art-build.mjs",
+    "art:wall": "node scripts/art-wall.mjs",
     "brief": "tsx --env-file-if-exists=.env.local scripts/brief.ts",
     "asks": "tsx --env-file-if-exists=.env.local scripts/asks.ts",
     "test": "vitest run",
