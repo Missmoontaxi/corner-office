@@ -5,6 +5,7 @@ import manifest from "@/scene/manifest.json";
 import wall from "@/scene/wall.json";
 import { layoutScene, toCanvas, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
+import { BUILT_BY } from "@/lib/desk/shared";
 import { headlineFont } from "../fonts";
 import { AskView } from "./Ask";
 import { BriefView } from "./Brief";
@@ -129,7 +130,7 @@ export function Desk({ data }: { data: DeskData }) {
             {time && weatherLine ? ` \u00b7 ${weatherLine}` : ""}
           </span>
           <span className={`${headlineFont.className} text-[clamp(0.8rem,13cqw,1.6rem)] leading-tight font-semibold tracking-tight`}>{headline}</span>
-          {roomy ? <span className="px-2 text-[0.6rem] text-white/50">{data.honesty}</span> : null}
+          {roomy ? <span className="px-2 text-[0.6rem] text-white/50">{data.honesty} <em>{BUILT_BY}</em></span> : null}
         </div>
 
         {l.hits.map((t) => {
@@ -163,7 +164,7 @@ export function Desk({ data }: { data: DeskData }) {
       </header>
 
       <nav aria-label="Desk" className="absolute inset-x-0 flex items-center justify-center gap-2 bg-gradient-to-t from-black/70 to-transparent px-4 pb-[env(safe-area-inset-bottom)]" style={{ top: l.dock.top, height: h - l.dock.top }}>
-        <DockButton onClick={() => go({ kind: "monitor", tab: "brief" })}>Today’s brief</DockButton>
+        <DockButton onClick={() => go({ kind: "monitor", tab: "brief" })}>Today’s Brief</DockButton>
         <DockButton onClick={() => go({ kind: "engine" })}>Engine Room</DockButton>
       </nav>
 
@@ -233,7 +234,9 @@ function Frame({ title, onClose, honesty, tabs, children }: { title: string; onC
       </div>
       {tabs}
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4 [container-type:inline-size]">{children}</div>
-      <p className="border-t border-white/10 px-4 py-2 text-[0.7rem] text-white/50">{honesty}</p>
+      <p className="border-t border-white/10 px-4 py-2 text-[0.7rem] text-white/50">
+        {honesty} <em>{BUILT_BY}</em>
+      </p>
     </div>
   );
 }

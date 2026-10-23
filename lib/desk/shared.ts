@@ -1,4 +1,7 @@
 // Types and pure helpers the desk's client components share with the server data loader. No Node APIs here.
+
+// Paula's credit, shown in italics after the honesty line on every view.
+export const BUILT_BY = "Built by PM";
 export type Check = { passed: boolean; detail: string };
 export type Scorecard = {
   runAt: string;

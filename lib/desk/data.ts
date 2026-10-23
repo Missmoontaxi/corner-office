@@ -73,7 +73,7 @@ export function loadDesk() {
       ...day.tasks.map((t) => [t.id, `Task, ${t.task}`]),
     ]) as Record<string, string>,
     // Paula's wording, Thu 10/22.
-    honesty: "A day in the life of a fictional CareBird with seeded data and routed through live models. Built by PM",
+    honesty: "A day in the life as CEO at CareBird, a fictional company seeded with data and routed through live models.",
     weather: parseWeather(day.context?.weather),
   };
 }
