@@ -58,6 +58,8 @@ export function loadDesk() {
     scorecard,
     asks,
     buildersCalls,
+    // What this morning's precomputed AI cost, at list price: the brief plus every prompt-key answer.
+    morningCostMicroUsd: Receipt.parse(recorded.receipt).costMicroUsd + asks.reduce((t, a) => t + a.receipt.costMicroUsd, 0),
     calendar: day.calendar,
     kpis: day.kpis,
     tasks: day.tasks,

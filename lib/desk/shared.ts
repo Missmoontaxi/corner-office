@@ -48,3 +48,21 @@ export function parseWeather(text?: string | null): Weather | null {
   const sky = text.replace(/high\D*-?\d+|low\D*-?\d+/gi, "").replace(/[,.]/g, " ").trim();
   return { high: high ? Number(high) : null, low: low ? Number(low) : null, sky, emoji: SKY.find(([r]) => r.test(sky))?.[1] ?? "" };
 }
+
+// The coffee cup's comparison (Paula's wording, Thu 10/22). The price is BLS series APU0000717311, 100% ground
+// roast coffee per pound, U.S. city average, refreshed by hand when BLS publishes a new month. The per-cup cost
+// uses the Specialty Coffee Association's ratio of 55 grams per liter: 453.6 g brews 8.25 L, about 34.9 cups of
+// 8 ounces (0.2366 L).
+export const COFFEE = { pricePerPound: 9.332, month: "Sept 2026", cupsPerPound: 453.6 / 55 / 0.2366 };
+
+// The phrase that finishes "That's ...". Today's ratio of about 0.6 reads as Paula wrote it, "just over half".
+export function coffeeComparison(costUsd: number): string {
+  const r = costUsd / (COFFEE.pricePerPound / COFFEE.cupsPerPound);
+  if (r < 0.25) return "less than a quarter of the cost of a cup of coffee";
+  if (r < 0.45) return "less than half the cost of a cup of coffee";
+  if (r < 0.55) return "about half the cost of a cup of coffee";
+  if (r < 0.8) return "just over half the cost of a cup of coffee";
+  if (r < 0.95) return "a little less than the cost of a cup of coffee";
+  if (r < 1.15) return "about the cost of a cup of coffee";
+  return `about the cost of ${(Math.round(r * 10) / 10).toString()} cups of coffee`;
+}

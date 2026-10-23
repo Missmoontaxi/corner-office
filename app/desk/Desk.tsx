@@ -5,7 +5,7 @@ import manifest from "@/scene/manifest.json";
 import wall from "@/scene/wall.json";
 import { layoutScene, toCanvas, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
-import { BUILT_BY } from "@/lib/desk/shared";
+import { BUILT_BY, COFFEE, coffeeComparison } from "@/lib/desk/shared";
 import { headlineFont } from "../fonts";
 import { AskView } from "./Ask";
 import { BriefView } from "./Brief";
@@ -188,7 +188,11 @@ export function Desk({ data }: { data: DeskData }) {
         <div className="space-y-2 bg-neutral-900 p-5 text-sm text-white">
           <h2 className="text-base font-semibold">This morning’s AI</h2>
           <p>
-            Screening {data.screen.items} items and writing the brief cost ${(data.receipt.costMicroUsd / 1e6).toFixed(3)} at list price.
+            ${(data.morningCostMicroUsd / 1e6).toFixed(2)} for the brief and {data.asks.length === 6 ? "six" : data.asks.length} answers, at list price.
+          </p>
+          <p>That’s {coffeeComparison(data.morningCostMicroUsd / 1e6)}.</p>
+          <p className="text-xs text-white/50">
+            Coffee at ${COFFEE.pricePerPound.toFixed(2)} a pound, U.S. average, {COFFEE.month} (U.S. BLS).
           </p>
           <div className="flex justify-end">
             <CloseButton onClose={close} />
