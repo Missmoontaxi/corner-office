@@ -1,0 +1,331 @@
+{
+ "day_id": "C08",
+ "date_label": "Wednesday, November 18, 2026",
+ "persona": {
+  "name": "Alex Ellery",
+  "role": "Founder and CEO",
+  "company": "CareBird"
+ },
+ "calendar": [
+  {
+   "id": "E01",
+   "start": "08:30",
+   "end": "09:00",
+   "title": "Morning ops check-in",
+   "attendees": "Jordan",
+   "notes": "Boston overnight backlog follow-up. Backlog peaked at 164 handoffs Monday night, down to 58 by 5am."
+  },
+  {
+   "id": "E02",
+   "start": "09:30",
+   "end": "10:15",
+   "title": "Board deck finance section review",
+   "attendees": "Julian",
+   "notes": "Burn multiple 2.8, forecast gap of $1.2M to the $19M year end ARR plan, Q1 hiring plan."
+  },
+  {
+   "id": "E03",
+   "start": "10:30",
+   "end": "11:15",
+   "title": "Brand marketing campaign strategy review",
+   "attendees": "Tomás, Keisha Durant",
+   "notes": "Campaign strategy is due today. Tomás to walk through the winter campaign and budget ask."
+  },
+  {
+   "id": "E04",
+   "start": "12:00",
+   "end": "14:00",
+   "title": "Board prep: full deck walkthrough",
+   "attendees": "Julian, Jordan, Priya, Tomás",
+   "notes": "Board moved from Friday to Thursday, so this is the last full run-through. Conference room 4B."
+  },
+  {
+   "id": "E05",
+   "start": "12:30",
+   "end": "13:45",
+   "title": "Lunch with Celeste Navarro, CIO, Harborline Mutual",
+   "attendees": "Celeste Navarro (Harborline Mutual)",
+   "notes": "Larkspur Grill, 211 Hudson St. Integration and data security questions ahead of the at Work rollout. Overlaps board prep."
+  },
+  {
+   "id": "E06",
+   "start": "14:30",
+   "end": "15:00",
+   "title": "Roadmap check-in",
+   "attendees": "Priya",
+   "notes": "Partner portal confirmations at 40 percent. Q1 priorities slide for the board."
+  },
+  {
+   "id": "E07",
+   "start": "15:30",
+   "end": "16:00",
+   "title": "Evals 1:1",
+   "attendees": "Wen",
+   "notes": "Agent task closure at 70 percent vs 85 percent target."
+  },
+  {
+   "id": "E08",
+   "start": "16:30",
+   "end": "17:00",
+   "title": "Privacy incident update",
+   "attendees": "Nadia",
+   "notes": "One open incident. Confirm wording for the board risk slide."
+  },
+  {
+   "id": "E09",
+   "start": "D+1 09:00",
+   "end": "D+1 12:00",
+   "title": "Board meeting (moved from Friday)",
+   "attendees": "Board members, Julian, Jordan",
+   "notes": "Moved from Friday, November 20 to Thursday, November 19. Northgate Partners offices, 9th floor, video link in invite."
+  },
+  {
+   "id": "E10",
+   "start": "D+1 17:00",
+   "end": "D+1 17:45",
+   "title": "VP of Care interview: Theo Ranganathan",
+   "attendees": "Theo Ranganathan, Grace Lindqvist (TalentBridge)",
+   "notes": "Squeezed in Thursday after the board. Only slot before the candidate's other final rounds. Video."
+  }
+ ],
+ "inbox": [
+  {
+   "id": "M01",
+   "from": "Julian",
+   "address": "julian@carebird.example",
+   "subject": "Burn multiple for the deck",
+   "received": "05:52",
+   "body": "Alex,\n\nHeads up before our 9:30am. Burn multiple comes in at 2.8 for the trailing quarter going into the board deck. Most of it is the Q4 care lead hiring and the Boston overtime. ARR is at $17.8M and we are forecasting a $1.2M gap to the $19M year end plan.\n\nAlso a reminder that the board moved from Friday to Thursday, 9am, so I need final numbers locked by 6pm today. I'd like to show the 2.8 with a bridge to where it lands once the Q1 hires ramp. Happy to talk options.\n\nJulian"
+  },
+  {
+   "id": "M02",
+   "from": "Helen Marsh",
+   "address": "helen@northgatepartners.example",
+   "subject": "Re: Board meeting moved to Thursday",
+   "received": "Tue 21:14",
+   "body": "Alex,\n\nThursday at 9 works for me, thanks for moving it. We'll host at our offices as planned. Please get the deck to the group by tonight if you can so people have the evening to read.\n\nBest,\nHelen"
+  },
+  {
+   "id": "M03",
+   "from": "Celeste Navarro",
+   "address": "celeste.navarro@harborlinemutual.example",
+   "subject": "Lunch today",
+   "received": "06:40",
+   "body": "Hi Alex,\n\nLooking forward to lunch at Larkspur Grill at 12:30pm. Diane mentioned you might be tight today, so I'm happy to keep it to an hour. I'd mainly like to understand how employee data flows into CareBird and what my team needs to do before January.\n\nBest,\nCeleste Navarro\nChief Information Officer, Harborline Mutual"
+  },
+  {
+   "id": "M04",
+   "from": "Grace Lindqvist",
+   "address": "grace@talentbridge.example",
+   "subject": "VP of Care: Theo Ranganathan, Thursday 5pm",
+   "received": "Tue 18:47",
+   "body": "Hi Alex,\n\nTheo can only do Thursday this week before his other final rounds, so I've squeezed him in at 5pm on Thursday, after your board. Forty five minutes on video. He ran care operations for a 300-person home health network and has scaled a coordinator team from 20 to 90.\n\nResume and my notes attached. Let me know if you want Jordan to join.\n\nGrace"
+  },
+  {
+   "id": "M05",
+   "from": "Tomás",
+   "address": "tomas@carebird.example",
+   "subject": "Brand campaign strategy, due today",
+   "received": "06:15",
+   "body": "Alex,\n\nThe brand marketing campaign strategy is due today. Draft is in the shared folder. Short version: one winter campaign built around adult children planning for the holidays, Family as the hero product, Expert Bench at the $99 seasonal price as the entry point.\n\nWe'll go through it at 10:30am. I need your call on the budget level so Keisha can brief the agency Thursday.\n\nTomás"
+  },
+  {
+   "id": "M06",
+   "from": "Jordan",
+   "address": "jordan@carebird.example",
+   "subject": "Board prep vs Harborline lunch",
+   "received": "06:58",
+   "body": "Alex,\n\nYour Harborline CIO lunch at 12:30pm overlaps the board prep block from 12pm to 2pm. Options: I run the first half and you join at 1:45pm for the ops and finance sections, or we push prep to 2pm and move your Priya check-in. Your call, tell me by 10.\n\nJordan"
+  },
+  {
+   "id": "M07",
+   "from": "Nadia",
+   "address": "nadia@carebird.example",
+   "subject": "Incident status for the board slide",
+   "received": "07:05",
+   "body": "Alex,\n\nStill one open privacy incident. Root cause is confirmed and affected users were notified Monday. I expect to close it next week. Proposed one-line wording for the risk slide is in the doc. Can review at 4:30pm.\n\nNadia"
+  },
+  {
+   "id": "M08",
+   "from": "Erika",
+   "address": "erika@carebird.example",
+   "subject": "Donna update",
+   "received": "07:20",
+   "body": "Hi Alex,\n\nQuick update on your mom. Donna's cardiology follow-up moved to Monday at 10:30am because the doctor was out. I've rebooked her ride and Tommy will cover if I'm out that morning. Her new blood pressure medication refill is ready at the pharmacy and I've arranged delivery for Thursday.\n\nErika"
+  },
+  {
+   "id": "M09",
+   "from": "Sai",
+   "address": "sai.ellery@mailhaven.example",
+   "subject": "Thanksgiving",
+   "received": "Tue 22:30",
+   "body": "Hey,\n\nAre we still doing Thanksgiving at Aunt Donna's place? I can bring pies and pick up the rolls. Let me know headcount when you get a sec, I know it's a crazy week.\n\nSai"
+  },
+  {
+   "id": "M10",
+   "from": "Facilities Desk",
+   "address": "facilities@brightwellproperties.example",
+   "subject": "HVAC maintenance Friday",
+   "received": "Tue 16:02",
+   "body": "Hello,\n\nScheduled HVAC maintenance on floors 6 and 7 this Friday, November 20, from 7am to 11am. Expect some noise and reduced airflow in the east conference rooms.\n\nFacilities Desk\nBrightwell Properties"
+  }
+ ],
+ "newsletters": [
+  {
+   "id": "N01",
+   "publication": "Benefits Ledger Weekly",
+   "title": "Employers rethink caregiving benefits for 2027",
+   "body": "A survey of 400 HR leaders finds caregiving support moving into core benefits packages, with insurers and large employers leading adoption. Budgets for 2027 are flat overall but caregiving lines are up."
+  },
+  {
+   "id": "N02",
+   "publication": "The Agetech Brief",
+   "title": "Care coordination funding round-up",
+   "body": "Three care coordination startups closed rounds this month. Investors are focusing on efficiency metrics, including burn multiples and staff minutes per household, more than top line growth."
+  }
+ ],
+ "kpis": [
+  {
+   "id": "K01",
+   "metric": "Company: ARR",
+   "value": 17800000,
+   "unit": "USD"
+  },
+  {
+   "id": "K02",
+   "metric": "Finance: Burn multiple, trailing quarter",
+   "value": 2.8,
+   "unit": "x"
+  },
+  {
+   "id": "K03",
+   "metric": "Finance: Year end 2026 ARR plan",
+   "value": 19000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K04",
+   "metric": "Finance: Forecast gap to year end ARR plan",
+   "value": 1200000,
+   "unit": "USD"
+  },
+  {
+   "id": "K05",
+   "metric": "Company: Headcount",
+   "value": 150,
+   "unit": "people"
+  },
+  {
+   "id": "K06",
+   "metric": "Company: Care leads",
+   "value": 48,
+   "unit": "people"
+  },
+  {
+   "id": "K07",
+   "metric": "Hiring: Q1 care lead offers accepted",
+   "value": 3,
+   "unit": "people"
+  },
+  {
+   "id": "K08",
+   "metric": "Operations: Boston backlog at 05:00",
+   "value": 58,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K09",
+   "metric": "North Star: Standing Plan items completed inside their window",
+   "value": 91,
+   "unit": "percent"
+  },
+  {
+   "id": "K10",
+   "metric": "AI in the numbers: Tasks closed by agents with no care lead touch",
+   "value": 70,
+   "unit": "percent"
+  },
+  {
+   "id": "K11",
+   "metric": "Family: Households",
+   "value": 3800,
+   "unit": "households"
+  },
+  {
+   "id": "K12",
+   "metric": "Privacy: Open incidents",
+   "value": 1,
+   "unit": "incidents"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "How should the burn multiple of 2.8 be presented in the board deck?",
+   "detail": "Julian proposes showing 2.8 with a bridge to the post Q1 ramp figure. Numbers lock at 6pm today for the Thursday board."
+  },
+  {
+   "id": "D2",
+   "question": "Keep the Harborline CIO lunch or move board prep?",
+   "detail": "Lunch 12:30pm to 1:45pm overlaps board prep 12pm to 2pm. Jordan can run the first half, or prep moves to 2pm. Answer needed by 10am."
+  },
+  {
+   "id": "D3",
+   "question": "Approve the brand campaign strategy and budget level",
+   "detail": "Strategy due today. Keisha briefs the agency Thursday."
+  },
+  {
+   "id": "D4",
+   "question": "Should Jordan join the VP of Care interview Thursday at 5pm?",
+   "detail": "Grace offered to add Jordan. Theo Ranganathan only available Thursday."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "T01",
+   "task": "Lock final board deck numbers",
+   "owner": "Julian",
+   "due": "2026-11-18 18:00",
+   "status": "In progress"
+  },
+  {
+   "id": "T02",
+   "task": "Send board deck to board members",
+   "owner": "Alex Ellery",
+   "due": "2026-11-18 evening",
+   "status": "Not started"
+  },
+  {
+   "id": "T03",
+   "task": "Deliver brand marketing campaign strategy",
+   "owner": "Tomás",
+   "due": "2026-11-18",
+   "status": "Draft ready"
+  },
+  {
+   "id": "T04",
+   "task": "Review Theo Ranganathan resume before VP of Care interview",
+   "owner": "Alex Ellery",
+   "due": "2026-11-19 17:00",
+   "status": "Not started"
+  },
+  {
+   "id": "T05",
+   "task": "Finalize privacy incident wording for risk slide",
+   "owner": "Nadia",
+   "due": "2026-11-18",
+   "status": "In progress"
+  },
+  {
+   "id": "T06",
+   "task": "Reply to Sai about Thanksgiving headcount",
+   "owner": "Alex Ellery",
+   "due": "2026-11-20",
+   "status": "Not started"
+  }
+ ],
+ "context": {
+  "weather": "Partly sunny, high 52°F, low 41°F, breezy in the afternoon",
+  "observances": []
+ }
+}

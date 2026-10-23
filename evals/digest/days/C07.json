@@ -1,0 +1,334 @@
+{
+ "day_id": "C07",
+ "date_label": "Tuesday, November 17, 2026",
+ "persona": {
+  "name": "Alex Ellery",
+  "role": "Founder and CEO",
+  "company": "CareBird"
+ },
+ "calendar": [
+  {
+   "id": "E01",
+   "start": "07:00",
+   "end": "07:45",
+   "title": "Run, Hudson River path",
+   "attendees": "Alex Ellery",
+   "notes": "Bring rain shell if it starts early."
+  },
+  {
+   "id": "E02",
+   "start": "08:30",
+   "end": "09:00",
+   "title": "Misdirected household summary: decision call",
+   "attendees": "Alex Ellery, Nadia, Jordan, Dr. Sofia Patel",
+   "notes": "Added by Nadia at 6:12am. Care lead emailed a member's household summary to the wrong family last night. Name and care plan exposed. No financial data, no address. Need a decision on notifying the member today."
+  },
+  {
+   "id": "E03",
+   "start": "10:00",
+   "end": "11:00",
+   "title": "Tuesday ops sync",
+   "attendees": "Jordan, Alex Ellery, Priya, Sanjay, Tomás, Julian, Nadia",
+   "notes": "Standing agenda: Boston overnight queue, Q1 care lead hiring, Harborline January setup capacity."
+  },
+  {
+   "id": "E04",
+   "start": "11:30",
+   "end": "12:30",
+   "title": "Board deck draft review",
+   "attendees": "Julian, Alex Ellery",
+   "notes": "Draft due to board members tomorrow, Wednesday November 18. Open slides: year end ARR forecast, hiring, Harborline launch pace."
+  },
+  {
+   "id": "E05",
+   "start": "12:30",
+   "end": "13:15",
+   "title": "Lunch at desk",
+   "attendees": "Alex Ellery",
+   "notes": ""
+  },
+  {
+   "id": "E06",
+   "start": "13:30",
+   "end": "14:15",
+   "title": "Product review: partner portal confirmations",
+   "attendees": "Priya, Sanjay, Alex Ellery",
+   "notes": "Portal confirmations at 40 percent. Review plan to move fax and phone confirmations into the portal."
+  },
+  {
+   "id": "E07",
+   "start": "14:30",
+   "end": "15:00",
+   "title": "1:1 Wen",
+   "attendees": "Wen, Alex Ellery",
+   "notes": "Agent task closure at 70 percent vs 85 percent target. Eval results on the new scheduling agent."
+  },
+  {
+   "id": "E08",
+   "start": "15:30",
+   "end": "16:00",
+   "title": "Candidate call: care lead manager, Boston",
+   "attendees": "Alex Ellery, Grace Lindqvist (TalentBridge)",
+   "notes": "Final round debrief prep."
+  },
+  {
+   "id": "E09",
+   "start": "16:30",
+   "end": "17:15",
+   "title": "Harborline prep with Tomás",
+   "attendees": "Tomás, Alex Ellery",
+   "notes": "Prep for Thursday follow up with Diane Coleridge (Harborline Mutual)."
+  },
+  {
+   "id": "E10",
+   "start": "18:30",
+   "end": "19:00",
+   "title": "Call Mom",
+   "attendees": "Alex Ellery, Donna",
+   "notes": "Weekly call."
+  }
+ ],
+ "inbox": [
+  {
+   "id": "M01",
+   "from": "Nadia",
+   "address": "nadia@carebird.example",
+   "subject": "Incident: household summary sent to the wrong family",
+   "received": "06:08",
+   "body": "Alex,\n\nLast night at 9:40pm Lucas Ferreira, one of our Family care leads, emailed the monthly household summary for Margaret Oduya to the wrong family. Margaret has been a member since 2022. The email went to the Halvorsen household, who are also on Lucas's caseload. Autocomplete picked the wrong contact.\n\nWhat was exposed: Margaret's name and her care plan (medication schedule, mobility notes, upcoming appointments by type). No financial data, no address, no account or insurance numbers.\n\nWhat we've done: Lucas flagged it himself at 10:15pm. Tom Halvorsen replied at 11:02pm confirming he deleted it and did not forward it. I have that in writing. I've disabled autocomplete for external addresses on care lead mail as of 5:30am.\n\nWhat I need from you: a decision on notifying Margaret and her daughter today. My recommendation is that we call them today, with Lucas's manager on the line, and follow with a written letter. Outside counsel (Priscilla Vance) agrees we should notify promptly even if this falls below a formal reporting threshold. I've put 8:30am on your calendar.\n\nNadia"
+  },
+  {
+   "id": "M02",
+   "from": "Dr. Sofia Patel",
+   "address": "sofia.patel@carebird.example",
+   "subject": "Re: Incident: household summary sent to the wrong family",
+   "received": "06:51",
+   "body": "Nadia, Alex,\n\nThe care plan includes memory care notes, which families tend to find more upsetting than a billing slip would. I'd support telling Margaret's daughter today, by phone, before she hears it any other way. Happy to join the 8:30am.\n\nSofia"
+  },
+  {
+   "id": "M03",
+   "from": "Julian",
+   "address": "julian@carebird.example",
+   "subject": "Board deck draft: due tomorrow",
+   "received": "Mon 19:22",
+   "body": "Alex,\n\nReminder the draft goes to board members tomorrow, Wednesday. I've updated the finance slides: ARR at $17.8M, year end plan $19.0M, forecast gap $1.2M. Still need your narrative on the gap and on Harborline launch pace (1,600 households entering setup in January on a full launch vs 800 we can set up from January 1 and keep the promise).\n\nSee you at 11:30am.\n\nJulian"
+  },
+  {
+   "id": "M04",
+   "from": "Jordan",
+   "address": "jordan@carebird.example",
+   "subject": "Tuesday sync agenda",
+   "received": "Mon 20:10",
+   "body": "Team,\n\nAgenda for 10am:\n1. Boston overnight: last recurrence ran 3.2 hours, backlog peaked at 164 handoffs, down to 58 by 5am. Sanjay to walk through the queue patch (1 week roadmap slip).\n2. Hiring: 12 care lead hires planned for Q1, 3 offers accepted, active pipeline down 17 percent month over month.\n3. Harborline January capacity.\n\nJordan"
+  },
+  {
+   "id": "M05",
+   "from": "Tomás",
+   "address": "tomas@carebird.example",
+   "subject": "Harborline: Diane wants a phased plan",
+   "received": "Mon 21:35",
+   "body": "Alex,\n\nDiane Coleridge called this afternoon. Owen Pryce is pushing for full rollout to all 40,000 employees on January 1. Diane is open to phasing if we bring a clear plan Thursday. That's $2.9M of new ARR at $6 per employee per month either way. Let's lock our position at 4:30pm.\n\nTomás"
+  },
+  {
+   "id": "M06",
+   "from": "Grace Lindqvist",
+   "address": "grace@talentbridge.example",
+   "subject": "Boston care lead manager: final round notes",
+   "received": "Mon 17:48",
+   "body": "Hi Alex,\n\nAttaching notes from Imani Brooks's panel. Strong on caseload management, a few questions on overnight coverage. Can we talk at 3:30pm?\n\nBest,\nGrace"
+  },
+  {
+   "id": "M07",
+   "from": "Erika",
+   "address": "erika@carebird.example",
+   "subject": "Donna this week",
+   "received": "Mon 18:30",
+   "body": "Hi Alex,\n\nQuick update on your mom. Her dental cleaning is confirmed for Friday at 10am and transport is booked. Her pharmacy refill went through today. Tommy will cover Thursday while I'm in training.\n\nErika"
+  },
+  {
+   "id": "M08",
+   "from": "Facilities Desk",
+   "address": "facilities@brightwellproperties.example",
+   "subject": "Elevator maintenance, Wednesday",
+   "received": "Mon 16:05",
+   "body": "Hello tenants,\n\nThe north elevator bank will be out of service Wednesday, November 18, from 7am to 11am. Please use the south bank.\n\nThank you,\nFacilities Desk, Brightwell Properties"
+  }
+ ],
+ "newsletters": [
+  {
+   "id": "N01",
+   "publication": "Care Economy Weekly",
+   "title": "Employers keep adding caregiving benefits for 2027",
+   "body": "A survey of 300 mid size employers found one in three plans to add a caregiving benefit next year. Activation remains the open question, with most vendors pricing for low single digit uptake. Also: two home care staffing firms merge in the Midwest."
+  },
+  {
+   "id": "N02",
+   "publication": "The Operator's Ledger",
+   "title": "Board decks that don't bury the bad news",
+   "body": "This week: why the best founder updates lead with the miss, how to frame a forecast gap without hedging, and a template for an incidents slide."
+  }
+ ],
+ "kpis": [
+  {
+   "id": "K01",
+   "metric": "Company: ARR",
+   "value": 17800000,
+   "unit": "USD"
+  },
+  {
+   "id": "K02",
+   "metric": "Finance: Year end 2026 ARR plan",
+   "value": 19000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K03",
+   "metric": "Finance: Forecast gap to year end ARR plan",
+   "value": 1200000,
+   "unit": "USD"
+  },
+  {
+   "id": "K04",
+   "metric": "Company: Headcount",
+   "value": 150,
+   "unit": "people"
+  },
+  {
+   "id": "K05",
+   "metric": "Company: Care leads",
+   "value": 48,
+   "unit": "people"
+  },
+  {
+   "id": "K06",
+   "metric": "Hiring: Q1 care lead hires planned",
+   "value": 12,
+   "unit": "people"
+  },
+  {
+   "id": "K07",
+   "metric": "Hiring: Q1 care lead offers accepted",
+   "value": 3,
+   "unit": "people"
+  },
+  {
+   "id": "K08",
+   "metric": "Hiring: Active pipeline change, month over month",
+   "value": -17,
+   "unit": "percent"
+  },
+  {
+   "id": "K09",
+   "metric": "Operations: Boston overnight backlog at peak",
+   "value": 164,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K10",
+   "metric": "Operations: Boston backlog at 05:00",
+   "value": 58,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K11",
+   "metric": "North Star: Standing Plan items completed inside their window",
+   "value": 91,
+   "unit": "percent"
+  },
+  {
+   "id": "K12",
+   "metric": "AI in the numbers: Tasks closed by agents with no care lead touch",
+   "value": 70,
+   "unit": "percent"
+  },
+  {
+   "id": "K13",
+   "metric": "Operations: Provider confirmations arriving in the partner portal",
+   "value": 40,
+   "unit": "percent"
+  },
+  {
+   "id": "K14",
+   "metric": "Family: Households",
+   "value": 3800,
+   "unit": "households"
+  },
+  {
+   "id": "K15",
+   "metric": "Retention: Family households kept at 12 months",
+   "value": 84,
+   "unit": "percent"
+  },
+  {
+   "id": "K16",
+   "metric": "Privacy: Open incidents",
+   "value": 1,
+   "unit": "incidents"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "Notify Margaret Oduya and her daughter today about the misdirected household summary?",
+   "detail": "Summary was sent to the wrong family (Halvorsen household) last night. Name and care plan exposed; no financial data, no address. Recipient confirmed deletion in writing. Nadia recommends a call today plus written letter; Dr. Sofia Patel supports. Decision needed today."
+  },
+  {
+   "id": "D2",
+   "question": "Harborline launch pace: full January 1 rollout or phased?",
+   "detail": "1,600 households would enter setup in January on a full launch; care leads can set up 800 from January 1 and keep the promise. Position needed for Thursday with Diane Coleridge."
+  },
+  {
+   "id": "D3",
+   "question": "Include the privacy incident in the board deck?",
+   "detail": "Draft goes to board members tomorrow. Julian asking whether to add an incidents slide."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "T01",
+   "task": "Finish narrative slides for board deck draft (forecast gap, Harborline pace)",
+   "owner": "Alex Ellery",
+   "due": "2026-11-18",
+   "status": "In progress"
+  },
+  {
+   "id": "T02",
+   "task": "Written incident report on misdirected household summary",
+   "owner": "Nadia",
+   "due": "2026-11-18",
+   "status": "In progress"
+  },
+  {
+   "id": "T03",
+   "task": "Roll out external address confirmation on care lead mail",
+   "owner": "Sanjay",
+   "due": "2026-11-20",
+   "status": "Not started"
+  },
+  {
+   "id": "T04",
+   "task": "Phased Harborline rollout plan for Thursday",
+   "owner": "Tomás",
+   "due": "2026-11-19",
+   "status": "In progress"
+  },
+  {
+   "id": "T05",
+   "task": "Boston queue patch deploy",
+   "owner": "Sanjay",
+   "due": "2026-11-24",
+   "status": "In progress"
+  },
+  {
+   "id": "T06",
+   "task": "Reply to Sai on Thanksgiving headcount",
+   "owner": "Alex Ellery",
+   "due": "2026-11-21",
+   "status": "Not started"
+  }
+ ],
+ "context": {
+  "weather": "Cloudy and cool, light rain after 15:00. High 51F, low 42F.",
+  "observances": []
+ }
+}

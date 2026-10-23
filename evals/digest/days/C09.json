@@ -1,0 +1,372 @@
+{
+ "day_id": "C09",
+ "date_label": "Thursday, November 19, 2026",
+ "persona": {
+  "name": "Alex Ellery",
+  "role": "Founder and CEO",
+  "company": "CareBird"
+ },
+ "calendar": [
+  {
+   "id": "E01",
+   "start": "07:30",
+   "end": "08:00",
+   "title": "Board prep: final numbers walk-through",
+   "attendees": "Julian (video)",
+   "notes": "Julian to walk the final finance slides. ARR $17.8M, burn multiple 2.8x trailing quarter, Harborline Mutual still unsigned."
+  },
+  {
+   "id": "E02",
+   "start": "08:30",
+   "end": "09:00",
+   "title": "1:1 Priya",
+   "attendees": "Priya",
+   "notes": "Weekly 1:1. Partner portal roadmap, Standing Plan reminders copy."
+  },
+  {
+   "id": "E03",
+   "start": "09:15",
+   "end": "09:45",
+   "title": "Waves plan dry run for board",
+   "attendees": "Jordan, Julian",
+   "notes": "Jordan rehearses the January launch slide: 800 households on January 1, remainder in a second wave."
+  },
+  {
+   "id": "E04",
+   "start": "10:30",
+   "end": "11:00",
+   "title": "VP of Care search update",
+   "attendees": "Grace Lindqvist (TalentBridge)",
+   "notes": "Two new leads this week, one interviewing this week."
+  },
+  {
+   "id": "E05",
+   "start": "11:15",
+   "end": "11:45",
+   "title": "Brand campaign teaser review",
+   "attendees": "Tomás",
+   "notes": "Three slides for the board teaser following Wednesday's brand session."
+  },
+  {
+   "id": "E06",
+   "start": "12:00",
+   "end": "12:30",
+   "title": "Final deck sign-off",
+   "attendees": "Marisol Reyes, Julian",
+   "notes": "Lock the PDF and send to board members by 12:30pm."
+  },
+  {
+   "id": "E07",
+   "start": "14:00",
+   "end": "17:00",
+   "title": "Board meeting",
+   "attendees": "Board members, Julian, Jordan, Tomás",
+   "notes": "Conference room 4B plus video bridge. Agenda: Q4 financials, Harborline Mutual status, January waves plan, VP of Care search, brand campaign preview, executive session."
+  },
+  {
+   "id": "E08",
+   "start": "17:00",
+   "end": "17:45",
+   "title": "VP of Care interview: Theo Ranganathan",
+   "attendees": "Theo Ranganathan, Grace Lindqvist (TalentBridge)",
+   "notes": "Squeezed in after the board. Resume in the hiring folder."
+  },
+  {
+   "id": "E09",
+   "start": "18:00",
+   "end": "18:30",
+   "title": "Board debrief",
+   "attendees": "Julian, Jordan",
+   "notes": "Capture follow-ups and owners."
+  },
+  {
+   "id": "E10",
+   "start": "Saturday 10:30",
+   "end": "Saturday 11:30",
+   "title": "Mom: podiatry foot care appointment",
+   "attendees": "Donna, Erika",
+   "notes": "Westbrook Foot and Ankle, Dr. Hal Benning. Nail care and callus treatment, diabetic foot check. Erika confirmed and is arranging the ride."
+  }
+ ],
+ "inbox": [
+  {
+   "id": "M01",
+   "from": "Julian",
+   "address": "julian@carebird.example",
+   "subject": "Final board numbers",
+   "received": "05:52",
+   "body": "Alex,\n\nFinal numbers are in the deck, v7. ARR closes the reporting period at $17.8M. Burn multiple on the trailing quarter is 2.8x. Against the $19.0M year end plan we are forecasting a $1.2M gap.\n\nThe Harborline Mutual deal is not signed. I have it as pipeline only, not in the forecast, and the slide says so plainly. If it signs at $6 per employee per month across 40,000 employees it is about $2.9M of new ARR, but I would not let anyone round it in.\n\nHappy to take the burn questions directly. See you at 7:30am.\n\nJulian"
+  },
+  {
+   "id": "M02",
+   "from": "Celeste Navarro",
+   "address": "celeste.navarro@harborlinemutual.example",
+   "subject": "RE: Agreement status",
+   "received": "Wed 18:41",
+   "body": "Hi Alex,\n\nQuick update so you are not surprised. The agreement is still with our procurement and legal team, so it will not be signed this week. Diane is supportive and nothing substantive has come back on terms. Realistically we are looking at the first week of December for signature.\n\nI will flag the moment it moves.\n\nBest,\nCeleste Navarro\nBenefits Partnerships, Harborline Mutual"
+  },
+  {
+   "id": "M03",
+   "from": "Jordan",
+   "address": "jordan@carebird.example",
+   "subject": "Waves plan slide for today",
+   "received": "06:10",
+   "body": "Alex,\n\nI want to present the waves plan at the board today rather than a full launch. Wave one is 800 households on January 1, which is what our care leads can set up and still keep the promise. A full launch would put about 1,600 households into setup in January, and we do not have the capacity for that without breaking the Standing Plan windows.\n\nWave two picks up the remainder in February once the three Q1 care lead hires are ramped. Rehearsal at 9:15am if that still works.\n\nJordan"
+  },
+  {
+   "id": "M04",
+   "from": "Grace Lindqvist",
+   "address": "grace@talentbridge.example",
+   "subject": "VP of Care: two new leads",
+   "received": "Wed 20:05",
+   "body": "Hi Alex,\n\nGood week on the VP of Care search. We have two new leads: Maya Hollis, who ran home care operations for a regional health system, and Daniel Achterberg, currently head of member services at a senior living operator. Theo is still on for 5pm today after the board, and Maya can interview with you and Jordan next week.\n\nI will bring both profiles to our 10:30am.\n\nBest,\nGrace Lindqvist\nTalentBridge"
+  },
+  {
+   "id": "M05",
+   "from": "Tomás",
+   "address": "tomas@carebird.example",
+   "subject": "Brand campaign teaser",
+   "received": "06:24",
+   "body": "Alex,\n\nFeedback from Wednesday's session was strong across the room. Brand strategy looks good, and the employer panel responded well to the new line. I would like to tease the campaign at the board today, three slides at the end, nothing more than the direction and the launch window.\n\nDraft is in the shared folder. Can review at 11:15am.\n\nTomás"
+  },
+  {
+   "id": "M06",
+   "from": "Erika",
+   "address": "erika@carebird.example",
+   "subject": "Donna's foot care appointment is confirmed",
+   "received": "Wed 17:30",
+   "body": "Hi Alex,\n\nGood news, Donna's foot care appointment is finally confirmed for Saturday at 10:30am with Dr. Hal Benning at Westbrook Foot and Ankle. It is the nail care and callus treatment plus her diabetic foot check that kept getting bumped.\n\nI have booked the ride from her independent living residence and will meet her there. Tommy has the details in case anything changes on my side. I told Donna and she was relieved.\n\nErika"
+  },
+  {
+   "id": "M07",
+   "from": "Marisol Reyes",
+   "address": "marisol@carebird.example",
+   "subject": "Board logistics",
+   "received": "06:02",
+   "body": "Hi Alex,\n\nRoom 4B is booked from 1:30pm, video bridge tested. Two board members are joining remotely. Lunch for the room arrives at 1:45pm. I will send the locked PDF as soon as you sign off at noon.\n\nMarisol"
+  },
+  {
+   "id": "M08",
+   "from": "Helen Marsh",
+   "address": "helen@northgatepartners.example",
+   "subject": "See you at 2",
+   "received": "Wed 21:12",
+   "body": "Alex,\n\nI will be in the room at 2. Looking forward to the January plan discussion. Could you leave ten minutes at the end for executive session?\n\nHelen"
+  },
+  {
+   "id": "M09",
+   "from": "Nadia",
+   "address": "nadia@carebird.example",
+   "subject": "Open privacy incident: status",
+   "received": "06:40",
+   "body": "Alex,\n\nStill one open incident. Root cause is confirmed and the fix shipped last night. I expect to close it Friday after the access review. One line for the board deck is in the risk appendix.\n\nNadia"
+  },
+  {
+   "id": "M10",
+   "from": "Keisha Durant",
+   "address": "keisha@carebird.example",
+   "subject": "Boston backlog this morning",
+   "received": "05:20",
+   "body": "Morning Alex,\n\nBoston backlog at 5am was 47 handoffs, down from 58 yesterday. The weekend coverage swap is helping. Will send another read tomorrow.\n\nKeisha"
+  },
+  {
+   "id": "M11",
+   "from": "Facilities Desk",
+   "address": "facilities@brightwellproperties.example",
+   "subject": "Freight elevator maintenance Friday",
+   "received": "Wed 16:00",
+   "body": "Hello tenants,\n\nThe freight elevator will be out of service Friday from 7am to 11am for scheduled maintenance. Passenger elevators are unaffected.\n\nBrightwell Properties Facilities Desk"
+  },
+  {
+   "id": "M12",
+   "from": "Sai",
+   "address": "sai.ellery@mailhaven.example",
+   "subject": "Thanksgiving",
+   "received": "Wed 22:15",
+   "body": "Hey Alex,\n\nAre we still doing Thanksgiving at mine? I can pick up Donna on the way if that helps. Let me know a headcount by the weekend.\n\nSai"
+  }
+ ],
+ "newsletters": [
+  {
+   "id": "N01",
+   "publication": "The Eldercare Ledger",
+   "title": "Employers lean into caregiving benefits for 2027",
+   "body": "Benefits buyers report caregiving support as a top three request in open enrollment surveys. Several mid-size insurers are piloting per-employee caregiving programs, with procurement cycles running longer than expected into December."
+  },
+  {
+   "id": "N02",
+   "publication": "Operator Weekly",
+   "title": "Staging launches without breaking service",
+   "body": "A look at phased rollouts across service businesses. Operators who launched in waves reported fewer missed commitments in the first 60 days than those who launched all at once."
+  }
+ ],
+ "kpis": [
+  {
+   "id": "K01",
+   "metric": "Company: ARR",
+   "value": 17800000,
+   "unit": "USD"
+  },
+  {
+   "id": "K02",
+   "metric": "Finance: Burn multiple, trailing quarter",
+   "value": 2.8,
+   "unit": "x"
+  },
+  {
+   "id": "K03",
+   "metric": "Finance: Year end 2026 ARR plan",
+   "value": 19000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K04",
+   "metric": "Finance: Forecast gap to year end ARR plan",
+   "value": 1200000,
+   "unit": "USD"
+  },
+  {
+   "id": "K05",
+   "metric": "Company: Headcount",
+   "value": 150,
+   "unit": "people"
+  },
+  {
+   "id": "K06",
+   "metric": "Company: Care leads",
+   "value": 48,
+   "unit": "people"
+  },
+  {
+   "id": "K07",
+   "metric": "Family: Households",
+   "value": 3800,
+   "unit": "households"
+  },
+  {
+   "id": "K08",
+   "metric": "North Star: Standing Plan items completed inside their window",
+   "value": 91,
+   "unit": "percent"
+  },
+  {
+   "id": "K09",
+   "metric": "AI in the numbers: Tasks closed by agents with no care lead touch",
+   "value": 70,
+   "unit": "percent"
+  },
+  {
+   "id": "K10",
+   "metric": "Show day: Households care leads can set up from January 1 and keep the promise",
+   "value": 800,
+   "unit": "households"
+  },
+  {
+   "id": "K11",
+   "metric": "Show day: Households entering setup in January on a full launch",
+   "value": 1600,
+   "unit": "households"
+  },
+  {
+   "id": "K12",
+   "metric": "Show day: Insurer new ARR at $6 per employee per month (unsigned)",
+   "value": 2900000,
+   "unit": "USD"
+  },
+  {
+   "id": "K13",
+   "metric": "Hiring: Q1 care lead offers accepted",
+   "value": 3,
+   "unit": "people"
+  },
+  {
+   "id": "K14",
+   "metric": "Operations: Boston backlog at 05:00",
+   "value": 47,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K15",
+   "metric": "Privacy: Open incidents",
+   "value": 1,
+   "unit": "incidents"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "Present the waves plan or a full January launch to the board?",
+   "detail": "Jordan recommends wave one of 800 households on January 1, with the remainder in February. A full launch would put about 1,600 households into setup in January."
+  },
+  {
+   "id": "D2",
+   "question": "How to frame Harborline Mutual at the board",
+   "detail": "Deal is not signed. Celeste Navarro expects signature the first week of December. Julian keeps it out of the forecast as pipeline only."
+  },
+  {
+   "id": "D3",
+   "question": "Include Tomás's brand campaign teaser in today's deck?",
+   "detail": "Three slides at the end after positive feedback in Wednesday's session. Review at 11:15am."
+  },
+  {
+   "id": "D4",
+   "question": "Keep the 5pm VP of Care interview with Theo Ranganathan after the board?",
+   "detail": "Board runs until 17:00, so the debrief moves to 18:00. Grace has Maya Hollis ready for next week."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "T01",
+   "task": "Sign off final board deck v7 and send to board members",
+   "owner": "Alex Ellery",
+   "due": "Thursday 12pm",
+   "status": "open"
+  },
+  {
+   "id": "T02",
+   "task": "Add Harborline status line to finance slide",
+   "owner": "Julian",
+   "due": "Thursday 11am",
+   "status": "in progress"
+  },
+  {
+   "id": "T03",
+   "task": "Finalize waves plan slide",
+   "owner": "Jordan",
+   "due": "Thursday 10am",
+   "status": "in progress"
+  },
+  {
+   "id": "T04",
+   "task": "Send Maya Hollis and Daniel Achterberg profiles",
+   "owner": "Grace Lindqvist",
+   "due": "Thursday 10:30am",
+   "status": "open"
+  },
+  {
+   "id": "T05",
+   "task": "Brand teaser slides, three max",
+   "owner": "Tomás",
+   "due": "Thursday 11:15am",
+   "status": "in progress"
+  },
+  {
+   "id": "T06",
+   "task": "Close open privacy incident after access review",
+   "owner": "Nadia",
+   "due": "Friday",
+   "status": "in progress"
+  },
+  {
+   "id": "T07",
+   "task": "Reply to Sai with Thanksgiving headcount",
+   "owner": "Alex Ellery",
+   "due": "Sunday",
+   "status": "open"
+  }
+ ],
+ "context": {
+  "weather": "Mostly sunny and crisp, high 51F, low 39F, no rain expected.",
+  "observances": []
+ }
+}

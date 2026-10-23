@@ -1,0 +1,383 @@
+{
+ "day_id": "C04",
+ "date_label": "Thursday, November 12, 2026",
+ "persona": {
+  "name": "Alex Ellery",
+  "role": "Founder and CEO",
+  "company": "CareBird"
+ },
+ "calendar": [
+  {
+   "id": "E01",
+   "start": "06:15",
+   "end": "07:00",
+   "title": "Car to airport",
+   "attendees": "Alex Ellery",
+   "notes": "Pickup at home 6:15am. Driver confirmation sent by text. Allow time for security."
+  },
+  {
+   "id": "E02",
+   "start": "07:40",
+   "end": "09:00",
+   "title": "Flight NYC to Boston, Coastline Air 214",
+   "attendees": "Alex Ellery",
+   "notes": "Seat 4C. Confirmation KQ7P2D. Wifi onboard. Return flight tonight at 6:45pm."
+  },
+  {
+   "id": "E03",
+   "start": "09:30",
+   "end": "10:45",
+   "title": "Boston office: walk the care ops floor",
+   "attendees": "Alex Ellery, Keisha Durant",
+   "notes": "Informal. Keisha to show the overnight handoff board and the new escalation queue view."
+  },
+  {
+   "id": "E04",
+   "start": "11:00",
+   "end": "13:00",
+   "title": "Boston team lunch and debrief: outage impact",
+   "attendees": "Alex Ellery, Keisha Durant, Boston care leads, Sanjay (video)",
+   "notes": "Lunch catered in the main room. Debrief on the overnight outage impact: recurrence ran 3.2 hours, backlog peaked at 164 handoffs, 58 handoffs still open at 5am. Sanjay joins by video for the root cause portion."
+  },
+  {
+   "id": "E05",
+   "start": "13:15",
+   "end": "13:45",
+   "title": "Pitch prep with Tomás",
+   "attendees": "Alex Ellery, Tomás (video)",
+   "notes": "Final run through of the Calloway Freight deck v3."
+  },
+  {
+   "id": "E06",
+   "start": "14:00",
+   "end": "15:00",
+   "title": "Employer pitch: Calloway Freight Group",
+   "attendees": "Alex Ellery, Tomás, Renata Voss (Calloway Freight), Malik Osei (Calloway Freight)",
+   "notes": "At Calloway Freight HQ, 200 Wharf Row, Boston, 6th floor. CareBird at Work, $6 per employee per month. About 6,200 employees."
+  },
+  {
+   "id": "E07",
+   "start": "15:30",
+   "end": "16:00",
+   "title": "Call: Harborline term sheet and reporting floor",
+   "attendees": "Alex Ellery, Julian, Nadia, Jordan",
+   "notes": "Confirm launch scope at 800 households by January 1 and the reporting floor of 25 before the term sheet goes to Diane Coleridge."
+  },
+  {
+   "id": "E08",
+   "start": "16:00",
+   "end": "16:30",
+   "title": "Hold: email catch up",
+   "attendees": "Alex Ellery",
+   "notes": ""
+  },
+  {
+   "id": "E09",
+   "start": "17:15",
+   "end": "18:00",
+   "title": "Car to Boston airport",
+   "attendees": "Alex Ellery",
+   "notes": "Pickup at Calloway Freight lobby or Boston office, confirm by 4:45pm."
+  },
+  {
+   "id": "E10",
+   "start": "18:45",
+   "end": "20:05",
+   "title": "Flight Boston to NYC, Coastline Air 231",
+   "attendees": "Alex Ellery",
+   "notes": "Seat 3A. Confirmation KQ7P2D."
+  }
+ ],
+ "inbox": [
+  {
+   "id": "M01",
+   "from": "Jordan",
+   "address": "jordan@carebird.example",
+   "subject": "Harborline capacity model, final",
+   "received": "01:52",
+   "body": "Alex,\n\nThe capacity model is done and in the shared folder. Short version: a full launch puts 1,600 households into setup in January. At the 120 household caseload ceiling, with the 48 care leads we have and the Boston recovery work still eating hours, care leads can set up 800 households by December 31 and keep the promise from January 1.\n\nThat is 50% of forecast. My recommendation is we launch the Harborline partnership with 50% of forecast, 800 households by January 1, and bring the rest on in February and March waves. I would rather say that to Diane now than miss the promise in week two. Happy to talk at 3:30pm.\n\nJordan"
+  },
+  {
+   "id": "M02",
+   "from": "Nadia",
+   "address": "nadia@carebird.example",
+   "subject": "Sign-off needed: reporting floor before term sheet",
+   "received": "06:48",
+   "body": "Hi Alex,\n\nBefore Julian sends the Harborline term sheet I need your sign-off on the reporting floor. Proposal: floor 25 for Harborline reporting, meaning no report we send them shows any count smaller than 25 people, at any cut (team, office, region). Diane asked for team level usage on Tuesday and some of their teams are under 20 people, so without the floor we could effectively identify employees using care support.\n\nThis matches our standing policy for employer and residence reports. A one line yes is enough.\n\nNadia"
+  },
+  {
+   "id": "M03",
+   "from": "Julian",
+   "address": "julian@carebird.example",
+   "subject": "Term sheet timing",
+   "received": "07:05",
+   "body": "Alex,\n\nI am aiming to send the Harborline term sheet to Diane Coleridge at 5pm today. Two things gate it: Nadia's reporting floor sign-off and whether we put 800 households by January 1 in the launch schedule instead of 1,600. Economics hold at $6 per employee per month, so $2.9M new ARR at full rollout either way.\n\nA phased start does push some of it into Q1, which matters against the $1.2M forecast gap to the $19M year end plan. We can cover it on the 3:30pm.\n\nJulian"
+  },
+  {
+   "id": "M04",
+   "from": "Keisha Durant",
+   "address": "keisha@carebird.example",
+   "subject": "Lunch today and debrief agenda",
+   "received": "06:30",
+   "body": "Morning Alex,\n\nWe are set for lunch at 11am in the main room, food from the place on Summer Street. Agenda for the debrief on the outage impact: what the care leads saw overnight, which households got late handoffs, and what we told families. Final numbers: recurrence lasted 3.2 hours, backlog peaked at 164 handoffs, 58 still open at 5am, all cleared by 8:10am.\n\nThe team is glad you are coming in person.\n\nKeisha, Boston Care Operations"
+  },
+  {
+   "id": "M05",
+   "from": "Tomás",
+   "address": "tomas@carebird.example",
+   "subject": "Calloway Freight deck v3",
+   "received": "22:41 (Wed)",
+   "body": "Alex,\n\nV3 of the deck is attached. Renata Voss (VP People) and Malik Osei (Benefits Director) will be in the room. They have about 6,200 employees, mostly across New England.\n\nI cut the AI slide down to one number, 70% of tasks closed by agents with no care lead touch, and put the Standing Plan 91% up front. Let's do 1:15pm to run it once.\n\nTomás"
+  },
+  {
+   "id": "M06",
+   "from": "Diane Coleridge",
+   "address": "diane.coleridge@harborlinemutual.example",
+   "subject": "Re: Next steps",
+   "received": "18:20 (Wed)",
+   "body": "Hi Alex,\n\nThanks again for Tuesday. Owen and I are aligned internally and are looking forward to the term sheet. Our benefits committee meets on the 19th so anything we have by Monday works.\n\nOwen will be the day to day contact on reporting once we are live.\n\nBest,\nDiane Coleridge, Harborline Mutual"
+  },
+  {
+   "id": "M07",
+   "from": "Erika",
+   "address": "erika@carebird.example",
+   "subject": "Donna this week",
+   "received": "07:12",
+   "body": "Hi Alex,\n\nQuick update on your mom. Donna's cardiology follow up is moved to Monday at 10:30am because the clinic had a staffing gap. I confirmed transport with her independent living residence and Tommy will cover the reminder call Sunday since I am off.\n\nHer blood pressure readings this week have been in the range Dr. Hale wanted. Nothing you need to do.\n\nErika"
+  },
+  {
+   "id": "M08",
+   "from": "Coastline Air",
+   "address": "noreply@coastlineair.example",
+   "subject": "You're checked in: NYC to Boston, 7:40am",
+   "received": "05:40",
+   "body": "Alex Ellery,\n\nYou are checked in for flight 214 departing 7:40am, seat 4C. Boarding begins 7:10am. Your return flight 231 departs Boston at 6:45pm."
+  },
+  {
+   "id": "M09",
+   "from": "Grace Lindqvist",
+   "address": "grace@talentbridge.example",
+   "subject": "Care lead shortlist, Boston",
+   "received": "Wed 16:55",
+   "body": "Hi Alex,\n\nSharing the shortlist of six care lead candidates for Boston. Two can start December 1. Jordan has the profiles.\n\nLet me know if you want to meet any while you are in town.\n\nGrace Lindqvist, TalentBridge"
+  },
+  {
+   "id": "M10",
+   "from": "Facilities Desk",
+   "address": "facilities@brightwellproperties.example",
+   "subject": "Elevator maintenance Friday",
+   "received": "Wed 15:10",
+   "body": "Tenants,\n\nElevator 2 will be out of service Friday from 7am to 11am for scheduled maintenance. Please use elevators 1 and 3.\n\nFacilities Desk, Brightwell Properties"
+  },
+  {
+   "id": "M11",
+   "from": "Sanjay",
+   "address": "sanjay@carebird.example",
+   "subject": "Root cause notes for the Boston debrief",
+   "received": "06:02",
+   "body": "Alex,\n\nRoot cause notes are in the incident doc. Short form: the queue worker failover did not trigger on the second recurrence. Fix is deployed behind a flag, we turn it on fully tonight after load testing.\n\nI will join the lunch by video at 12pm.\n\nSanjay"
+  }
+ ],
+ "newsletters": [
+  {
+   "id": "N01",
+   "publication": "The Benefits Ledger",
+   "title": "Open enrollment wrap: caregiving support climbs the wish list",
+   "body": "Employers finishing open enrollment report caregiving benefits among the most requested additions for 2027. HR leaders say the main barrier is proof of use without exposing individual employees, with several brokers now asking vendors for minimum group sizes in utilization reports."
+  },
+  {
+   "id": "N02",
+   "publication": "Agewell Weekly",
+   "title": "Winter planning for older adults living independently",
+   "body": "Residences are starting winter readiness checks. This week: medication refill timing around the holidays, fall prevention as days get shorter, and how families coordinate when relatives travel."
+  },
+  {
+   "id": "N03",
+   "publication": "Founder Operating Notes",
+   "title": "Saying less, sooner",
+   "body": "A short essay on telling customers about capacity limits early. Phased launches with clear dates tend to preserve trust better than full launches that slip."
+  }
+ ],
+ "kpis": [
+  {
+   "id": "K01",
+   "metric": "Company: ARR",
+   "value": 17800000,
+   "unit": "USD"
+  },
+  {
+   "id": "K02",
+   "metric": "Finance: Year end 2026 ARR plan",
+   "value": 19000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K03",
+   "metric": "Finance: Forecast gap to year end ARR plan",
+   "value": 1200000,
+   "unit": "USD"
+  },
+  {
+   "id": "K04",
+   "metric": "Company: Headcount",
+   "value": 150,
+   "unit": "people"
+  },
+  {
+   "id": "K05",
+   "metric": "Company: Care leads",
+   "value": 48,
+   "unit": "people"
+  },
+  {
+   "id": "K06",
+   "metric": "Operations: Caseload ceiling per Family care lead",
+   "value": 120,
+   "unit": "households"
+  },
+  {
+   "id": "K07",
+   "metric": "Operations: Boston overnight recurrence duration",
+   "value": 3.2,
+   "unit": "hours"
+  },
+  {
+   "id": "K08",
+   "metric": "Operations: Boston overnight backlog at peak",
+   "value": 164,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K09",
+   "metric": "Operations: Boston backlog at 05:00",
+   "value": 58,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K10",
+   "metric": "Show day: Insurer new ARR at $6 per employee per month",
+   "value": 2900000,
+   "unit": "USD"
+  },
+  {
+   "id": "K11",
+   "metric": "Show day: Households entering setup in January on a full launch",
+   "value": 1600,
+   "unit": "households"
+  },
+  {
+   "id": "K12",
+   "metric": "Show day: Households care leads can set up from January 1 and keep the promise",
+   "value": 800,
+   "unit": "households"
+  },
+  {
+   "id": "K13",
+   "metric": "Harborline: Launch scope as share of forecast, capacity model",
+   "value": 50,
+   "unit": "percent"
+  },
+  {
+   "id": "K14",
+   "metric": "Policy: Smallest count an employer or residence report may show",
+   "value": 25,
+   "unit": "people"
+  },
+  {
+   "id": "K15",
+   "metric": "AI in the numbers: Tasks closed by agents with no care lead touch",
+   "value": 70,
+   "unit": "percent"
+  },
+  {
+   "id": "K16",
+   "metric": "North Star: Standing Plan items completed inside their window",
+   "value": 91,
+   "unit": "percent"
+  },
+  {
+   "id": "K17",
+   "metric": "Operations: Provider confirmations arriving in the partner portal",
+   "value": 40,
+   "unit": "percent"
+  },
+  {
+   "id": "K18",
+   "metric": "Hiring: Active pipeline change, vs September",
+   "value": -17,
+   "unit": "percent"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "Launch the Harborline partnership at 50% of forecast?",
+   "detail": "Jordan's capacity model shows care leads can set up 800 households by December 31 and keep the promise from January 1, against 1,600 entering setup on a full launch. Recommendation: 800 households by January 1, remaining households in February and March waves. Needs a call before the term sheet goes out at 5pm."
+  },
+  {
+   "id": "D2",
+   "question": "Sign off the floor of 25 for Harborline reporting?",
+   "detail": "Nadia proposes no Harborline report shows any count smaller than 25 people at any cut. Diane asked for team level usage and some teams are under 20 people. Julian will not send the term sheet without this."
+  },
+  {
+   "id": "D3",
+   "question": "Meet Boston care lead candidates while in town?",
+   "detail": "Grace Lindqvist sent six candidates, two can start December 1. Calendar is full until 4pm."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "T01",
+   "task": "Reply to Nadia with sign-off on the reporting floor of 25",
+   "owner": "Alex Ellery",
+   "due": "Today 3:30pm",
+   "status": "Open"
+  },
+  {
+   "id": "T02",
+   "task": "Send Harborline term sheet to Diane Coleridge",
+   "owner": "Julian",
+   "due": "Today 5pm",
+   "status": "Blocked on D1 and D2"
+  },
+  {
+   "id": "T03",
+   "task": "Draft note to Diane explaining phased launch, 800 households by January 1",
+   "owner": "Jordan",
+   "due": "Today 5pm",
+   "status": "Not started"
+  },
+  {
+   "id": "T04",
+   "task": "Turn on queue failover fix fully after load testing",
+   "owner": "Sanjay",
+   "due": "Tonight",
+   "status": "In progress"
+  },
+  {
+   "id": "T05",
+   "task": "Send Calloway Freight follow up and pricing summary",
+   "owner": "Tomás",
+   "due": "Friday",
+   "status": "Not started"
+  },
+  {
+   "id": "T06",
+   "task": "Write up Boston outage debrief with family communication follow ups",
+   "owner": "Keisha Durant",
+   "due": "Friday",
+   "status": "Not started"
+  },
+  {
+   "id": "T07",
+   "task": "Review Boston care lead shortlist",
+   "owner": "Jordan",
+   "due": "Monday",
+   "status": "Open"
+  }
+ ],
+ "context": {
+  "weather": "New York: high 51F, low 40F, sunny morning with clouds after 3 PM, dry. Boston: high 47F, low 37F, breezy, chance of light rain after 5 PM.",
+  "observances": []
+ }
+}

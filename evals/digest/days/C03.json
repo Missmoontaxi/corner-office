@@ -1,0 +1,450 @@
+{
+ "day_id": "C03",
+ "date_label": "Wednesday, November 11, 2026",
+ "persona": {
+  "name": "Alex Ellery",
+  "role": "Founder and CEO",
+  "company": "CareBird"
+ },
+ "calendar": [
+  {
+   "id": "E01",
+   "start": "07:00",
+   "end": "07:30",
+   "title": "Boston incident bridge",
+   "attendees": "Sanjay, Jordan, Nadia, Alex Ellery",
+   "notes": "Overnight recurrence of the Boston handoff outage. Sanjay to walk through the fix deployed at 4:40am and backlog status."
+  },
+  {
+   "id": "E02",
+   "start": "09:00",
+   "end": "09:45",
+   "title": "Forecast review",
+   "attendees": "Julian, Alex Ellery",
+   "notes": "Julian's adjusted year end forecast. Bring board deck questions."
+  },
+  {
+   "id": "E03",
+   "start": "10:00",
+   "end": "10:30",
+   "title": "1:1 Priya",
+   "attendees": "Priya, Alex Ellery",
+   "notes": "Partner portal confirmation flow, board deck product section."
+  },
+  {
+   "id": "E04",
+   "start": "11:00",
+   "end": "11:45",
+   "title": "Board deck working session",
+   "attendees": "Julian, Priya, Jordan, Alex Ellery",
+   "notes": "Deck outline only so far. Need narrative, forecast slide, Boston slide, hiring slide."
+  },
+  {
+   "id": "E05",
+   "start": "12:00",
+   "end": "12:30",
+   "title": "Lunch hold",
+   "attendees": "Alex Ellery",
+   "notes": ""
+  },
+  {
+   "id": "E06",
+   "start": "13:00",
+   "end": "13:30",
+   "title": "Boston care leads check in",
+   "attendees": "Jordan, Marisol Reyes, Alex Ellery",
+   "notes": "How the Boston care leads are holding up after two nights of backlog."
+  },
+  {
+   "id": "E07",
+   "start": "14:00",
+   "end": "15:00",
+   "title": "Harborline Mutual partnership call",
+   "attendees": "Diane Coleridge (Harborline Mutual), Owen Pryce (Harborline Mutual), Jordan, Julian, Alex Ellery",
+   "notes": "Partnership call today at 2pm. Tomás was leading; he is out sick. Topics: January launch shape, 1600 vs 800 households in setup, activation assumptions at 4 percent and 6 percent repricing trigger."
+  },
+  {
+   "id": "E08",
+   "start": "14:00",
+   "end": "14:30",
+   "title": "Evals review: handoff agent",
+   "attendees": "Wen, Sanjay, Alex Ellery",
+   "notes": "Overlaps with the Harborline call."
+  },
+  {
+   "id": "E09",
+   "start": "15:30",
+   "end": "16:00",
+   "title": "Recruiting debrief",
+   "attendees": "Grace Lindqvist (TalentBridge), Alex Ellery",
+   "notes": "Two senior offer declines. Next steps on searches."
+  },
+  {
+   "id": "E10",
+   "start": "16:30",
+   "end": "17:00",
+   "title": "Incident privacy review",
+   "attendees": "Nadia, Sanjay, Alex Ellery",
+   "notes": "Confirm no household data exposure during the overnight recurrence."
+  },
+  {
+   "id": "E11",
+   "start": "18:30",
+   "end": "19:20",
+   "title": "Couples counseling session with Sam, Dr. Ruth Abernathy",
+   "attendees": "Sam Whitford, Alex Ellery",
+   "notes": "Upper West Side office, 4th floor. Session 3."
+  },
+  {
+   "id": "E12",
+   "start": "Thu 11/12 06:58",
+   "end": "Thu 11/12 10:45",
+   "title": "Train to Boston",
+   "attendees": "Alex Ellery",
+   "notes": "Alex to travel to Boston Thursday. Partner meetings and Boston care team visit. Return Friday morning."
+  }
+ ],
+ "inbox": [
+  {
+   "id": "M01",
+   "from": "Sanjay",
+   "address": "sanjay@carebird.example",
+   "subject": "Boston: overnight recurrence, fix is in",
+   "received": "05:12",
+   "body": "Alex,\n\nThe Boston handoff queue stalled again at 1:20am. Same root cause as Monday: the provider sync job retried in a loop and locked the handoff table. I've been on it all night with Wen's help on the agent side. Fix deployed at 4:40am, queue moving again. Backlog peaked at 164 handoffs overnight and is down to 58 as of now. About 3.2 hours of degraded service.\n\nI want to keep the retry cap in place and add a second guard before we call it closed. Will walk everyone through it at 7am. Going to grab two hours of sleep after the bridge.\n\nSanjay"
+  },
+  {
+   "id": "M02",
+   "from": "Julian",
+   "address": "julian@carebird.example",
+   "subject": "Adjusted forecast",
+   "received": "06:02",
+   "body": "Alex,\n\nUpdated the model last night. ARR dropped to $17.8M on the current run rate. Drivers: two Family cohorts churning after the Boston disruption, and one at Work renewal slipping into Q1. That puts the gap to the $19M year end plan at $1.2M, up from $1.0M.\n\nI'd like to agree on how we show this on the board forecast slide in our 9am. I don't want to soften it.\n\nJulian"
+  },
+  {
+   "id": "M03",
+   "from": "Tomás",
+   "address": "tomas@carebird.example",
+   "subject": "Out sick today",
+   "received": "06:20",
+   "body": "Alex,\n\nTomás out sick today. Fever since last night, I'm not going to be useful. Sorry about the timing with Harborline at 2pm. My notes on Diane and Owen are in the shared folder, and Jordan knows the launch numbers. I'll check messages this evening if I can.\n\nTomás"
+  },
+  {
+   "id": "M04",
+   "from": "Grace Lindqvist",
+   "address": "grace@talentbridge.example",
+   "subject": "Two declines",
+   "received": "Tue 21:47",
+   "body": "Hi Alex,\n\nDifficult news. Lena Okafor declined the VP Care Operations offer this afternoon; she took a counter from her current employer. Marcus Delgado also declined the Director of Engineering role, citing relocation. With these two, the hiring slowdown is now 17% in active pipeline versus September, down from 15% last month.\n\nI have three backup profiles for each role. Can we use our meeting this afternoon to decide whether to reopen both searches or revisit comp bands?\n\nBest,\nGrace\nTalentBridge"
+  },
+  {
+   "id": "M05",
+   "from": "Jordan",
+   "address": "jordan@carebird.example",
+   "subject": "Capacity plan: need more time",
+   "received": "06:35",
+   "body": "Alex,\n\nI'm not going to have the January capacity plan ready for Friday. Boston ate the last two days and the Lena decline changes who owns care ops onboarding. I need until Tuesday to give you a real answer on whether we can take 1600 households into setup or should hold Harborline to 800 from January 1.\n\nI'll cover the Harborline call at 2pm with you given Tomás is out.\n\nJordan"
+  },
+  {
+   "id": "M06",
+   "from": "Diane Coleridge",
+   "address": "diane.coleridge@harborlinemutual.example",
+   "subject": "Re: Partnership call today at 2pm",
+   "received": "Tue 18:10",
+   "body": "Alex,\n\nConfirming our partnership call today at 2pm. Owen Pryce from our benefits team will join. We'd like to understand the January launch plan for our 40,000 employees and how you'd handle activation above your assumptions.\n\nDialing in from the same bridge as last time.\n\nDiane Coleridge\nVP Benefits, Harborline Mutual"
+  },
+  {
+   "id": "M07",
+   "from": "Marisol Reyes",
+   "address": "marisol@carebird.example",
+   "subject": "Boston Thursday: itinerary",
+   "received": "06:48",
+   "body": "Hi Alex,\n\nYou're set to travel to Boston Thursday. Train leaves 6:58am, arrives 10:45am. Hotel is two blocks from the Boston office for Thursday night. Local team lunch 11am to 1pm. Partner meetings at 1pm and 3:30pm, Boston care team dinner at 6:30pm. Return train Friday 8:10am.\n\nLet me know if you want me to add a visit with the Boston care leads in the morning.\n\nMarisol"
+  },
+  {
+   "id": "M08",
+   "from": "Helen Marsh",
+   "address": "helen@northgatepartners.example",
+   "subject": "Board pre-read",
+   "received": "Tue 20:15",
+   "body": "Alex,\n\nChecking on the board pre-read. Given Boston and the forecast movement, I'd rather see the hard numbers early than polished slides late. Friday works for me.\n\nHelen"
+  },
+  {
+   "id": "M09",
+   "from": "Sam Whitford",
+   "address": "sam.whitford@mailhaven.example",
+   "subject": "last night",
+   "received": "05:40",
+   "body": "I'm sorry about how last night went. I know the outage isn't your fault, but I felt like I was talking to your phone again. I stayed at Nina's so I could think.\n\nI still want to go to Dr. Abernathy tonight at 6:30pm. Please be there and please don't be on email during it.\n\nSam"
+  },
+  {
+   "id": "M10",
+   "from": "Nadia",
+   "address": "nadia@carebird.example",
+   "subject": "Overnight incident: privacy check",
+   "received": "06:55",
+   "body": "Alex,\n\nInitial review shows no data exposure. The failure was a lock, not a leak. I'll have the log review done before our 4:30pm and a short note for the board deck.\n\nNadia"
+  },
+  {
+   "id": "M11",
+   "from": "Erika",
+   "address": "erika@carebird.example",
+   "subject": "Donna weekly update",
+   "received": "Tue 17:30",
+   "body": "Hi Alex,\n\nQuick weekly note on your mom. Donna's flu shot is confirmed for Saturday at her independent living residence. Pharmacy refill went through on time. Thursday's pedicure at Willow Lane is still not confirmed; they haven't found a tech who does diabetic foot care, so I'm holding the ride. Tommy is covering for me Friday if anything comes up.\n\nErika"
+  },
+  {
+   "id": "M12",
+   "from": "Wen",
+   "address": "wen@carebird.example",
+   "subject": "Evals review vs Harborline",
+   "received": "07:05",
+   "body": "Alex,\n\nI see the 2pm overlap. Happy to move evals to tomorrow or send you a written summary instead. Agent close rate held at 70 percent through the overnight.\n\nWen"
+  },
+  {
+   "id": "M13",
+   "from": "Facilities Desk",
+   "address": "facilities@brightwellproperties.example",
+   "subject": "Elevator maintenance Thursday",
+   "received": "Tue 16:00",
+   "body": "Tenants,\n\nThe east elevator bank will be out of service Thursday 7am to 11am for scheduled maintenance. Please use the west bank.\n\nFacilities Desk, Brightwell Properties"
+  },
+  {
+   "id": "M14",
+   "from": "Priya",
+   "address": "priya@carebird.example",
+   "subject": "Board deck product section",
+   "received": "07:12",
+   "body": "Alex,\n\nI have three slides drafted on the partner portal and the Standing Plan. Still at 40 percent of provider confirmations in the portal. Will bring to 11am.\n\nPriya"
+  },
+  {
+   "id": "M15",
+   "from": "Sai",
+   "address": "sai.ellery@mailhaven.example",
+   "subject": "Thanksgiving",
+   "received": "Tue 22:30",
+   "body": "Hey,\n\nAre you and Sam still coming to ours for Thanksgiving? Need a headcount by next week.\n\nSai"
+  }
+ ],
+ "newsletters": [
+  {
+   "id": "N01",
+   "publication": "Care Economy Weekly",
+   "title": "Employers lean into caregiving benefits for 2027",
+   "body": "Benefits leaders report that caregiving support is moving from pilot to standard offering. Activation remains the open question, with most plans assuming low single digit uptake in year one."
+  },
+  {
+   "id": "N02",
+   "publication": "Founder Ledger",
+   "title": "Writing the board update when the quarter turns",
+   "body": "Lead with the number, explain the driver, show the plan. Boards forgive misses faster than surprises."
+  }
+ ],
+ "kpis": [
+  {
+   "id": "K01",
+   "metric": "Company: ARR",
+   "value": 17800000,
+   "unit": "USD"
+  },
+  {
+   "id": "K02",
+   "metric": "Finance: Year end 2026 ARR plan",
+   "value": 19000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K03",
+   "metric": "Finance: Forecast gap to year end ARR plan",
+   "value": 1200000,
+   "unit": "USD"
+  },
+  {
+   "id": "K04",
+   "metric": "Company: Headcount",
+   "value": 150,
+   "unit": "people"
+  },
+  {
+   "id": "K05",
+   "metric": "Company: Care leads",
+   "value": 48,
+   "unit": "people"
+  },
+  {
+   "id": "K06",
+   "metric": "Hiring: Active pipeline change, vs September",
+   "value": -17,
+   "unit": "percent"
+  },
+  {
+   "id": "K07",
+   "metric": "Hiring: Senior offers declined this week",
+   "value": 2,
+   "unit": "offers"
+  },
+  {
+   "id": "K08",
+   "metric": "Operations: Boston overnight recurrence duration",
+   "value": 3.2,
+   "unit": "hours"
+  },
+  {
+   "id": "K09",
+   "metric": "Operations: Boston overnight backlog at peak",
+   "value": 164,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K10",
+   "metric": "Operations: Boston backlog at 05:00",
+   "value": 58,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K11",
+   "metric": "AI in the numbers: Tasks closed by agents with no care lead touch",
+   "value": 70,
+   "unit": "percent"
+  },
+  {
+   "id": "K12",
+   "metric": "North Star: Standing Plan items completed inside their window",
+   "value": 91,
+   "unit": "percent"
+  },
+  {
+   "id": "K13",
+   "metric": "Operations: Provider confirmations arriving in the partner portal",
+   "value": 40,
+   "unit": "percent"
+  },
+  {
+   "id": "K14",
+   "metric": "Operations: Caseload ceiling per Family care lead",
+   "value": 120,
+   "unit": "households"
+  },
+  {
+   "id": "K15",
+   "metric": "Show day: Insurer new ARR at $6 per employee per month",
+   "value": 2900000,
+   "unit": "USD"
+  },
+  {
+   "id": "K16",
+   "metric": "Show day: Households entering setup in January on a full launch",
+   "value": 1600,
+   "unit": "households"
+  },
+  {
+   "id": "K17",
+   "metric": "Show day: Households care leads can set up from January 1 and keep the promise",
+   "value": 800,
+   "unit": "households"
+  },
+  {
+   "id": "K18",
+   "metric": "Show day: Activation rate the at Work price assumes",
+   "value": 4,
+   "unit": "percent"
+  },
+  {
+   "id": "K19",
+   "metric": "Show day: Activation rate that triggers repricing at renewal",
+   "value": 6,
+   "unit": "percent"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "What launch shape do we put to Harborline Mutual at 2pm?",
+   "detail": "Full launch puts 1600 households into setup in January; care leads can set up 800 from January 1 and keep the promise. Jordan's capacity plan will not be ready until Tuesday."
+  },
+  {
+   "id": "D2",
+   "question": "How do we present the $17.8M forecast to the board?",
+   "detail": "Julian wants the number shown plainly with drivers. Gap to the $19M plan is now $1.2M."
+  },
+  {
+   "id": "D3",
+   "question": "Reopen both senior searches or revisit comp bands?",
+   "detail": "Lena Okafor and Marcus Delgado declined. Pipeline down 17% vs September. Grace has three backups per role."
+  },
+  {
+   "id": "D4",
+   "question": "Close the Boston incident today or keep it open through Thursday's visit?",
+   "detail": "Sanjay wants a second guard deployed before closing. Alex is in Boston Thursday."
+  },
+  {
+   "id": "D5",
+   "question": "Move or skip the 2pm evals review that conflicts with Harborline?",
+   "detail": "Wen offered tomorrow or a written summary."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "T01",
+   "task": "Flesh out board deck: narrative, forecast, Boston, hiring slides",
+   "owner": "Alex Ellery",
+   "due": "Fri 11/13",
+   "status": "Outline only"
+  },
+  {
+   "id": "T02",
+   "task": "Board pre-read to Helen Marsh",
+   "owner": "Alex Ellery",
+   "due": "Fri 11/13",
+   "status": "Not started"
+  },
+  {
+   "id": "T03",
+   "task": "January capacity plan",
+   "owner": "Jordan",
+   "due": "Tue 11/17",
+   "status": "Delayed, extension requested"
+  },
+  {
+   "id": "T04",
+   "task": "Second guard on provider sync retries",
+   "owner": "Sanjay",
+   "due": "Thu 11/12",
+   "status": "In progress"
+  },
+  {
+   "id": "T05",
+   "task": "Incident log review and board note",
+   "owner": "Nadia",
+   "due": "Wed 11/11 4:30pm",
+   "status": "In progress"
+  },
+  {
+   "id": "T06",
+   "task": "Prep Harborline call in Tomás's absence",
+   "owner": "Jordan",
+   "due": "Wed 11/11 2pm",
+   "status": "In progress"
+  },
+  {
+   "id": "T07",
+   "task": "Confirm Boston Thursday meetings and care lead visit",
+   "owner": "Marisol Reyes",
+   "due": "Wed 11/11",
+   "status": "Awaiting Alex"
+  },
+  {
+   "id": "T08",
+   "task": "Reply to Sai on Thanksgiving headcount",
+   "owner": "Alex Ellery",
+   "due": "Next week",
+   "status": "Open"
+  }
+ ],
+ "context": {
+  "weather": "Cool and rainy in New York, high 53F, low 43F, steady rain through the evening commute",
+  "observances": [
+   "Veterans Day (US)"
+  ]
+ }
+}

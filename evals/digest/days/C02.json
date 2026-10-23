@@ -1,0 +1,443 @@
+{
+ "day_id": "C02",
+ "date_label": "Tuesday, November 10, 2026",
+ "persona": {
+  "name": "Alex Ellery",
+  "role": "Founder and CEO",
+  "company": "CareBird"
+ },
+ "calendar": [
+  {
+   "id": "E01",
+   "start": "06:30",
+   "end": "07:30",
+   "title": "Drive Sam to Penn Station, 7:15 train to Philadelphia",
+   "attendees": "Alex Ellery, Sam Whitford",
+   "notes": "Sam's dad Walt fell Sunday night and broke his hip. Surgery is Wednesday morning at St. Agnes in Philadelphia. Sam staying through the weekend."
+  },
+  {
+   "id": "E02",
+   "start": "08:00",
+   "end": "09:00",
+   "title": "Mammogram, Riverside Women's Imaging",
+   "attendees": "Alex Ellery",
+   "notes": "Screening mammogram, rescheduled twice. 340 West 57th St, 4th floor. Arrive 7:45am, no deodorant or lotion. Bring insurance card."
+  },
+  {
+   "id": "E03",
+   "start": "10:00",
+   "end": "11:00",
+   "title": "Tuesday ops sync",
+   "attendees": "Jordan, Sanjay, Priya, Wen, Tomás, Julian, Nadia, Alex Ellery",
+   "notes": "Jordan runs. Agenda: Boston outage overnight recap, Harborline capacity plan status, October hiring numbers, care lead caseloads."
+  },
+  {
+   "id": "E04",
+   "start": "11:30",
+   "end": "12:15",
+   "title": "ARR forecast review",
+   "attendees": "Julian, Alex Ellery",
+   "notes": "Julian's November forecast. ARR $18M against $19M year end plan. Walk through the $1M gap and options."
+  },
+  {
+   "id": "E05",
+   "start": "12:30",
+   "end": "13:00",
+   "title": "Lunch, hold",
+   "attendees": "Alex Ellery",
+   "notes": ""
+  },
+  {
+   "id": "E06",
+   "start": "13:00",
+   "end": "13:30",
+   "title": "Recruiting pipeline check in",
+   "attendees": "Grace Lindqvist (TalentBridge), Jordan, Alex Ellery",
+   "notes": "October pipeline down 15%. People & Culture searches: Head of People and Senior People Partner. Lena Okafor reference status."
+  },
+  {
+   "id": "E07",
+   "start": "14:00",
+   "end": "15:00",
+   "title": "Harborline Mutual deal points",
+   "attendees": "Tomás, Julian, Jordan, Nadia, Alex Ellery",
+   "notes": "Internal prep. Open items: January launch size, activation repricing trigger, reporting minimums. Harborline redline came back Friday."
+  },
+  {
+   "id": "E08",
+   "start": "15:30",
+   "end": "16:00",
+   "title": "Boston incident review",
+   "attendees": "Sanjay, Nadia, Jordan, Marisol Reyes, Alex Ellery",
+   "notes": "Timeline, households affected, backlog clearance, backup connectivity for the Boston pod."
+  },
+  {
+   "id": "E09",
+   "start": "16:30",
+   "end": "17:00",
+   "title": "1:1 Priya",
+   "attendees": "Priya, Alex Ellery",
+   "notes": "Standing Plan template v3, partner portal confirmations."
+  },
+  {
+   "id": "E10",
+   "start": "18:30",
+   "end": "19:00",
+   "title": "Call Sam",
+   "attendees": "Alex Ellery, Sam Whitford",
+   "notes": "Check in after Sam meets the surgeon."
+  }
+ ],
+ "inbox": [
+  {
+   "id": "M01",
+   "from": "Marisol Reyes",
+   "address": "marisol@carebird.example",
+   "subject": "Boston pod offline since 11:40pm",
+   "received": "2026-11-10 00:12",
+   "body": "Alex, Jordan, Sanjay,\n\nOur office network in Boston went down at 11:40pm. Nobody on the pod can reach the console or the household inbox. I'm on my phone hotspot but it keeps dropping. Agents are still closing routine tasks but anything that needs a care lead handoff is stacking up. I've asked Devon and Kim to log in from home.\n\nWill update within the hour.\nMarisol Reyes\nBoston care lead"
+  },
+  {
+   "id": "M02",
+   "from": "Marisol Reyes",
+   "address": "marisol@carebird.example",
+   "subject": "RE: Boston pod offline since 11:40pm",
+   "received": "2026-11-10 02:47",
+   "body": "Update: ISP says a fiber cut on their side, no ETA. Devon is online from home, Kim's home connection is too slow for the console. Handoff queue is at 140 and climbing. Two families called the after hours line asking why nobody answered about pharmacy refills. I called both back.\n\nMarisol"
+  },
+  {
+   "id": "M03",
+   "from": "Marisol Reyes",
+   "address": "marisol@carebird.example",
+   "subject": "RE: Boston pod offline since 11:40pm",
+   "received": "2026-11-10 05:31",
+   "body": "Network back at 5:15am. Total down about five and a half hours. Backlog peaked at 212 handoffs across 310 Boston households. We're working it oldest first and I think we clear it by 11am. Three items were time sensitive (two refills, one home aide no show) and all three are handled.\n\nWe need a backup line for this office. This is the second time since summer.\n\nMarisol"
+  },
+  {
+   "id": "M04",
+   "from": "Sanjay",
+   "address": "sanjay@carebird.example",
+   "subject": "Boston outage overnight: preliminary notes",
+   "received": "2026-11-10 06:05",
+   "body": "Alex,\n\nQuick summary on the Boston outage overnight. Platform was fine, this was the Boston office ISP only. Agents kept running and closed about 70% of tasks as normal. The gap was care lead handoffs, which assume console access. I'll have a written timeline before the 3:30pm review. Proposal: LTE failover router for every pod office, roughly $400 per site plus data.\n\nSanjay"
+  },
+  {
+   "id": "M05",
+   "from": "Nadia",
+   "address": "nadia@carebird.example",
+   "subject": "Boston hotspot use",
+   "received": "2026-11-10 06:22",
+   "body": "Alex,\n\nMarisol and Devon used personal hotspots and a home connection to reach household data overnight. Both are on managed laptops with VPN so I'm not worried about exposure, but I want it in the incident log and I want a written rule for next time. No customer notice needed from a privacy standpoint.\n\nNadia"
+  },
+  {
+   "id": "M06",
+   "from": "Julian",
+   "address": "julian@carebird.example",
+   "subject": "November forecast: $1M ARR gap",
+   "received": "2026-11-09 21:40",
+   "body": "Alex,\n\nForecast attached ahead of tomorrow. We closed October at ARR $18M. The plan for year end is $19M. With what's in pipeline for November and December, I have us landing at about $18.0M to $18.2M, so call it a $1M gap.\n\nMost of the shortfall is at Work deals that slipped into Q1, plus Family adds running about 60 households a month under plan. Harborline doesn't help 2026 ARR unless we sign before December 15.\n\nThree options in the deck. Let's go through them at 11:30am.\n\nJulian"
+  },
+  {
+   "id": "M07",
+   "from": "Tomás",
+   "address": "tomas@carebird.example",
+   "subject": "Harborline: partnership deal points remain outstanding",
+   "received": "2026-11-09 19:55",
+   "body": "Alex,\n\nThe partnership deal points remain outstanding after Friday's redline from Harborline Mutual. Where we are:\n\n1. January launch. They want all 40,000 employees live January 1. That's about 1,600 households entering setup in January. Jordan says we can set up 800 and keep the promise.\n2. Repricing. They pushed back on repricing at renewal if activation passes 6%. Our $6 price assumes 4%.\n3. Reporting. They asked for site level reports. Our floor is 25 people per cell and I said we won't move it.\n\nPrice at $6 per employee per month is agreed, worth $2.9M new ARR. I'd like our positions settled at 2pm so I can send a reply Thursday.\n\nTomás"
+  },
+  {
+   "id": "M08",
+   "from": "Jordan",
+   "address": "jordan@carebird.example",
+   "subject": "Harborline capacity plan due Wednesday",
+   "received": "2026-11-10 06:40",
+   "body": "Alex,\n\nHeads up that the capacity plan for Harborline is due to you Wednesday. Draft covers a phased January: 800 households set up from January 1, the rest in February, plus what it takes to go faster. Right now 48 care leads, ceiling of 120 Family households each. Going to 1,600 in January means 9 more care leads hired and trained by mid December, which I don't think the pipeline supports.\n\nBoston will eat some of my morning so I may slip to Wednesday evening. Will flag at the 10am.\n\nJordan"
+  },
+  {
+   "id": "M09",
+   "from": "Grace Lindqvist",
+   "address": "grace@talentbridge.example",
+   "subject": "October recruiting numbers",
+   "received": "2026-11-09 17:30",
+   "body": "Hi Alex,\n\nOctober numbers ahead of our 1pm. Active pipeline is down 15% from September, worse than the 8% drop we saw the month before. The People & Culture searches are hit hardest: Head of People has two finalists left after one withdrew, and the Senior People Partner search has no one past first round. Care lead applications are holding up better.\n\nLena Okafor's references are in and both are strong. I'll bring options to rebuild the People & Culture slate.\n\nBest,\nGrace"
+  },
+  {
+   "id": "M10",
+   "from": "Sam Whitford",
+   "address": "sam.whitford@mailhaven.example",
+   "subject": "Dad update",
+   "received": "2026-11-10 05:58",
+   "body": "Hey,\n\nTalked to my sister. Dad's surgery is confirmed for Wednesday at 8. He's in a lot of pain but clear headed. I'm on the 7:15am. Thanks for driving me, I know your morning is packed and you finally have the mammogram.\n\nLove you,\nSam"
+  },
+  {
+   "id": "M11",
+   "from": "Riverside Women's Imaging",
+   "address": "appointments@riversideimaging.example",
+   "subject": "Appointment reminder: Tuesday 8:00 AM",
+   "received": "2026-11-09 10:00",
+   "body": "Dear Alex Ellery,\n\nThis is a reminder of your screening mammogram on Tuesday, November 10 at 8:00 AM at 340 West 57th Street, 4th floor. Please arrive 15 minutes early and avoid deodorant, powder or lotion. Results are usually posted to the patient portal within 3 business days.\n\nRiverside Women's Imaging"
+  },
+  {
+   "id": "M12",
+   "from": "Helen Marsh",
+   "address": "helen@northgatepartners.example",
+   "subject": "Harborline timing",
+   "received": "2026-11-09 20:15",
+   "body": "Alex,\n\nHeard from Julian that Harborline may slip into January. Not a problem for the board, but I'd like a 15 minute call before Thanksgiving on where the deal points land and what it does to the 2026 number. Any slot next week works.\n\nHelen"
+  },
+  {
+   "id": "M13",
+   "from": "Erika",
+   "address": "erika@carebird.example",
+   "subject": "Donna: flu shot done",
+   "received": "2026-11-09 16:10",
+   "body": "Hi Alex,\n\nQuick note: your mom had her flu shot this afternoon at the residence clinic. No issues. Her next cardiology follow up is December 3 and I've confirmed the ride. Tommy has the file if I'm out.\n\nErika"
+  },
+  {
+   "id": "M14",
+   "from": "Facilities Desk",
+   "address": "facilities@brightwellproperties.example",
+   "subject": "Elevator maintenance Thursday",
+   "received": "2026-11-09 14:00",
+   "body": "Tenants,\n\nElevator B will be out of service Thursday, November 12 from 7am to 11am for scheduled maintenance. Elevator A and the freight elevator remain available.\n\nFacilities Desk"
+  },
+  {
+   "id": "M15",
+   "from": "Sai",
+   "address": "sai.ellery@mailhaven.example",
+   "subject": "Thanksgiving",
+   "received": "2026-11-09 22:05",
+   "body": "Alex, are you and Sam still coming the 26th? Aunt Donna says yes but I want to hear it from you. Bring nothing, or bring pie.\n\nSai"
+  },
+  {
+   "id": "M16",
+   "from": "Wen",
+   "address": "wen@carebird.example",
+   "subject": "Eval results: refill agent v4",
+   "received": "2026-11-10 06:50",
+   "body": "Alex,\n\nRefill agent v4 passed the weekly eval set at 96% versus 93% for v3, no new safety flags. Dr. Patel signed off on the escalation rules yesterday. Planning to roll to 20% of households Thursday unless you object.\n\nWen"
+  },
+  {
+   "id": "M17",
+   "from": "Priya",
+   "address": "priya@carebird.example",
+   "subject": "Agenda for 1:1",
+   "received": "2026-11-10 07:05",
+   "body": "Two things for today: Standing Plan template v3 and why partner portal confirmations are stuck at 40%. Happy to push if Boston takes over the afternoon.\n\nPriya"
+  }
+ ],
+ "newsletters": [
+  {
+   "id": "N01",
+   "publication": "Caregiving Economy Weekly",
+   "title": "Employers rethink eldercare benefits for 2027",
+   "body": "Benefits leaders surveyed this fall say eldercare support is moving from pilot to standard offering, with per employee pricing replacing per use fees. Insurers are the most active buyers, but most want activation guarantees in contract."
+  },
+  {
+   "id": "N02",
+   "publication": "The Operator's Ledger",
+   "title": "Hiring cooled again in October",
+   "body": "Startup hiring pipelines shrank for a third straight month. People operations roles saw the steepest falloff in qualified applicants, while frontline service roles held steady."
+  },
+  {
+   "id": "N03",
+   "publication": "Metro Health Brief",
+   "title": "New York home aide shortages ahead of winter",
+   "body": "Agencies across the five boroughs report longer fill times for home aide shifts, with weekend coverage the hardest to staff."
+  }
+ ],
+ "kpis": [
+  {
+   "id": "K01",
+   "metric": "Company: ARR",
+   "value": 18000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K02",
+   "metric": "Finance: Year end 2026 ARR plan",
+   "value": 19000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K03",
+   "metric": "Finance: Forecast gap to year end ARR plan",
+   "value": 1000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K04",
+   "metric": "Company: Headcount",
+   "value": 150,
+   "unit": "people"
+  },
+  {
+   "id": "K05",
+   "metric": "Company: Care leads",
+   "value": 48,
+   "unit": "people"
+  },
+  {
+   "id": "K06",
+   "metric": "Hiring: Active pipeline change, October vs September",
+   "value": -15,
+   "unit": "percent"
+  },
+  {
+   "id": "K07",
+   "metric": "Operations: Caseload ceiling per Family care lead",
+   "value": 120,
+   "unit": "households"
+  },
+  {
+   "id": "K08",
+   "metric": "Operations: Boston outage duration",
+   "value": 5.5,
+   "unit": "hours"
+  },
+  {
+   "id": "K09",
+   "metric": "Operations: Boston handoff backlog at peak",
+   "value": 212,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K10",
+   "metric": "Operations: Boston households affected",
+   "value": 310,
+   "unit": "households"
+  },
+  {
+   "id": "K11",
+   "metric": "AI in the numbers: Tasks closed by agents with no care lead touch",
+   "value": 70,
+   "unit": "percent"
+  },
+  {
+   "id": "K12",
+   "metric": "North Star: Standing Plan items completed inside their window",
+   "value": 91,
+   "unit": "percent"
+  },
+  {
+   "id": "K13",
+   "metric": "Operations: Provider confirmations arriving in the partner portal",
+   "value": 40,
+   "unit": "percent"
+  },
+  {
+   "id": "K14",
+   "metric": "Show day: Insurer new ARR at $6 per employee per month",
+   "value": 2900000,
+   "unit": "USD"
+  },
+  {
+   "id": "K15",
+   "metric": "Show day: Households entering setup in January on a full launch",
+   "value": 1600,
+   "unit": "households"
+  },
+  {
+   "id": "K16",
+   "metric": "Show day: Households care leads can set up from January 1 and keep the promise",
+   "value": 800,
+   "unit": "households"
+  },
+  {
+   "id": "K17",
+   "metric": "Show day: Activation rate the at Work price assumes",
+   "value": 4,
+   "unit": "percent"
+  },
+  {
+   "id": "K18",
+   "metric": "Show day: Activation rate that triggers repricing at renewal",
+   "value": 6,
+   "unit": "percent"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "What are our positions on the Harborline Mutual deal points?",
+   "detail": "Partnership deal points remain outstanding: full 1,600 household January launch vs phased 800, repricing trigger at 6% activation, and the 25 person reporting floor. Tomás wants positions settled at 2pm to reply Thursday."
+  },
+  {
+   "id": "D2",
+   "question": "Which option closes the $1M ARR gap to the $19M year end plan?",
+   "detail": "Julian's deck has three options. ARR is $18M. Harborline only counts for 2026 if signed before December 15. When does the brand campaign start?"
+  },
+  {
+   "id": "D3",
+   "question": "Approve LTE failover for every pod office after the Boston outage overnight?",
+   "detail": "Sanjay estimates about $400 per site plus data. Second Boston network outage since summer."
+  },
+  {
+   "id": "D4",
+   "question": "How do we rebuild the People & Culture hiring slate?",
+   "detail": "Pipeline down 15% in October. Head of People down to two finalists, Senior People Partner has no one past first round."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "T01",
+   "task": "Harborline capacity plan",
+   "owner": "Jordan",
+   "due": "2026-11-11",
+   "status": "In progress, may slip to Wednesday evening"
+  },
+  {
+   "id": "T02",
+   "task": "Boston incident written timeline",
+   "owner": "Sanjay",
+   "due": "2026-11-10 15:30",
+   "status": "In progress"
+  },
+  {
+   "id": "T03",
+   "task": "Clear Boston handoff backlog",
+   "owner": "Marisol Reyes",
+   "due": "2026-11-10 11:00",
+   "status": "In progress"
+  },
+  {
+   "id": "T04",
+   "task": "Reply to Harborline redline",
+   "owner": "Tomás",
+   "due": "2026-11-12",
+   "status": "Waiting on positions"
+  },
+  {
+   "id": "T05",
+   "task": "Options to close $1M ARR gap",
+   "owner": "Julian",
+   "due": "2026-11-10 11:30",
+   "status": "Ready"
+  },
+  {
+   "id": "T06",
+   "task": "Schedule 15 minute call with Helen Marsh before Thanksgiving",
+   "owner": "Alex Ellery",
+   "due": "2026-11-20",
+   "status": "Not started"
+  },
+  {
+   "id": "T07",
+   "task": "Rebuild People & Culture candidate slate",
+   "owner": "Grace Lindqvist",
+   "due": "2026-11-17",
+   "status": "Not started"
+  },
+  {
+   "id": "T08",
+   "task": "Reply to Sai about Thanksgiving",
+   "owner": "Alex Ellery",
+   "due": "2026-11-13",
+   "status": "Not started"
+  }
+ ],
+ "context": {
+  "weather": "High 54F, low 43F. Light rain through the morning commute, clearing by mid afternoon.",
+  "observances": []
+ }
+}

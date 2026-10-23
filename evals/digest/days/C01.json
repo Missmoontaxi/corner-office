@@ -1,0 +1,397 @@
+{
+ "day_id": "C01",
+ "date_label": "Monday, November 9, 2026",
+ "persona": {
+  "name": "Alex Ellery",
+  "role": "Founder and CEO",
+  "company": "CareBird"
+ },
+ "calendar": [
+  {
+   "id": "E01",
+   "start": "08:00",
+   "end": "08:30",
+   "title": "Inbox and week planning (hold)",
+   "attendees": "Alex Ellery",
+   "notes": "Personal planning block. Board prep and Harborline week."
+  },
+  {
+   "id": "E02",
+   "start": "09:00",
+   "end": "10:00",
+   "title": "Board prep kickoff: deck outline and owners",
+   "attendees": "Alex Ellery, Julian, Jordan, Priya, Sanjay, Tomás",
+   "notes": "Board meeting is Friday, November 20. Draft deck to board members by Monday, November 16. Sections: Q3 results, Q4 plan, Harborline Mutual launch, hiring plan, AI in the numbers."
+  },
+  {
+   "id": "E03",
+   "start": "10:30",
+   "end": "11:30",
+   "title": "Harborline Mutual working session: January 1 launch plan",
+   "attendees": "Alex Ellery, Tomás, Jordan, Priya, Nadia",
+   "notes": "40,000 employees at $6 PEPM, $2.9M new ARR. 1,600 households would enter setup in January on a full launch; care leads can set up 800 from January 1 and keep the promise. Bring phased rollout options."
+  },
+  {
+   "id": "E04",
+   "start": "11:30",
+   "end": "12:00",
+   "title": "1:1 Wen",
+   "attendees": "Alex Ellery, Wen",
+   "notes": "Agent task closure at 70%, target 85%. Eval results on provider confirmation agent."
+  },
+  {
+   "id": "E05",
+   "start": "12:00",
+   "end": "12:45",
+   "title": "Lunch (hold)",
+   "attendees": "Alex Ellery",
+   "notes": ""
+  },
+  {
+   "id": "E06",
+   "start": "13:00",
+   "end": "14:00",
+   "title": "Q4 financial and operational impacts review",
+   "attendees": "Alex Ellery, Julian, Jordan",
+   "notes": "Walk through Q4 model with October hiring below September. Julian's finance review due Tuesday night, November 10, 9pm."
+  },
+  {
+   "id": "E07",
+   "start": "14:30",
+   "end": "15:15",
+   "title": "Interview: VP Care Operations, final round",
+   "attendees": "Alex Ellery, candidate Lena Okafor",
+   "notes": "Recruiter packet in email from Grace Lindqvist."
+  },
+  {
+   "id": "E08",
+   "start": "15:30",
+   "end": "16:00",
+   "title": "Safety review monthly check-in",
+   "attendees": "Alex Ellery, Dr. Sofia Patel",
+   "notes": "Escalation review for October, two medication reminder edge cases."
+  },
+  {
+   "id": "E09",
+   "start": "16:30",
+   "end": "17:00",
+   "title": "Call Erika re: Mom's care plan this week",
+   "attendees": "Alex Ellery, Erika",
+   "notes": "Donna's plan not locked. Pedicure and specialty grocery run not confirmed."
+  },
+  {
+   "id": "E10",
+   "start": "2026-11-12 11:00",
+   "end": "2026-11-12 12:00",
+   "title": "Donna: podiatry-safe pedicure at Willow Lane Nail Studio (TENTATIVE, not confirmed)",
+   "attendees": "Donna, Erika",
+   "notes": "Salon has not confirmed the slot. Needs diabetic-safe tech. Transport not booked."
+  },
+  {
+   "id": "E11",
+   "start": "2026-11-14 10:00",
+   "end": "2026-11-14 11:30",
+   "title": "Donna: specialty grocery run, low-sodium order at Greenhollow Market (TENTATIVE)",
+   "attendees": "Donna, Tommy",
+   "notes": "Not confirmed. Tommy covering Saturday if Erika is off."
+  },
+  {
+   "id": "E12",
+   "start": "2026-11-20 09:00",
+   "end": "2026-11-20 13:00",
+   "title": "CareBird Board Meeting (Q4)",
+   "attendees": "Alex Ellery, Julian, board members",
+   "notes": "In person, CareBird office, 4th floor conference room. Lunch to follow."
+  }
+ ],
+ "inbox": [
+  {
+   "id": "M01",
+   "from": "Julian",
+   "address": "julian@carebird.example",
+   "subject": "Finance review due Tuesday night",
+   "received": "2026-11-08 19:42",
+   "body": "Alex,\n\nQuick heads up for the week. I need your comments on the Q4 finance review by Tuesday night so I can lock the board financials Wednesday morning.\n\nHeadlines: ARR at $18.0M. October hiring came in at 6 starts versus 9 in September, so Q4 opex is tracking about $210K under plan. Harborline Mutual would add $2.9M ARR at $6 PEPM if we close this week.\n\nModel and memo are in the board folder. Let's use our 1pm today to walk it.\n\nJulian"
+  },
+  {
+   "id": "M02",
+   "from": "Jordan",
+   "address": "jordan@carebird.example",
+   "subject": "Q4 ops impacts and hiring slowdown",
+   "received": "2026-11-08 21:15",
+   "body": "Alex,\n\nOps side for Julian's review. We closed October at 150 heads with 48 care leads. Hiring slowed last month (6 starts, 4 of them care ops), and two care lead offers were declined.\n\nThe Harborline math is the pressure point: 1,600 households entering setup in January on a full launch, and we can set up 800 from January 1 and keep the promise. I'd like us to discuss a phased start before Friday.\n\nI'll have the capacity sheet ready for the 1pm.\n\nJordan"
+  },
+  {
+   "id": "M03",
+   "from": "Tomás",
+   "address": "tomas@carebird.example",
+   "subject": "Harborline: they want an answer on rollout shape this week",
+   "received": "2026-11-09 06:05",
+   "body": "Morning Alex,\n\nMarcus Feld, VP Benefits at Harborline Mutual, emailed Saturday. Their open enrollment comms go to print November 18, so they need our rollout shape by Friday, November 13. They still want a January 1 start for all 40,000 employees.\n\nPricing assumes 4% activation; we reprice at renewal if it crosses 6%. I'll bring both full and phased options to 10:30am.\n\nTomás"
+  },
+  {
+   "id": "M04",
+   "from": "Erika",
+   "address": "erika@carebird.example",
+   "subject": "Donna's plan this week, two items not confirmed",
+   "received": "2026-11-09 05:50",
+   "body": "Hi Alex,\n\nYour mom's plan for this week isn't locked yet. Two open items:\n\n1. Pedicure Thursday, November 12 at 11am at Willow Lane Nail Studio. They haven't confirmed a tech who does diabetic foot care, and I'd rather not send her without that. I'm also still booking the ride.\n2. Specialty grocery run Saturday, November 14 at 10am at Greenhollow Market for her low-sodium items. Tommy will cover since I'm off that day, but the store hasn't confirmed the order is in.\n\nI'll keep chasing both. Can we talk at 4:30?\n\nErika"
+  },
+  {
+   "id": "M05",
+   "from": "Helen Marsh",
+   "address": "helen@northgatepartners.example",
+   "subject": "Board meeting Nov 20 logistics",
+   "received": "2026-11-08 16:20",
+   "body": "Alex,\n\nConfirming I'll be in person for the board meeting next Friday, November 20 at 9am. Could the deck come out by Monday/Tuesday? I'd like time to read the Harborline section closely.\n\nBest,\nHelen"
+  },
+  {
+   "id": "M06",
+   "from": "Grace Lindqvist",
+   "address": "grace@talentbridge.example",
+   "subject": "Lena Okafor final round packet",
+   "received": "2026-11-08 14:02",
+   "body": "Hi Alex,\n\nAttached is Lena's packet for today's 2:30pm. She ran care coordination for a regional home health group, about 40 reports. References are strong.\n\nThanks,\nGrace"
+  },
+  {
+   "id": "M07",
+   "from": "Nadia",
+   "address": "nadia@carebird.example",
+   "subject": "Harborline security questionnaire returned",
+   "received": "2026-11-07 17:30",
+   "body": "Alex,\n\nWe sent back Harborline's vendor security questionnaire Friday. One follow up on report minimums; I confirmed employer reports never show a count under 25 people.\n\nNadia"
+  },
+  {
+   "id": "M08",
+   "from": "Facilities Desk",
+   "address": "facilities@brightwellproperties.example",
+   "subject": "Elevator maintenance Wednesday",
+   "received": "2026-11-06 11:00",
+   "body": "Hello tenants,\n\nElevator B will be out of service Wednesday, November 11 from 7am to 11am for routine maintenance. Elevator A will remain in service.\n\nBrightwell Properties"
+  },
+  {
+   "id": "M09",
+   "from": "Sai",
+   "address": "sai.ellery@mailhaven.example",
+   "subject": "Thanksgiving?",
+   "received": "2026-11-08 20:11",
+   "body": "Hey Alex,\n\nAre you and Aunt Donna still planning to come up for Thanksgiving? Mom wants a headcount by next week.\n\nSai"
+  },
+  {
+   "id": "M10",
+   "from": "Priya",
+   "address": "priya@carebird.example",
+   "subject": "Board deck: product section draft",
+   "received": "2026-11-09 06:30",
+   "body": "Alex,\n\nProduct section draft is in the board folder. Partner portal confirmations at 40%, North Star at 91% inside window. Comments welcome before Wednesday.\n\nPriya"
+  }
+ ],
+ "newsletters": [
+  {
+   "id": "N01",
+   "publication": "Benefits Desk Weekly",
+   "title": "Employers lean into caregiving benefits for 2027 plan year",
+   "body": "Open enrollment season shows more mid-size employers adding eldercare navigation. Brokers report activation, not price, is now the main renewal question."
+  },
+  {
+   "id": "N02",
+   "publication": "The Caregiving Ledger",
+   "title": "Staffing tightness eases slightly in care coordination roles",
+   "body": "Regional data suggests care coordinator time to hire fell in October, though declined offers remain elevated in larger metros."
+  },
+  {
+   "id": "N03",
+   "publication": "Founder Operating Notes",
+   "title": "Running a board prep week without losing the week",
+   "body": "A short checklist for CEOs: lock the numbers early, send the deck 4 days out, pre-wire the hard decisions one on one."
+  }
+ ],
+ "kpis": [
+  {
+   "id": "K01",
+   "metric": "Company: ARR",
+   "value": 18000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K03",
+   "metric": "Company: Headcount",
+   "value": 150,
+   "unit": "people"
+  },
+  {
+   "id": "K05",
+   "metric": "Company: Care leads",
+   "value": 48,
+   "unit": "people"
+  },
+  {
+   "id": "K08",
+   "metric": "Family: ARR",
+   "value": 9100000,
+   "unit": "USD"
+  },
+  {
+   "id": "K11",
+   "metric": "at Work: ARR",
+   "value": 5400000,
+   "unit": "USD"
+  },
+  {
+   "id": "K15",
+   "metric": "Residences: ARR",
+   "value": 2200000,
+   "unit": "USD"
+  },
+  {
+   "id": "K18",
+   "metric": "Self: ARR",
+   "value": 1300000,
+   "unit": "USD"
+  },
+  {
+   "id": "K21",
+   "metric": "North Star: Standing Plan items completed inside their window",
+   "value": 91,
+   "unit": "percent"
+  },
+  {
+   "id": "K23",
+   "metric": "AI in the numbers: Tasks closed by agents with no care lead touch",
+   "value": 70,
+   "unit": "percent"
+  },
+  {
+   "id": "K25",
+   "metric": "AI in the numbers: Care lead minutes per household per month, now",
+   "value": 38,
+   "unit": "minutes"
+  },
+  {
+   "id": "K26",
+   "metric": "Retention: Family households kept at 12 months",
+   "value": 84,
+   "unit": "percent"
+  },
+  {
+   "id": "K27",
+   "metric": "Retention: Employer net revenue retention",
+   "value": 118,
+   "unit": "percent"
+  },
+  {
+   "id": "K30",
+   "metric": "Operations: Provider confirmations arriving in the partner portal",
+   "value": 40,
+   "unit": "percent"
+  },
+  {
+   "id": "K31",
+   "metric": "Show day: Insurer employees",
+   "value": 40000,
+   "unit": "employees"
+  },
+  {
+   "id": "K32",
+   "metric": "Show day: Insurer new ARR at $6 per employee per month",
+   "value": 2900000,
+   "unit": "USD"
+  },
+  {
+   "id": "K33",
+   "metric": "Show day: Households entering setup in January on a full launch",
+   "value": 1600,
+   "unit": "households"
+  },
+  {
+   "id": "K34",
+   "metric": "Show day: Households care leads can set up from January 1 and keep the promise",
+   "value": 800,
+   "unit": "households"
+  },
+  {
+   "id": "K48",
+   "metric": "Hiring: New starts, October",
+   "value": 6,
+   "unit": "people"
+  },
+  {
+   "id": "K49",
+   "metric": "Hiring: New starts, September",
+   "value": 9,
+   "unit": "people"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "Full or phased Harborline Mutual launch on January 1?",
+   "detail": "Open since last week. Full launch puts 1,600 households into setup in January against capacity of 800. Harborline needs the rollout shape by Friday, November 13."
+  },
+  {
+   "id": "D2",
+   "question": "Sign off on Q4 finance review",
+   "detail": "Julian needs comments by Tuesday night to lock board financials, including the slower October hiring."
+  },
+  {
+   "id": "D3",
+   "question": "Move forward with Lena Okafor for VP Care Operations?",
+   "detail": "Final round today at 2:30pm. Would help care lead capacity ahead of Harborline."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "T01",
+   "task": "Review and comment on Q4 finance review",
+   "owner": "Alex Ellery",
+   "due": "2026-11-10 21:00",
+   "status": "Open"
+  },
+  {
+   "id": "T02",
+   "task": "Board deck draft to board members",
+   "owner": "Julian",
+   "due": "2026-11-16",
+   "status": "In progress"
+  },
+  {
+   "id": "T03",
+   "task": "Prepare board meeting agenda and pre-reads",
+   "owner": "Alex Ellery",
+   "due": "2026-11-13",
+   "status": "Not started"
+  },
+  {
+   "id": "T04",
+   "task": "Harborline full vs phased rollout options",
+   "owner": "Tomás",
+   "due": "2026-11-09 10:30",
+   "status": "In progress"
+  },
+  {
+   "id": "T05",
+   "task": "Care lead capacity sheet for January",
+   "owner": "Jordan",
+   "due": "2026-11-09 13:00",
+   "status": "In progress"
+  },
+  {
+   "id": "T06",
+   "task": "Confirm Donna's pedicure (Nov 12) and grocery run (Nov 14)",
+   "owner": "Erika",
+   "due": "2026-11-11",
+   "status": "Not confirmed"
+  },
+  {
+   "id": "T07",
+   "task": "Reply to Sai on Thanksgiving headcount",
+   "owner": "Alex Ellery",
+   "due": "2026-11-16",
+   "status": "Open"
+  }
+ ],
+ "context": {
+  "weather": "Partly sunny, high 54F, low 41F, dry through the evening",
+  "observances": []
+ }
+}

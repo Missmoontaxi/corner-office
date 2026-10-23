@@ -1,0 +1,371 @@
+{
+ "day_id": "C06",
+ "date_label": "Monday, November 16, 2026",
+ "persona": {
+  "name": "Alex Ellery",
+  "role": "Founder and CEO",
+  "company": "CareBird"
+ },
+ "calendar": [
+  {
+   "id": "E01",
+   "start": "08:30",
+   "end": "09:00",
+   "title": "Inbox and board week planning (hold)",
+   "attendees": "Alex Ellery",
+   "notes": "Board meets Friday, November 20. Next deck version due to Julian Wednesday, November 18."
+  },
+  {
+   "id": "E02",
+   "start": "09:30",
+   "end": "10:15",
+   "title": "Boston overnight postmortem readout",
+   "attendees": "Sanjay, Priya, Jordan, Nadia, Alex Ellery",
+   "notes": "Sanjay circulating the written postmortem this morning. Priya to walk through the patch plan and roadmap impact."
+  },
+  {
+   "id": "E03",
+   "start": "10:30",
+   "end": "11:00",
+   "title": "1:1 Jordan",
+   "attendees": "Jordan, Alex Ellery",
+   "notes": "Hiring pipeline, Q1 care lead plan, Boston staffing."
+  },
+  {
+   "id": "E04",
+   "start": "11:30",
+   "end": "12:15",
+   "title": "VP of Care search kickoff (round two)",
+   "attendees": "Grace Lindqvist (TalentBridge), Jordan, Alex Ellery",
+   "notes": "Video. Revisit the profile and target list. Grace to share a revised timeline."
+  },
+  {
+   "id": "E05",
+   "start": "12:30",
+   "end": "13:15",
+   "title": "Lunch (hold)",
+   "attendees": "Alex Ellery",
+   "notes": ""
+  },
+  {
+   "id": "E06",
+   "start": "13:30",
+   "end": "14:00",
+   "title": "Open-weight model test check-in",
+   "attendees": "Wen, Sanjay, Alex Ellery",
+   "notes": "Week two of the side-by-side eval on task closure."
+  },
+  {
+   "id": "E07",
+   "start": "14:30",
+   "end": "15:30",
+   "title": "Board deck working session",
+   "attendees": "Julian, Tomás, Alex Ellery",
+   "notes": "Year end ARR forecast, Harborline launch scope, hiring slide."
+  },
+  {
+   "id": "E08",
+   "start": "16:00",
+   "end": "16:30",
+   "title": "1:1 Marisol Reyes",
+   "attendees": "Marisol Reyes, Alex Ellery",
+   "notes": "Biweekly."
+  },
+  {
+   "id": "E09",
+   "start": "16:45",
+   "end": "17:00",
+   "title": "Call Erika re: Mom weekly update",
+   "attendees": "Erika, Alex Ellery",
+   "notes": "Phone."
+  },
+  {
+   "id": "E10",
+   "start": "2026-11-26 08:00",
+   "end": "2026-11-26 08:45",
+   "title": "Gynecologist follow-up appointment, Hudson Park Gynecology",
+   "attendees": "Alex Ellery",
+   "notes": "Follow-up visit with Dr. Ilana Brooks. Thursday next week, 8:00 AM. Arrive 10 minutes early."
+  }
+ ],
+ "inbox": [
+  {
+   "id": "M01",
+   "from": "Julian",
+   "address": "julian@carebird.example",
+   "subject": "Board week: deck v4 by Wednesday",
+   "received": "Sun 19:42",
+   "body": "Alex,\n\nQuick note to start board week. The board meets Friday the 20th. I need the next version of the deck from you by Wednesday end of day so I can get it to the board members Thursday morning.\n\nOpen items on my side: the year end view still shows $17.8M ARR against the $19.0M plan, a $1.2M gap. I will keep that framing unless Harborline timing moves. I would like a hiring slide from Jordan, given what she is seeing.\n\nWorking session is on the calendar for 2:30pm today.\n\nJulian"
+  },
+  {
+   "id": "M02",
+   "from": "Jordan",
+   "address": "jordan@carebird.example",
+   "subject": "Hiring pipeline down 17 percent, Q1 care lead plan at risk",
+   "received": "Mon 06:12",
+   "body": "Alex,\n\nHeads up before our 1:1. Our active hiring pipeline is down 17 percent month over month. Care lead applicants are the bulk of the drop, mostly Boston and Philadelphia.\n\nThe Q1 care lead plan is at risk. We planned 12 new care leads starting by end of March. We have 3 accepted offers and not enough people in late stages to close the rest at our normal conversion. That matters for Harborline: today we can set up 800 households from January 1 and keep the promise, against 1,600 on a full launch.\n\nI want to talk through adding a second recruiting partner and a referral bonus. I can draft the board slide.\n\nJordan"
+  },
+  {
+   "id": "M03",
+   "from": "Sanjay",
+   "address": "sanjay@carebird.example",
+   "subject": "Postmortem: Boston overnight backlog (please read before 9:30am)",
+   "received": "Mon 06:48",
+   "body": "Team,\n\nAttached is the written postmortem for the Boston overnight incident. Summary: the handoff queue stalled for 3.2 hours, backlog peaked at 164 handoffs and was down to 58 by 5am. Root cause was a retry loop in the provider confirmation sync that blocked the queue worker instead of failing over. No missed safety items, per Dr. Patel's review.\n\nFixes, monitoring changes and owners are in section 4. Priya has asked for the queue fix to be prioritized; details from her separately.\n\nSanjay"
+  },
+  {
+   "id": "M04",
+   "from": "Priya",
+   "address": "priya@carebird.example",
+   "subject": "Urgent patch for the queue issue, roadmap impacted by 1 week",
+   "received": "Mon 07:05",
+   "body": "Alex,\n\nFollowing Sanjay's postmortem, I've asked engineering to take on the queue worker patch and the failover change as urgent work this sprint. I don't want to ship Harborline onboarding on top of the current behavior.\n\nThe cost: the roadmap is impacted by 1 week. Partner portal improvements and the Self reminders release each move out by one week. Harborline onboarding dates do not move.\n\nI'd like your OK at the 9:30am so the team can start today. I will update the roadmap slide for Julian's deck.\n\nPriya"
+  },
+  {
+   "id": "M05",
+   "from": "Grace Lindqvist",
+   "address": "grace@talentbridge.example",
+   "subject": "VP of Care search: starting again",
+   "received": "Sun 16:20",
+   "body": "Hi Alex,\n\nThanks for the candid debrief last week. We are ready to begin the VP of Care search again. For our 11:30am I'll bring a revised profile with more weight on multi-site operations and scaling a care team through a large employer launch, plus a fresh target list of about 30 names.\n\nRealistic timeline is first conversations in early December and a shortlist before the holidays. Please let me know if anyone besides Jordan should join.\n\nBest,\nGrace Lindqvist\nTalentBridge"
+  },
+  {
+   "id": "M06",
+   "from": "Wen",
+   "address": "wen@carebird.example",
+   "subject": "Open-weight model test: on track",
+   "received": "Mon 07:30",
+   "body": "Alex,\n\nShort update ahead of 1:30pm. The open-weight model test is on track. Week one numbers on the replay set are close to our current model on task closure, and latency is better. Week two runs on live shadow traffic with no member-facing output. Nadia signed off on the data handling.\n\nI'll have a recommendation by the end of next week.\n\nWen"
+  },
+  {
+   "id": "M07",
+   "from": "Hudson Park Gynecology",
+   "address": "appointments@hudsonparkgyn.example",
+   "subject": "Appointment confirmation: Thursday, November 26 at 8:00 AM",
+   "received": "Sat 10:14",
+   "body": "Dear Alex Ellery,\n\nThis confirms your follow-up appointment with Dr. Ilana Brooks on Thursday, November 26 at 8:00 AM at Hudson Park Gynecology, 3rd floor.\n\nPlease arrive 10 minutes early and bring your insurance card. Reply C to confirm or call the office to reschedule.\n\nHudson Park Gynecology"
+  },
+  {
+   "id": "M08",
+   "from": "Erika",
+   "address": "erika@carebird.example",
+   "subject": "Donna weekly note",
+   "received": "Sun 18:05",
+   "body": "Hi Alex,\n\nGood week for your mom. All Standing Plan items for Donna closed on time, including the pharmacy refill and the podiatry visit. She asked about holiday plans, so it may come up when you call. Tommy is covering for me Wednesday afternoon if anything comes up.\n\nTalk at 4:45pm.\n\nErika"
+  },
+  {
+   "id": "M09",
+   "from": "Facilities Desk",
+   "address": "facilities@brightwellproperties.example",
+   "subject": "Freight elevator maintenance Tuesday",
+   "received": "Fri 15:30",
+   "body": "Hello tenants,\n\nThe freight elevator will be out of service Tuesday, November 17 from 7am to 11am for scheduled maintenance. Passenger elevators are unaffected.\n\nThank you,\nFacilities Desk\nBrightwell Properties"
+  },
+  {
+   "id": "M10",
+   "from": "Sai",
+   "address": "sai.ellery@mailhaven.example",
+   "subject": "Thanksgiving",
+   "received": "Sun 21:10",
+   "body": "Hey,\n\nWe'll see you and Aunt Donna next week right? Anything new and interesting we should cook this year?\n\nCheers,\nSai"
+  },
+  {
+   "id": "M11",
+   "from": "Tomás",
+   "address": "tomas@carebird.example",
+   "subject": "Pipeline notes for the deck",
+   "received": "Mon 07:50",
+   "body": "Alex,\n\nTwo employer deals moved to verbal last week, both under 5,000 employees. Harborline status unchanged since Diane's last call. I'll put the pipeline slide into Julian's folder by Tuesday noon.\n\nTomás"
+  }
+ ],
+ "newsletters": [
+  {
+   "id": "N01",
+   "publication": "The Care Economy Weekly",
+   "title": "Employers widen caregiving benefits for 2027",
+   "body": "Benefits leaders report more caregiving support in 2027 plan designs, with navigation services leading. Analysts flag activation and staffing as the main risks for vendors scaling into large employers."
+  },
+  {
+   "id": "N02",
+   "publication": "Applied Models Digest",
+   "title": "Open-weight models close the gap on structured tasks",
+   "body": "New evaluations show open-weight models approaching closed models on structured workflow tasks, with lower serving costs. The authors caution that eval sets rarely match production traffic."
+  }
+ ],
+ "kpis": [
+  {
+   "id": "K01",
+   "metric": "Company: ARR",
+   "value": 17800000,
+   "unit": "USD"
+  },
+  {
+   "id": "K02",
+   "metric": "Finance: Year end 2026 ARR plan",
+   "value": 19000000,
+   "unit": "USD"
+  },
+  {
+   "id": "K03",
+   "metric": "Finance: Forecast gap to year end ARR plan",
+   "value": 1200000,
+   "unit": "USD"
+  },
+  {
+   "id": "K04",
+   "metric": "Company: Headcount",
+   "value": 150,
+   "unit": "people"
+  },
+  {
+   "id": "K05",
+   "metric": "Company: Care leads",
+   "value": 48,
+   "unit": "people"
+  },
+  {
+   "id": "K06",
+   "metric": "Hiring: Active pipeline change, month over month",
+   "value": -17,
+   "unit": "percent"
+  },
+  {
+   "id": "K07",
+   "metric": "Hiring: Q1 care lead hires planned",
+   "value": 12,
+   "unit": "people"
+  },
+  {
+   "id": "K08",
+   "metric": "Hiring: Q1 care lead offers accepted",
+   "value": 3,
+   "unit": "people"
+  },
+  {
+   "id": "K09",
+   "metric": "Operations: Boston overnight recurrence duration",
+   "value": 3.2,
+   "unit": "hours"
+  },
+  {
+   "id": "K10",
+   "metric": "Operations: Boston overnight backlog at peak",
+   "value": 164,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K11",
+   "metric": "Operations: Boston backlog at 05:00",
+   "value": 58,
+   "unit": "handoffs"
+  },
+  {
+   "id": "K12",
+   "metric": "Product: Roadmap slip from queue patch",
+   "value": 1,
+   "unit": "weeks"
+  },
+  {
+   "id": "K13",
+   "metric": "Show day: Households entering setup in January on a full launch",
+   "value": 1600,
+   "unit": "households"
+  },
+  {
+   "id": "K14",
+   "metric": "Show day: Households care leads can set up from January 1 and keep the promise",
+   "value": 800,
+   "unit": "households"
+  },
+  {
+   "id": "K15",
+   "metric": "North Star: Standing Plan items completed inside their window",
+   "value": 91,
+   "unit": "percent"
+  },
+  {
+   "id": "K16",
+   "metric": "AI in the numbers: Tasks closed by agents with no care lead touch",
+   "value": 70,
+   "unit": "percent"
+  },
+  {
+   "id": "K17",
+   "metric": "Operations: Provider confirmations arriving in the partner portal",
+   "value": 40,
+   "unit": "percent"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "D1",
+   "question": "Approve the urgent queue patch and accept a 1 week roadmap slip?",
+   "detail": "Priya wants engineering on the queue worker fix and failover change this sprint. Partner portal improvements and Self reminders move out one week. Harborline onboarding dates hold."
+  },
+  {
+   "id": "D2",
+   "question": "How to respond to the Q1 care lead hiring risk?",
+   "detail": "Pipeline down 17 percent month over month, 3 of 12 planned Q1 care leads accepted. Jordan proposes a second recruiting partner and a referral bonus."
+  },
+  {
+   "id": "D3",
+   "question": "Who joins the VP of Care search panel this round?",
+   "detail": "Grace is restarting the search with a revised profile and about 30 new names. Currently Alex and Jordan."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "T01",
+   "task": "Send next version of the board deck to Julian",
+   "owner": "Alex Ellery",
+   "due": "Wednesday, November 18",
+   "status": "In progress"
+  },
+  {
+   "id": "T02",
+   "task": "Read Boston overnight postmortem before readout",
+   "owner": "Alex Ellery",
+   "due": "Monday, November 16, 9:30am",
+   "status": "Not started"
+  },
+  {
+   "id": "T03",
+   "task": "Draft hiring slide for board deck",
+   "owner": "Jordan",
+   "due": "Tuesday, November 17",
+   "status": "Not started"
+  },
+  {
+   "id": "T04",
+   "task": "Update roadmap slide with 1 week slip",
+   "owner": "Priya",
+   "due": "Tuesday, November 17",
+   "status": "Not started"
+  },
+  {
+   "id": "T05",
+   "task": "Share revised VP of Care profile and target list",
+   "owner": "Grace Lindqvist (TalentBridge)",
+   "due": "Monday, November 16",
+   "status": "In progress"
+  },
+  {
+   "id": "T06",
+   "task": "Open-weight model recommendation",
+   "owner": "Wen",
+   "due": "Friday, November 27",
+   "status": "On track"
+  },
+  {
+   "id": "T07",
+   "task": "Reply to Sai about Thanksgiving plans",
+   "owner": "Alex Ellery",
+   "due": "Wednesday, November 18",
+   "status": "Not started"
+  }
+ ],
+ "context": {
+  "weather": "Partly sunny, high 51F, low 39F, dry through the evening",
+  "observances": []
+ }
+}
