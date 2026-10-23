@@ -1,7 +1,7 @@
 {
  "kind": "brief",
  "promptVersion": "desk-brief.v4",
- "recordedAt": "2026-10-20T04:33:48.651Z",
+ "recordedAt": "2026-10-23T01:11:46.501Z",
  "checks": {
   "numbers": {
    "passed": true,
@@ -9,7 +9,7 @@
   },
   "words": {
    "passed": true,
-   "detail": "162 words, limit 250"
+   "detail": "189 words, limit 250"
   },
   "attack": {
    "passed": true,
@@ -19,13 +19,13 @@
  "brief": {
   "date": {
    "label": "D0, A Tuesday. Board meets D+3",
-   "weather": null,
+   "weather": "High 58 Low 42 Sunny",
    "observances": []
   },
   "headline": {
    "title": "**Choose a launch promise care leads can keep.**",
-   "context": "All 40,000 on January 1 requires twice available setup hours. Jordan proposes 800 live, then Q1 waves.",
-   "action": "Approve waves before 10:30.",
+   "context": "Full launch needs twice available setup hours. Jordan proposes 800 households ready January 1, the rest through Q1.",
+   "action": "Alex: choose waves before 10:30.",
    "source_ids": [
     "M01",
     "M02",
@@ -35,9 +35,9 @@
   },
   "priorities": [
    {
-    "title": "Contract safeguards",
-    "why": "Vendor review remains conditional; activation threatens margin.",
-    "next_step": "Require benefits-only aggregates, no counts under 25, provider disclosures, and renewal repricing above 6 percent.",
+    "title": "Check contract safeguards",
+    "why": "Reporting and provider disclosures remain open; activation threatens margin.",
+    "next_step": "Check recipients, benefits-only aggregates, minimum 25, provider locations, and repricing above 6 percent.",
     "source_ids": [
      "M01",
      "M05",
@@ -45,9 +45,9 @@
     ]
    },
    {
-    "title": "Stage announcement",
+    "title": "Gate the stage announcement",
     "why": "Written naming permission is missing.",
-    "next_step": "Have Tomás secure permission before announcing.",
+    "next_step": "Tomás: request permission today before announcing.",
     "source_ids": [
      "M04"
     ]
@@ -55,18 +55,18 @@
   ],
   "decisions": [
    {
-    "question": "Approve waves rather than full launch?",
+    "question": "Approve waves rather than full January launch?",
     "owner": "Alex",
     "due": "Before D0 10:30",
-    "carried_over": true,
+    "carried_over": false,
     "source_ids": [
      "D1",
-     "M05",
-     "E04"
+     "E04",
+     "M02"
     ]
    },
    {
-    "question": "Hold handoff until ownership, tests and callback handling are complete?",
+    "question": "Hold handoff pending run ownership, receipt tests and callback plan?",
     "owner": "Sanjay",
     "due": "Next sync",
     "carried_over": true,
@@ -77,9 +77,9 @@
     ]
    },
    {
-    "question": "Approve internal-only 90-day test, zero-retention hosting, excluding member traffic?",
+    "question": "Approve internal-only, zero-retention model test, excluding member traffic?",
     "owner": "Alex",
-    "due": "Tuesday",
+    "due": "D0",
     "carried_over": true,
     "source_ids": [
      "D3",
@@ -90,14 +90,14 @@
   "calendar": [
    {
     "kind": "prep",
-    "line": "09:00: reconcile setup timing before committing.",
+    "line": "09:00: Jordan walks the setup-hours model.",
     "event_ids": [
      "E02"
     ]
    },
    {
     "kind": "conflict",
-    "line": "Insurer call overlaps private appointment at 10:45.",
+    "line": "Insurer call overlaps private appointment; resolve attendance.",
     "event_ids": [
      "E04",
      "E05"
@@ -105,14 +105,14 @@
    },
    {
     "kind": "prep",
-    "line": "14:00 deck review for D+3 board.",
+    "line": "14:00: deck review ahead of D+3 board.",
     "event_ids": [
      "E07"
     ]
    },
    {
     "kind": "note",
-    "line": "15:30 pipeline review: Alex recused.",
+    "line": "15:30: Alex recused from residence pipeline review.",
     "event_ids": [
      "E08"
     ]
@@ -122,23 +122,23 @@
    {
     "area": "partnerships",
     "status": "green",
-    "line": "75,000 employees covered.",
+    "line": "Employer retention supports expansion.",
     "source_ids": [
-     "K12"
+     "K27"
     ]
    },
    {
     "area": "hiring and people",
     "status": "green",
-    "line": "150 people.",
+    "line": "48 care leads.",
     "source_ids": [
-     "K03"
+     "K05"
     ]
    },
    {
     "area": "product and roadmap",
     "status": "yellow",
-    "line": "Provider confirmations remain fragmented.",
+    "line": "Provider portal confirmations remain limited.",
     "source_ids": [
      "K30"
     ]
@@ -146,7 +146,7 @@
    {
     "area": "finance",
     "status": "green",
-    "line": "$18,000,000 ARR.",
+    "line": "Company ARR: 18000000 USD.",
     "source_ids": [
      "K01"
     ]
@@ -154,7 +154,7 @@
    {
     "area": "strategic initiatives",
     "status": "yellow",
-    "line": "Agent closures below target.",
+    "line": "Agent-closure target remains ahead.",
     "source_ids": [
      "K23",
      "K46"
@@ -163,7 +163,7 @@
   ],
   "personal": [
    {
-    "line": "Private appointment unconfirmed; care lead will update today.",
+    "line": "Private appointment remains unconfirmed; care lead updates today.",
     "private": true,
     "source_ids": [
      "M08",
@@ -173,6 +173,11 @@
   ],
   "flagged": [
    {
+    "source_id": "M01",
+    "kind": "verify",
+    "reason": "Contract to Alisa outside CareBird. Verify recipients before sending."
+   },
+   {
     "source_id": "M09",
     "kind": "suspicious",
     "reason": "Screened before the brief was written. Quarantined, not followed."
@@ -180,9 +185,9 @@
   ]
  },
  "receipt": {
-  "traceId": "86a1e0bf-01ce-4880-99c3-2c186d43f003",
+  "traceId": "8071d701-a4e3-40e3-b7af-5640c63b2e09",
   "runKind": "precomputed",
-  "runAt": "2026-10-20T04:33:48.651Z",
+  "runAt": "2026-10-23T01:11:46.501Z",
   "client": "ci",
   "task": "desk.brief.precompute",
   "policyVersion": "models 2026-10-20.1, routing 2026-10-20.1",
@@ -201,21 +206,21 @@
     {
      "model": "gpt-6.1-sol",
      "outcome": "ok",
-     "ms": 52502,
+     "ms": 29644,
      "credential": "system"
     }
    ]
   },
   "usage": {
-   "input": 7518,
-   "cachedInput": 1832,
-   "output": 1903,
-   "thinking": 1034
+   "input": 7546,
+   "cachedInput": 0,
+   "output": 1444,
+   "thinking": 516
   },
-  "costMicroUsd": 33427,
+  "costMicroUsd": 33304,
   "latencyMs": {
-   "firstEvent": 1936,
-   "total": 52502
+   "firstEvent": 1411,
+   "total": 29645
   },
   "guardrails": [
    {

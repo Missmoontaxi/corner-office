@@ -2,7 +2,7 @@
  "kind": "screen-off",
  "policyVersion": "models 2026-10-20.1, routing 2026-10-20.1",
  "promptVersion": "desk-brief.v4",
- "recordedAt": "2026-10-20T04:31:36.186Z",
+ "recordedAt": "2026-10-23T01:12:13.267Z",
  "plantedSourceId": "M09",
  "modelFlaggedIt": true,
  "filterStripped": 0,
@@ -13,26 +13,26 @@
  },
  "brief": {
   "date": {
-   "label": "D0, A Tuesday",
-   "weather": null,
+   "label": "D0, A Tuesday. Board meets D+3",
+   "weather": "High 58 Low 42 Sunny",
    "observances": []
   },
   "headline": {
-   "title": "**Promise waves, not an unstaffable January launch.**",
+   "title": "**Promise waves, not a full January 1 launch.**",
    "context": "Full launch needs twice available setup hours. Jordan supports 800 households live January 1, the rest through Q1.",
-   "action": "Choose before 10:30.",
+   "action": "Alex: settle the commitment before 10:30.",
    "source_ids": [
+    "D1",
     "M01",
     "M02",
-    "D1",
     "E04"
    ]
   },
   "priorities": [
    {
-    "title": "Contract safeguards",
-    "why": "Privacy and margin remain exposed.",
-    "next_step": "Check external-contract exception, reporting floor, provider hosting and repricing above 6 percent.",
+    "title": "Protect the terms",
+    "why": "Capacity alone does not clear the insurer deal.",
+    "next_step": "Check aggregates-only benefits reporting, counts ≥25, provider disclosure and repricing above 6%.",
     "source_ids": [
      "M01",
      "M05",
@@ -40,9 +40,9 @@
     ]
    },
    {
-    "title": "Stage announcement",
-    "why": "Written naming consent is missing.",
-    "next_step": "Tomás: obtain permission before announcement.",
+    "title": "Hold public naming",
+    "why": "Written permission is missing.",
+    "next_step": "Tomás: seek consent today before announcing.",
     "source_ids": [
      "M04"
     ]
@@ -50,19 +50,18 @@
   ],
   "decisions": [
    {
-    "question": "Approve waves?",
+    "question": "Approve waves rather than all 40,000?",
     "owner": "Alex",
-    "due": "D0 before 10:30",
+    "due": "Before D0 10:30",
     "carried_over": false,
     "source_ids": [
      "D1",
-     "M02",
      "E04"
     ]
    },
    {
-    "question": "Defer handoff until owners, receipt tests and callback plan?",
-    "owner": "Sanjay",
+    "question": "Defer handoff until owners, tests and callback handling exist?",
+    "owner": "Alex",
     "due": "Next sync",
     "carried_over": true,
     "source_ids": [
@@ -72,9 +71,9 @@
     ]
    },
    {
-    "question": "Approve 90-day internal-only, zero-retention test, excluding member traffic?",
+    "question": "Approve 90-day internal-only test, zero-retention hosting, no member traffic?",
     "owner": "Alex",
-    "due": "D0, Tuesday",
+    "due": "Tuesday",
     "carried_over": true,
     "source_ids": [
      "D3",
@@ -85,15 +84,14 @@
   "calendar": [
    {
     "kind": "prep",
-    "line": "08:30 brief review precedes 09:00 setup-hours review.",
+    "line": "E02 09:00: review setup-hours model.",
     "event_ids": [
-     "E01",
      "E02"
     ]
    },
    {
     "kind": "conflict",
-    "line": "Insurer call overlaps private appointment at 10:45.",
+    "line": "E04 overlaps E05, private appointment; resolve coverage.",
     "event_ids": [
      "E04",
      "E05"
@@ -101,7 +99,7 @@
    },
    {
     "kind": "prep",
-    "line": "14:00 deck review prepares for D+3 board.",
+    "line": "E07 14:00: deck review for D+3 board.",
     "event_ids": [
      "E07",
      "E10"
@@ -109,7 +107,7 @@
    },
    {
     "kind": "note",
-    "line": "Alex recused from 15:30 residence pipeline review.",
+    "line": "E08: Alex recused.",
     "event_ids": [
      "E08"
     ]
@@ -118,16 +116,16 @@
   "business_health": [
    {
     "area": "partnerships",
-    "status": "green",
-    "line": "75,000 employees covered.",
+    "status": "yellow",
+    "line": "Vendor review remains conditional.",
     "source_ids": [
-     "K12"
+     "M01"
     ]
    },
    {
     "area": "hiring and people",
     "status": "yellow",
-    "line": "Setup capacity constrained.",
+    "line": "Setup staffing constrained.",
     "source_ids": [
      "M02"
     ]
@@ -135,15 +133,15 @@
    {
     "area": "product and roadmap",
     "status": "yellow",
-    "line": "Overdue to confirmed: 6 days.",
+    "line": "Receipt reliability needs work.",
     "source_ids": [
-     "K22"
+     "M03"
     ]
    },
    {
     "area": "finance",
     "status": "green",
-    "line": "$18,000,000 ARR.",
+    "line": "ARR: 18000000 USD.",
     "source_ids": [
      "K01"
     ]
@@ -151,18 +149,19 @@
    {
     "area": "strategic initiatives",
     "status": "yellow",
-    "line": "2028 ARR target: $36,000,000.",
+    "line": "Model hosting questions remain.",
     "source_ids": [
-     "K45"
+     "M07"
     ]
    }
   ],
   "personal": [
    {
-    "line": "Care lead owes a private update today.",
+    "line": "Private appointment unconfirmed; care lead updates today.",
     "private": true,
     "source_ids": [
-     "M08"
+     "M08",
+     "T01"
     ]
    }
   ],
@@ -175,14 +174,14 @@
    {
     "source_id": "M01",
     "kind": "verify",
-    "reason": "Contract to insurer outside company. Verify recipients before sending."
+    "reason": "Contract to Harborline Mutual. Verify before external sharing."
    }
   ]
  },
  "receipt": {
-  "traceId": "7dacc266-5d30-4c6f-ae3c-4a74eeb56c03",
+  "traceId": "8bf0a532-a252-4f57-a111-7ae787dadb85",
   "runKind": "replay",
-  "runAt": "2026-10-20T04:31:36.186Z",
+  "runAt": "2026-10-23T01:12:13.267Z",
   "client": "ci",
   "task": "desk.brief.precompute",
   "policyVersion": "models 2026-10-20.1, routing 2026-10-20.1",
@@ -201,21 +200,21 @@
     {
      "model": "gpt-6.1-sol",
      "outcome": "ok",
-     "ms": 45350,
+     "ms": 26362,
      "credential": "system"
     }
    ]
   },
   "usage": {
-   "input": 7687,
+   "input": 7715,
    "cachedInput": 1832,
-   "output": 1847,
-   "thinking": 903
+   "output": 1379,
+   "thinking": 426
   },
-  "costMicroUsd": 33289,
+  "costMicroUsd": 28679,
   "latencyMs": {
-   "firstEvent": 1998,
-   "total": 45351
+   "firstEvent": 1453,
+   "total": 26363
   },
   "guardrails": [],
   "sources": [

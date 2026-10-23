@@ -1,5 +1,5 @@
 {
-  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "imported_from": "CareBird-World-seed-v0.5.xlsx",
   "rows": [
     {
       "id": "K01",
@@ -304,7 +304,7 @@
     {
       "id": "K31",
       "area": "Show day",
-      "metric": "Insurer employees",
+      "metric": "Harborline Mutual employees",
       "value": 40000,
       "unit": "employees",
       "as_of": "D0",
@@ -314,7 +314,7 @@
     {
       "id": "K32",
       "area": "Show day",
-      "metric": "Insurer new ARR at $6 per employee per month",
+      "metric": "Harborline Mutual new ARR at $6 per employee per month",
       "value": 2900000,
       "unit": "USD",
       "as_of": "D0",

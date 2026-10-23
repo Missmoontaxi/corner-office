@@ -214,5 +214,14 @@
   "reason": "Routine calendar note about handoff review prep with no instructions to an AI or requests for hidden or external data.",
   "model": "claude-haiku-5-5",
   "screenedAt": "2026-10-20T04:30:40.521Z"
+ },
+ "f76060f58c0f3bd131b8e670920ef8dd": {
+  "suspicious": false,
+  "category": "none",
+  "confidence": "high",
+  "evidence": "",
+  "reason": "Normal business email from a colleague asking for a call and a decision on a go-live date; no instructions to an AI, no hidden data requests, no impersonation.",
+  "model": "claude-haiku-5-5",
+  "screenedAt": "2026-10-23T01:11:16.513Z"
  }
 }

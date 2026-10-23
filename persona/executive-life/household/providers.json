@@ -1,5 +1,5 @@
 {
-  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "imported_from": "CareBird-World-seed-v0.5.xlsx",
   "rows": [
     {
       "id": "PR01",
@@ -9,7 +9,7 @@
       "release_on_file": "yes",
       "verified_on": "D-12",
       "notes": "Off site, accepts Medicare",
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR02",
@@ -19,7 +19,7 @@
       "release_on_file": "yes",
       "verified_on": "D-35",
       "notes": "Cancelled T02",
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR03",
@@ -29,7 +29,7 @@
       "release_on_file": "yes",
       "verified_on": "D-20",
       "notes": null,
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR04",
@@ -39,7 +39,7 @@
       "release_on_file": "yes",
       "verified_on": "D-45",
       "notes": null,
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR05",
@@ -49,17 +49,17 @@
       "release_on_file": "no",
       "verified_on": "D-24",
       "notes": null,
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR06",
-      "name": "Second Street Barbers",
+      "name": "Second Street Style",
       "type": "licensed barber",
       "scope": "haircuts",
       "release_on_file": "no",
       "verified_on": "D-9",
       "notes": null,
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR07",
@@ -69,7 +69,7 @@
       "release_on_file": "yes",
       "verified_on": "D-110",
       "notes": "Stale, recheck due",
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR08",
@@ -79,7 +79,7 @@
       "release_on_file": "yes",
       "verified_on": "D-60",
       "notes": null,
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR09",
@@ -89,7 +89,7 @@
       "release_on_file": "yes",
       "verified_on": "D-15",
       "notes": null,
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR10",
@@ -99,27 +99,27 @@
       "release_on_file": "no",
       "verified_on": "D-10",
       "notes": null,
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR11",
-      "name": "Companion Rides",
+      "name": "Buddy Shuttle",
       "type": "ride service",
       "scope": "rides with a companion who waits",
       "release_on_file": "no",
       "verified_on": "D-20",
       "notes": null,
-      "source": "Draft"
+      "source": "Paula"
     },
     {
       "id": "PR12",
-      "name": "Polished Nail Studio",
+      "name": "Lavender Nail Studio",
       "type": "nail technician",
       "scope": "cosmetic nail care only",
       "release_on_file": "no",
       "verified_on": "D-70",
       "notes": "Never booked for clinical foot care. The P2 type check",
-      "source": "Draft"
+      "source": "Paula"
     }
   ]
 }

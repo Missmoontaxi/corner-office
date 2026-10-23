@@ -1,5 +1,5 @@
 {
-  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "imported_from": "CareBird-World-seed-v0.5.xlsx",
   "rows": [
     {
       "id": "S01",
@@ -130,9 +130,23 @@
     {
       "id": "S15",
       "setting": "The insurer (generic label)",
-      "value": "a 40,000-employee insurer",
+      "value": "Harborline Mutual",
       "notes": "Never named. Size lives on KPIs",
       "source": "Bible"
+    },
+    {
+      "id": "S20",
+      "setting": "Show day weather",
+      "value": "High 58 Low 42 Sunny",
+      "notes": null,
+      "source": "Paula"
+    },
+    {
+      "id": "S21",
+      "setting": "Show day observances",
+      "value": "Blank",
+      "notes": null,
+      "source": "Paula"
     }
   ]
 }

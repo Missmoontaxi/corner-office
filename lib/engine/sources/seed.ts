@@ -50,5 +50,10 @@ export function loadShowDay(): DayV1 {
     })),
     tasks: rows("household/tasks.json").map((t) => ({ id: s(t.id), task: s(t.task), owner: s(t.owner), due: s(t.due), status: s(t.status) })),
     planted: planted && attacker ? { source_id: s(planted.id), attacker_address: attacker } : undefined,
+    // Paula's Settings rows S20 and S21. Observances are separated by semicolons. A blank cell, or one reading Blank or None, means none.
+    context: {
+      weather: brand["Show day weather"]?.trim() || undefined,
+      observances: (brand["Show day observances"] ?? "").split(";").map((o) => o.trim()).filter((o) => o && !/^(blank|none|n\/a)$/i.test(o)),
+    },
   });
 }

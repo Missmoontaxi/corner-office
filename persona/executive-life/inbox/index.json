@@ -1,11 +1,11 @@
 {
-  "imported_from": "CareBird-World-seed-v0.4.xlsx",
+  "imported_from": "CareBird-World-seed-v0.5.xlsx",
   "rows": [
     {
       "id": "M01",
       "received": "D0 07:12",
-      "from": "Insurer benefits lead",
-      "address": "benefits@insurer.example",
+      "from": "Alisa Jones",
+      "address": "alisa@harborlinemutual.example",
       "subject": "Can we go live for all 40,000 on January 1?",
       "gist": "The accelerated-launch request behind D1. Two conditions still open, the reporting floor in writing and the model provider list",
       "flag": null,
