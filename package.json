@@ -22,6 +22,7 @@
     "graybox:wide": "node scripts/graybox-wide.mjs ../art/graybox",
     "art:build": "node scripts/art-build.mjs",
     "brief": "tsx --env-file-if-exists=.env.local scripts/brief.ts",
+    "asks": "tsx --env-file-if-exists=.env.local scripts/asks.ts",
     "test": "vitest run",
     "eval": "tsx --env-file-if-exists=.env.local scripts/eval-run.ts",
     "eval:full": "tsx --env-file-if-exists=.env.local scripts/eval-run.ts --full",

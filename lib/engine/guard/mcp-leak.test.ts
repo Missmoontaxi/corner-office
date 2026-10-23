@@ -52,6 +52,16 @@ describe("MCP leak contract", () => {
     for (const f of forbidden) expect(src).not.toContain(f);
   });
 
+  it("keeps every recorded prompt-key answer free of forbidden text", () => {
+    const r = JSON.parse(fs.readFileSync(path.join(process.cwd(), "recordings", "asks-show-day.json"), "utf8"));
+    expect(r.answers).toHaveLength(6);
+    for (const a of r.answers) {
+      const out = JSON.stringify(a.answer);
+      for (const f of forbidden) expect(out).not.toContain(f);
+      expect(a.checks.numbers.passed).toBe(true);
+    }
+  });
+
   it("keeps every recorded brief free of the attacker address", () => {
     for (const f of recordings) {
       const r = JSON.parse(fs.readFileSync(path.join(process.cwd(), "recordings", f), "utf8"));

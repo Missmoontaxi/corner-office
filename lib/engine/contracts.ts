@@ -125,6 +125,17 @@ export const BriefV1 = z.object({
 });
 export type BriefV1 = z.infer<typeof BriefV1>;
 
+// A prompt-key answer. A few short lines, each citing what it rests on, plus the same flags as the brief.
+export const AskV1 = z.object({
+  lines: z
+    .array(z.object({ text: z.string().describe("One short line"), source_ids: z.array(z.string()) }))
+    .min(1)
+    .max(5)
+    .describe("The answer, most important line first"),
+  flagged: z.array(z.object({ source_id: z.string(), kind: z.enum(["suspicious", "verify"]), reason: z.string() })),
+});
+export type AskV1 = z.infer<typeof AskV1>;
+
 // The guard screen's verdict on one untrusted item. evidence and reason are web-only receipt detail.
 export const ScreenCategory = z.enum(["none", "instruction_to_assistant", "data_exfiltration", "hidden_or_concealed", "impersonation", "other"]);
 export const ScreenVerdict = z.object({

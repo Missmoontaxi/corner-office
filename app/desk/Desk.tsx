@@ -4,6 +4,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import manifest from "@/scene/manifest.json";
 import { layoutScene, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
+import { AskView } from "./Ask";
 import { BriefView } from "./Brief";
 import { CloseButton, Dialog } from "./Dialog";
 import { CalendarDoc, KpiDoc } from "./Documents";
@@ -17,7 +18,7 @@ const readSize = () => `${window.innerWidth}x${window.innerHeight}`;
 const px = (r: Rect) => ({ left: r.left, top: r.top, width: r.width, height: r.height });
 const art = (w: number, ext: string) => `/art/office-phone-${manifest.version}-${w}.${ext}`;
 
-type Tab = "brief" | "calendar" | "kpis";
+type Tab = "brief" | "ask" | "calendar" | "kpis";
 type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" };
 
 // What each live object does on 10/22. Anything not listed is set dressing, painted but not a button.
@@ -26,6 +27,7 @@ const ACTIONS: Record<string, { label: string; open: Open }> = {
   mouse: { label: "Open today's brief", open: { kind: "monitor", tab: "brief" } },
   calendar: { label: "Alex's calendar", open: { kind: "monitor", tab: "calendar" } },
   letter_tray: { label: "The numbers, in the letter tray", open: { kind: "monitor", tab: "kpis" } },
+  keyboard: { label: "Ask one of six questions", open: { kind: "monitor", tab: "ask" } },
   coffee: { label: "What this morning's AI cost", open: { kind: "coffee" } },
   drawer_pull: { label: "Open the Engine Room", open: { kind: "engine" } },
 };
@@ -210,6 +212,7 @@ function Frame({ title, onClose, honesty, tabs, children }: { title: string; onC
 function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; setTab: (t: Tab) => void; onClose: () => void }) {
   const tabs: [Tab, string][] = [
     ["brief", "Brief"],
+    ["ask", "Ask"],
     ["calendar", "Calendar"],
     ["kpis", "Numbers"],
   ];
@@ -239,6 +242,7 @@ function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; set
         {tab === "brief" ? <BriefView data={data} /> : null}
         {tab === "calendar" ? <CalendarDoc data={data} /> : null}
         {tab === "kpis" ? <KpiDoc data={data} /> : null}
+        {tab === "ask" ? <AskView data={data} /> : null}
       </div>
     </Frame>
   );

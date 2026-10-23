@@ -61,8 +61,13 @@ function groundedSet(day: DayV1): Set<number> {
 // (a time gap, or the sum or difference of two figures), allowing unit scaling ($18M for 18000000) and
 // percent forms (35% for 0.35), compared at three significant digits.
 export function numbersGrounded(brief: BriefV1, day: DayV1): CheckResult {
+  return numbersGroundedText(briefText(brief), day);
+}
+
+// The same rule for any text, such as a prompt-key answer.
+export function numbersGroundedText(text: string, day: DayV1): CheckResult {
   const grounded = groundedSet(day);
-  const missing = [...new Set(numbersIn(briefText(brief)).filter((n) => n > SMALL && !grounded.has(key(n))))];
+  const missing = [...new Set(numbersIn(text).filter((n) => n > SMALL && !grounded.has(key(n))))];
   return missing.length ? { passed: false, detail: `Not in the material: ${missing.join(", ")}` } : { passed: true, detail: "Every figure appears in the material" };
 }
 

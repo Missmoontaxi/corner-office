@@ -43,7 +43,7 @@ export function BriefView({ data }: { data: DeskData }) {
   const suspicious = b.flagged.filter((f) => f.kind === "suspicious");
   const verify = b.flagged.filter((f) => f.kind === "verify");
 
-  if (receipt) return <ReceiptSheet data={data} section={receipt} onBack={() => setReceipt(null)} />;
+  if (receipt) return <ReceiptSheet data={data} section={`the ${receipt.toLowerCase()}`} onBack={() => setReceipt(null)} />;
 
   return (
     <div className="space-y-3">
@@ -152,14 +152,30 @@ const CODE_CHECKS: { key: string; plain: string }[] = [
   { key: "attack", plain: "The planted attack is flagged and its address appears nowhere" },
 ];
 
-export function ReceiptSheet({ data, section, onBack }: { data: DeskData; section: string; onBack: () => void }) {
-  const r = data.receipt;
+// The receipt for the brief by default, or for any other recorded run, such as a prompt-key answer.
+export function ReceiptSheet({
+  data,
+  section,
+  onBack,
+  receipt,
+  checks,
+  backLabel = "Back to the brief",
+}: {
+  data: DeskData;
+  section: string;
+  onBack: () => void;
+  receipt?: DeskData["receipt"];
+  checks?: DeskData["checks"];
+  backLabel?: string;
+}) {
+  const r = receipt ?? data.receipt;
+  const ck = checks ?? data.checks;
   return (
     <div className="space-y-3 text-sm">
       <button type="button" onClick={onBack} className="min-h-11 rounded-full px-3 text-sm font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
-        Back to the brief
+        {backLabel}
       </button>
-      <h2 className="text-lg font-semibold">How the {section.toLowerCase()} was made</h2>
+      <h2 className="text-lg font-semibold">How {section} was made</h2>
 
       <div className="rounded-xl bg-white/[0.06] p-4">
         <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Which model and why</h3>
@@ -195,7 +211,7 @@ export function ReceiptSheet({ data, section, onBack }: { data: DeskData; sectio
         <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Checked in code</h3>
         <ul className="space-y-1">
           {CODE_CHECKS.map((c) => {
-            const v = data.checks[c.key];
+            const v = ck[c.key];
             return (
               <li key={c.key}>
                 <span className={v?.passed ? "text-emerald-300" : "text-rose-300"}>{v?.passed ? "Pass" : "Fail"}</span> {c.plain}.

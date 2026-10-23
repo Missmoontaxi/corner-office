@@ -2,7 +2,7 @@
 // page load. The brief and receipt are the recorded guarded run, the documents are seeded and rendered by code.
 import fs from "node:fs";
 import path from "node:path";
-import { BriefV1, Receipt } from "@/lib/engine/contracts";
+import { AskV1, BriefV1, Receipt } from "@/lib/engine/contracts";
 import { loadVerdicts, untrustedItems, verdictKey } from "@/lib/engine/guard/screen";
 import { policy } from "@/lib/engine/policy";
 import { loadShowDay } from "@/lib/engine/sources/seed";
@@ -17,6 +17,17 @@ export function loadDesk() {
   const recorded = readJson<{ recordedAt: string; checks: Record<string, Check>; brief: unknown; receipt: unknown }>("recordings", "brief-show-day.json");
   const replayFile = fs.readdirSync(path.join(ROOT, "recordings")).filter((f) => f.startsWith("screen-off.")).sort().at(-1);
   const replay = replayFile ? readJson<{ recordedAt: string; modelFlaggedIt: boolean; filterStripped: number; addressReachedPage: boolean; receipt: unknown }>("recordings", replayFile) : null;
+  // The six prompt keys, precomputed with pnpm asks. Absent until the first recording exists.
+  const asksFile = path.join(ROOT, "recordings", "asks-show-day.json");
+  const asks = fs.existsSync(asksFile)
+    ? readJson<{ answers: { key: number; question: string; answer: unknown; checks: Record<string, Check>; receipt: unknown }[] }>("recordings", "asks-show-day.json").answers.map((a) => ({
+        key: a.key,
+        question: a.question,
+        answer: AskV1.parse(a.answer),
+        checks: a.checks,
+        receipt: Receipt.parse(a.receipt),
+      }))
+    : [];
   const scorecardFile = path.join(ROOT, "recordings", "scorecard.json");
   const scorecard = fs.existsSync(scorecardFile) ? readJson<Scorecard>("recordings", "scorecard.json") : null;
 
@@ -42,6 +53,7 @@ export function loadDesk() {
     screen: { items: items.length, screened: screened.length, quarantined: quarantined.length, model: quarantined[0] ? verdicts[verdictKey(quarantined[0])]!.model : null },
     replay: replay && { recordedAt: replay.recordedAt, modelFlaggedIt: replay.modelFlaggedIt, filterStripped: replay.filterStripped, addressReachedPage: replay.addressReachedPage, model: Receipt.parse(replay.receipt).route.model },
     scorecard,
+    asks,
     calendar: day.calendar,
     kpis: day.kpis,
     tasks: day.tasks,
