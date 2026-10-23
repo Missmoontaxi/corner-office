@@ -272,9 +272,8 @@ function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; set
   );
 }
 
-// The wall piece and its placard. A second tap shows the prompt, so every piece has its provenance on the page.
+// The wall piece and its placard. The prompt stays in scene/wall.json for provenance and is not shown.
 function Placard({ piece }: { piece: (typeof wall.pieces)[number] }) {
-  const [prompt, setPrompt] = useState(false);
   return (
     <figure className="space-y-3">
       <picture>
@@ -285,10 +284,6 @@ function Placard({ piece }: { piece: (typeof wall.pieces)[number] }) {
         <p className="text-base font-semibold italic">{piece.title}</p>
         <p>{piece.credit}, {piece.made}</p>
         <p className="mt-2 text-xs text-black/60">{piece.curation}</p>
-        <button type="button" onClick={() => setPrompt((p) => !p)} className="mt-2 min-h-11 rounded-full text-xs font-medium text-sky-800 underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-sky-700">
-          {prompt ? "Hide the prompt" : "Show the prompt"}
-        </button>
-        {prompt ? <p className="mt-1 font-mono text-[0.7rem] leading-relaxed text-black/70">{piece.prompt}</p> : null}
       </figcaption>
     </figure>
   );

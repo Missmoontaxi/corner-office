@@ -1,13 +1,13 @@
 {
-  "note": "The pieces on the wall, curated by hand (Midjourney has no official API). Build each with pnpm art:wall. Placard wording is Paula's to approve.",
+  "note": "The pieces on the wall, curated by hand (Midjourney has no official API). Build each with pnpm art:wall. Placard wording approved by Paula Thu 10/22. The prompt is kept here for provenance and is not shown on the placard.",
   "pieces": [
     {
       "id": "gm",
       "title": "gm",
       "credit": "Paula McMahon with Midjourney",
-      "made": "October 2026",
+      "made": "Oct 2026",
       "alt": "A slightly abstract painting of a fiery magenta, orange and gold sunrise over the Grand Teton range, with a pink river winding through a green summer valley lined with trees.",
-      "curation": "Midjourney has no official API, so every piece on this wall is chosen and hung by hand. No model on this desk made it.",
+      "curation": "Midjourney has no official API, so every piece on this wall is chosen and hung by hand.",
       "prompt": "A slightly abstract landscape painting of a summer sunrise over the Grand Teton range, a fiery sky of magenta, hot pink, orange and golden yellow blazing around the jagged peaks as the focal point, a wide green valley below with a winding river catching the pink light, lush cottonwoods and pines along the riverbanks, loose expressive brushwork, simplified shapes, soft edges, rich saturated color, vertical composition with the peaks and sky filling the upper half --ar 7:8 --stylize 250"
     }
   ]
