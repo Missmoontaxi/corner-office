@@ -39,6 +39,12 @@ export function loadDesk() {
   // The honesty line's provider count comes from the makers of the text models we route to.
   const vendors = new Set(Object.entries(policy().models.models).filter(([id]) => !policy().models.blocked.includes(id)).map(([, m]) => m.vendor));
 
+  // Paula's Builder's calls, from the seed's Decisions tab. A cell that still reads "Due ..." has no call yet.
+  // The brief model never sees these, so the call sits beside the brief instead of steering it.
+  const buildersCalls = readJson<{ rows: { id: string; question: string; builders_call: string | null }[] }>("persona", "executive-life", "show-day", "decisions.json")
+    .rows.filter((d) => d.builders_call && !/^due\b/i.test(d.builders_call))
+    .map((d) => ({ id: d.id, question: d.question, call: d.builders_call! }));
+
   const household = (f: string) => readJson<Record<string, unknown>>("persona", "executive-life", "household", f);
   const providers = (household("providers.json").rows as Provider[]) ?? [];
   const calls = (household("calls.json").calls as Call[]) ?? [];
@@ -54,6 +60,7 @@ export function loadDesk() {
     replay: replay && { recordedAt: replay.recordedAt, modelFlaggedIt: replay.modelFlaggedIt, filterStripped: replay.filterStripped, addressReachedPage: replay.addressReachedPage, model: Receipt.parse(replay.receipt).route.model },
     scorecard,
     asks,
+    buildersCalls,
     calendar: day.calendar,
     kpis: day.kpis,
     tasks: day.tasks,

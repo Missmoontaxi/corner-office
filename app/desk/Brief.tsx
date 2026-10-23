@@ -90,6 +90,15 @@ export function BriefView({ data }: { data: DeskData }) {
         </ul>
       </Section>
 
+      {data.buildersCalls.map((c) => (
+        <aside key={c.id} aria-label={`Builder's call on ${c.question}`} className="rounded-xl border border-amber-200/30 bg-amber-200/[0.06] p-4">
+          <p className="text-xs font-semibold tracking-wide text-amber-200 uppercase">Builder&apos;s call, by Paula McMahon</p>
+          <p className="mt-1 text-sm font-medium">{c.question}</p>
+          <p className="mt-1 text-sm text-white/80">{c.call}</p>
+          <p className="mt-2 text-xs text-white/50">Paula&apos;s own judgment, outside CareBird&apos;s voice. No model wrote it, and the brief never saw it.</p>
+        </aside>
+      ))}
+
       <Section title="Calendar" onReceipt={show("Calendar")}>
         <ul className="space-y-1 text-sm">
           {b.calendar.map((c, i) => (
