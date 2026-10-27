@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import type { DeskData } from "@/lib/desk/data";
 
 const STATUS: Record<string, string> = { green: "bg-emerald-500", yellow: "bg-amber-400", red: "bg-rose-500" };
@@ -38,7 +38,7 @@ function Cites({ ids, sources }: { ids: string[]; sources: Record<string, string
   );
 }
 
-export function BriefView({ data }: { data: DeskData }) {
+function BriefBody({ data }: { data: DeskData }) {
   const [receipt, setReceipt] = useState<string | null>(null);
   const b = data.brief;
   const show = (section: string) => () => setReceipt(section);
@@ -160,8 +160,76 @@ export function BriefView({ data }: { data: DeskData }) {
       ) : null}
 
       <p className="text-xs text-white/50">
-        Recorded {nyTime(data.recordedAt)} New York time by {data.receipt.route.model}, {usd(data.receipt.costMicroUsd)}.
+        {data.receipt.runKind === "live" ? "Ran live" : "Recorded"} {nyTime(data.recordedAt)} New York time by {data.receipt.route.model}, {usd(data.receipt.costMicroUsd)}.
       </p>
+    </div>
+  );
+}
+
+type Owner = { owner: boolean; paused?: boolean; spentMicroUsd?: number; capMicroUsd?: number; unavailable?: boolean };
+type LiveState = { phase: "idle" } | { phase: "running" } | { phase: "done"; brief: DeskData["brief"]; receipt: DeskData["receipt"]; checks: DeskData["checks"] } | { phase: "refused"; why: string };
+
+const REFUSED: Record<string, string> = {
+  paused: "Live runs are paused by the kill switch. This is the recorded run.",
+  capped: "Today's live budget is used up. This is the recorded run.",
+  unavailable: "The live budget can't be checked right now, so nothing ran. This is the recorded run.",
+  failed: "The live run didn't finish. Nothing was lost, and this is the recorded run.",
+  not_owner: "Live runs are open to Paula's phone only until personal links arrive.",
+};
+
+// The brief, recorded by default. Paula's phone also gets Run it live, which swaps in a fresh run with its receipt.
+export function BriefView({ data }: { data: DeskData }) {
+  const [owner, setOwner] = useState<Owner | null>(null);
+  const [live, setLive] = useState<LiveState>({ phase: "idle" });
+  useEffect(() => {
+    fetch("/api/owner", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((o: Owner) => setOwner(o))
+      .catch(() => setOwner({ owner: false }));
+  }, []);
+
+  const run = async () => {
+    setLive({ phase: "running" });
+    try {
+      const r = await fetch("/api/live", { method: "POST" });
+      const j = await r.json();
+      if (j.status === "ok") setLive({ phase: "done", brief: j.brief, receipt: j.receipt, checks: j.checks });
+      else setLive({ phase: "refused", why: REFUSED[j.status] ?? REFUSED.failed! });
+      fetch("/api/owner", { cache: "no-store" }).then((x) => x.json()).then(setOwner).catch(() => {});
+    } catch {
+      setLive({ phase: "refused", why: REFUSED.failed! });
+    }
+  };
+
+  const shown = live.phase === "done" ? { ...data, brief: live.brief, receipt: live.receipt, checks: live.checks, recordedAt: live.receipt.runAt } : data;
+  return (
+    <div className="space-y-3">
+      {owner?.owner ? (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-sky-300/30 bg-sky-300/[0.06] px-4 py-2 text-sm">
+          <span className="text-white/70">
+            {live.phase === "running"
+              ? "Running live now, about ten seconds."
+              : live.phase === "refused"
+                ? live.why
+                : live.phase === "done"
+                  ? "This brief just ran live."
+                  : owner.paused
+                    ? "Live runs are paused."
+                    : owner.unavailable
+                      ? "Live budget unavailable."
+                      : `Live budget today, $${((owner.spentMicroUsd ?? 0) / 1e6).toFixed(2)} of $${((owner.capMicroUsd ?? 0) / 1e6).toFixed(2)} used.`}
+          </span>
+          <button
+            type="button"
+            onClick={run}
+            disabled={live.phase === "running" || owner.paused}
+            className="min-h-11 rounded-full bg-sky-300 px-4 text-sm font-semibold text-neutral-950 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-sky-100"
+          >
+            {live.phase === "running" ? "Running\u2026" : "Run it live"}
+          </button>
+        </div>
+      ) : null}
+      <BriefBody data={shown} />
     </div>
   );
 }

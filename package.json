@@ -24,6 +24,8 @@
     "art:wall": "node scripts/art-wall.mjs",
     "brief": "tsx --env-file-if-exists=.env.local scripts/brief.ts",
     "asks": "tsx --env-file-if-exists=.env.local scripts/asks.ts",
+    "owner:link": "tsx scripts/owner-link.ts",
+    "kill": "tsx --env-file-if-exists=.env.local scripts/kill.ts",
     "test": "vitest run",
     "eval": "tsx --env-file-if-exists=.env.local scripts/eval-run.ts",
     "eval:full": "tsx --env-file-if-exists=.env.local scripts/eval-run.ts --full",
