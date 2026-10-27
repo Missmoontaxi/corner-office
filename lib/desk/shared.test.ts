@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { COFFEE, coffeeComparison, parseWeather } from "./shared";
+import fs from "node:fs";
+import { COFFEE, DEEP_LINK_NAMES, coffeeComparison, parseWeather } from "./shared";
 
 const cup = COFFEE.pricePerPound / COFFEE.cupsPerPound;
 
@@ -24,5 +25,13 @@ describe("weather line", () => {
   it("reads the seed's weather into numbers and an emoji", () => {
     expect(parseWeather("High 58 Low 42 Sunny")).toMatchObject({ high: 58, low: 42, sky: "Sunny", emoji: "☀️" });
     expect(parseWeather("")).toBeNull();
+  });
+});
+
+describe("deep links", () => {
+  it("rewrites exactly the names that have prebuilt pages", () => {
+    const config = fs.readFileSync("next.config.ts", "utf8");
+    const listed = config.match(/\(\?<view>([a-z|]+)\)/)?.[1]?.split("|").sort();
+    expect(listed).toEqual([...DEEP_LINK_NAMES].sort());
   });
 });

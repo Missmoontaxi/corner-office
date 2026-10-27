@@ -7,7 +7,8 @@ import { loadVerdicts, untrustedItems, verdictKey } from "@/lib/engine/guard/scr
 import { loadShowDay } from "@/lib/engine/sources/seed";
 
 const ROOT = process.cwd();
-const readJson = <T,>(...p: string[]): T => JSON.parse(fs.readFileSync(path.join(ROOT, ...p), "utf8")) as T;
+// Every desk page reads these files once, at build time, so the bundler need not trace the path.
+const readJson = <T,>(...p: string[]): T => JSON.parse(fs.readFileSync(path.join(/*turbopackIgnore: true*/ ROOT, ...p), "utf8")) as T;
 
 import { parseWeather, type Call, type Check, type Provider, type Scorecard } from "./shared";
 

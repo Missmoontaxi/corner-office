@@ -5,7 +5,7 @@ import manifest from "@/scene/manifest.json";
 import wall from "@/scene/wall.json";
 import { layoutScene, toCanvas, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
-import { BUILT_BY, COFFEE, coffeeComparison } from "@/lib/desk/shared";
+import { BUILT_BY, COFFEE, coffeeComparison, type DeepLink } from "@/lib/desk/shared";
 import { headlineFont } from "../fonts";
 import { AskView } from "./Ask";
 import { BriefView } from "./Brief";
@@ -50,9 +50,22 @@ function useNewYorkTime() {
   return now;
 }
 
-export function Desk({ data }: { data: DeskData }) {
+// What each deep link opens. Only the names in DEEP_LINK_NAMES exist, and nothing from the address is ever
+// written into the page.
+const DEEP_LINKS: Record<DeepLink, Exclude<Open, null>> = {
+  brief: { kind: "monitor", tab: "brief" },
+  ask: { kind: "monitor", tab: "ask" },
+  calendar: { kind: "monitor", tab: "calendar" },
+  numbers: { kind: "monitor", tab: "kpis" },
+  engine: { kind: "engine" },
+  coffee: { kind: "coffee" },
+  gm: { kind: "art", id: "gm" },
+  cheers: { kind: "art", id: "cheers" },
+};
+
+export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
   const size = useSyncExternalStore(subscribe, readSize, () => "");
-  const [open, setOpen] = useState<Open>(null);
+  const [open, setOpen] = useState<Open>(initial && initial in DEEP_LINKS ? DEEP_LINKS[initial as DeepLink] : null);
   const [zoom, setZoom] = useState(false);
   const [steam, setSteam] = useState(false);
   const time = useNewYorkTime();

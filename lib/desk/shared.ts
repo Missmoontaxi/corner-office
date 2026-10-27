@@ -66,3 +66,8 @@ export function coffeeComparison(costUsd: number): string {
   if (r < 1.15) return "about the cost of a cup of coffee";
   return `about the cost of ${(Math.round(r * 10) / 10).toString()} cups of coffee`;
 }
+
+// The deep-link names, such as ?open=calendar. Each is a prebuilt page under /office/<name>. The rewrite in
+// next.config.ts lists the same names, and a test keeps the two in step.
+export const DEEP_LINK_NAMES = ["brief", "ask", "calendar", "numbers", "engine", "coffee", "gm", "cheers"] as const;
+export type DeepLink = (typeof DEEP_LINK_NAMES)[number];
