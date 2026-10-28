@@ -177,7 +177,13 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
         </button>
       </header>
 
-      <nav aria-label="Desk" className="absolute inset-x-0 flex items-center justify-center gap-2 bg-gradient-to-t from-black/70 to-transparent px-4" style={{ top: l.dock.top, height: l.dock.height }}>
+      {/* The dock sits below the painting, near the thumb, with the phone's bottom inset added under it. On a
+          screen too short for that, it sits on the painted desk-front band instead. */}
+      <nav
+        aria-label="Desk"
+        className={`absolute inset-x-0 flex justify-center gap-2 px-4 ${l.dockMode === "below" ? "bottom-0 items-start pt-3 pb-[env(safe-area-inset-bottom)]" : "items-center bg-gradient-to-t from-black/70 to-transparent"}`}
+        style={l.dockMode === "below" ? { height: `calc(${l.dock.height}px + env(safe-area-inset-bottom, 0px))` } : { top: l.dock.top, height: l.dock.height }}
+      >
         <DockButton onClick={() => go({ kind: "monitor", tab: "brief" })}>Today’s Brief</DockButton>
         <DockButton onClick={() => go({ kind: "engine" })}>Engine Room</DockButton>
       </nav>

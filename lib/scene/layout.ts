@@ -1,12 +1,16 @@
 // Phone scene layout over Paula's locked painting (scene/manifest.json, art-v1).
-// Phones show a crop of the wide painting plus a band of desk front below it. The canvas fits the
-// screen's width and sits just under the top bar, and scales down only if a screen is too short for it.
-// Hit areas are padded to 44 points, then kept clear of the top bar and the dock band.
+// Phones show a crop of the wide painting plus a band of desk front below it. The canvas fits the screen's
+// width and is centered between the top bar and the dock, which sits below the painting near the bottom edge
+// (Paula's note, Tue 10/27). A screen too short for that shrinks the canvas instead of overlapping either.
+// Hit areas are padded to 44 points, then kept clear of the top bar and the dock.
 import manifest from "@/scene/manifest.json";
 
 export const MIN_HIT = 44;
 // One row of 44-point controls plus 6 points of scrim above and below.
 export const TOP_BAR_HEIGHT = 56;
+// The dock below the painting. One row of 44-point buttons plus room above and below. The phone's own
+// bottom inset is added in CSS, below this.
+export const DOCK_HEIGHT = 68;
 // Breathing room between a hit area and the top bar or dock.
 export const CHROME_GAP = 4;
 
@@ -23,6 +27,9 @@ export type SceneLayout = {
   safeFrame: Rect;
   topBar: Rect;
   dock: Rect;
+  // "below" puts the dock under the painting. "over" puts it on the painted desk-front band, for screens too
+  // short for both the room and a separate dock.
+  dockMode: "below" | "over";
   hits: HitArea[];
 };
 
@@ -64,19 +71,32 @@ export function layoutScene(width: number, height: number): SceneLayout {
   const z = manifest.zones;
   const safeShare = (z.safe_frame.y1 - z.safe_frame.y0) / 100;
 
-  let sceneW = width;
-  let sceneH = width * ASPECT;
-  if (sceneH * safeShare > height) {
-    sceneH = height / safeShare;
-    sceneW = sceneH / ASPECT;
-  }
-  // Paula's note, Tue 10/27: the room sits just under the top bar, so the gap is below the dock instead of above
-  // the ceiling. A screen too short for that keeps the room on its bottom edge.
-  const scene: Rect = { left: (width - sceneW) / 2, top: Math.min(TOP_BAR_HEIGHT, height - sceneH), width: sceneW, height: sceneH };
-
-  const safeFrame = toRect(z.safe_frame, scene);
-  const dock = toRect({ x0: 0, x1: 100, y0: z.dock_band.y0, y1: z.dock_band.y1 }, scene);
   const topBar: Rect = { left: 0, top: 0, width, height: TOP_BAR_HEIGHT };
+  const room = height - TOP_BAR_HEIGHT - DOCK_HEIGHT;
+  const fullH = width * ASPECT;
+
+  let scene: Rect;
+  let dock: Rect;
+  let dockMode: SceneLayout["dockMode"];
+  if (fullH * safeShare <= room) {
+    // Room for both. The painting is centered between the top bar and the dock below it.
+    scene = { left: 0, top: TOP_BAR_HEIGHT + (room - fullH) / 2, width, height: fullH };
+    dock = { left: 0, top: height - DOCK_HEIGHT, width, height: DOCK_HEIGHT };
+    dockMode = "below";
+  } else {
+    // A short screen. The painting keeps its full width under the top bar, shrinking only if it is taller than
+    // the screen, and the dock sits on its painted desk-front band, which was painted for this.
+    let sceneW = width;
+    let sceneH = fullH;
+    if (sceneH * safeShare > height) {
+      sceneH = height / safeShare;
+      sceneW = sceneH / ASPECT;
+    }
+    scene = { left: (width - sceneW) / 2, top: Math.min(TOP_BAR_HEIGHT, height - sceneH), width: sceneW, height: sceneH };
+    dock = toRect({ x0: 0, x1: 100, y0: z.dock_band.y0, y1: z.dock_band.y1 }, scene);
+    dockMode = "over";
+  }
+  const safeFrame = toRect(z.safe_frame, scene);
 
   const minTop = topBar.top + topBar.height + CHROME_GAP;
   const maxBottom = dock.top - CHROME_GAP;
@@ -98,5 +118,5 @@ export function layoutScene(width: number, height: number): SceneLayout {
     return { id, live, object, hit: { left: l, top: t, width: r - l, height: b - t } };
   });
 
-  return { viewport: { width, height }, scene, safeFrame, topBar, dock, hits };
+  return { viewport: { width, height }, scene, safeFrame, topBar, dock, dockMode, hits };
 }

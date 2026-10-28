@@ -47,10 +47,15 @@ for (const [width, height, label] of SIZES) {
     expect(m.vw).toBe(width);
     expect(m.vh).toBe(height);
 
-    // The scene sits just under the top bar, or on the bottom edge of a screen too short for that, and is never
-    // cropped at the sides.
+    // Tall enough screens center the scene between the top bar and a dock below it. Short ones put the dock on
+    // the scene's painted desk-front band. Either way the scene is on screen and never cropped at the sides.
     expect(m.scene.bottom).toBeLessThanOrEqual(height + EPS);
-    expect(Math.abs(m.scene.top - m.topBar.bottom) < 1 || Math.abs(m.scene.bottom - height) < 1, "scene under the top bar or on the bottom edge").toBe(true);
+    if (m.dock.top >= m.scene.bottom - EPS) {
+      expect(m.scene.top, "scene below the top bar").toBeGreaterThanOrEqual(m.topBar.bottom - EPS);
+      expect(Math.abs(m.scene.top - m.topBar.bottom - (m.dock.top - m.scene.bottom)), "scene centered").toBeLessThan(1.5);
+    } else {
+      expect(Math.abs(m.dock.bottom - m.scene.bottom), "dock on the painted band").toBeLessThan(1);
+    }
     expect(m.scene.left).toBeGreaterThanOrEqual(-EPS);
     expect(m.scene.right).toBeLessThanOrEqual(width + EPS);
 
