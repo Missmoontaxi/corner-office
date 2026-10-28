@@ -13,10 +13,10 @@ function NoModel() {
   return <p className="mt-4 border-t border-black/10 pt-2 text-xs text-black/50">No model used. Seeded data, rendered by code, $0.</p>;
 }
 
-function Paper({ title, children }: { title: string; children: React.ReactNode }) {
+function Paper({ title, big = false, children }: { title: string; big?: boolean; children: React.ReactNode }) {
   return (
     <article className="rounded-lg bg-[#f7f3ea] p-4 text-[#1d1b18] shadow-inner">
-      <h2 className="mb-3 text-base font-semibold">{title}</h2>
+      <h2 className={`mb-3 font-semibold ${big ? "text-lg" : "text-base"}`}>{title}</h2>
       {children}
       <NoModel />
     </article>
@@ -51,7 +51,7 @@ export function CalendarDoc({ data }: { data: DeskData }) {
           return (
             <li key={e.id} className="py-2">
               <div className="flex gap-3">
-                <span className="w-24 shrink-0 text-black/60 tabular-nums">
+                <span className="w-24 shrink-0 font-semibold text-black/85 tabular-nums">
                   {e.start.startsWith("D0 ") ? e.start.slice(3) : plainDay(e.start)} to {e.end}
                 </span>
                 <span className="font-medium">
@@ -78,6 +78,7 @@ function CallDoc({ data, call, onBack }: { data: DeskData; call: Call; onBack: (
   return (
     <div className="space-y-3">
       <button type="button" onClick={onBack} className="min-h-11 rounded-full px-3 text-sm font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
+        <span aria-hidden>‹ </span>
         Back to the calendar
       </button>
       <Paper title={`Call to ${p?.name ?? "the provider"}`}>
@@ -116,7 +117,7 @@ export function KpiDoc({ data }: { data: DeskData }) {
     groups.set(area!, [...(groups.get(area!) ?? []), k]);
   }
   return (
-    <Paper title="CareBird, the numbers">
+    <Paper title="CareBird by the numbers" big>
       <div className="space-y-4 text-sm">
         {[...groups].map(([area, ks]) => (
           <section key={area}>

@@ -71,3 +71,20 @@ export function coffeeComparison(costUsd: number): string {
 // next.config.ts lists the same names, and a test keeps the two in step.
 export const DEEP_LINK_NAMES = ["brief", "ask", "calendar", "numbers", "engine", "coffee", "gm", "cheers"] as const;
 export type DeepLink = (typeof DEEP_LINK_NAMES)[number];
+
+// The brief writes calendar times on the 24-hour clock. On the desk they read as 9:00 AM and 3:30 PM.
+export function twelveHour(text: string) {
+  return text.replace(/\b([01]?\d|2[0-3]):([0-5]\d)\b(?!\s*[ap]\.?m)/gi, (_m, h: string, m: string) => {
+    const n = Number(h);
+    return `${n % 12 || 12}:${m} ${n < 12 ? "AM" : "PM"}`;
+  });
+}
+
+// Display-only tidying of model text. A raw dollar figure such as "18000000 USD" reads as $18.0M.
+export function dollars(text: string) {
+  return text.replace(/\$?\b(\d{1,3}(?:,\d{3}){2,}|\d{7,})(?:\.\d+)?(?:\s*USD)?\b/g, (m, n: string) => {
+    if (!/USD|\$/.test(m)) return m;
+    const v = Number(n.replace(/,/g, ""));
+    return v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : m;
+  });
+}

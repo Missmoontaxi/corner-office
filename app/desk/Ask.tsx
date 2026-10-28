@@ -18,13 +18,14 @@ export function AskView({ data }: { data: DeskData }) {
     return (
       <div className="space-y-3">
         <button type="button" onClick={() => setOpen(null)} className="min-h-11 rounded-full px-3 text-sm font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
-          Back to the keys
+          <span aria-hidden>‹ </span>
+          Back to the Questions
         </button>
         <section className="rounded-xl bg-white/[0.06] p-4">
           <div className="mb-2 flex items-start justify-between gap-2">
             <h2 className="text-lg leading-snug font-semibold">{a.question}</h2>
             <button type="button" onClick={() => setReceipt(true)} className="min-h-11 shrink-0 rounded-full px-3 text-xs font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
-              How
+              How?
             </button>
           </div>
           <ul className="space-y-2 text-sm">
@@ -62,7 +63,7 @@ export function AskView({ data }: { data: DeskData }) {
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-white/60">Six questions a chief of staff gets every morning. Each answer was written ahead of time from today&apos;s desk.</p>
+      <p className="text-sm text-white/60">Six questions to answer each morning.</p>
       <ol className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {data.asks.map((k) => (
           <li key={k.key}>

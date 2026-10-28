@@ -25,14 +25,14 @@ export function EngineRoom({ data }: { data: DeskData }) {
           This morning’s brief ran on <span className="font-medium">{r.route.model}</span>. {r.route.reason}
         </p>
         <p className="mt-2 text-white/70">
-          {usd(r.costMicroUsd)} at list price, {(r.latencyMs.total / 1000).toFixed(0)} seconds, written ahead of time so nobody waits on it.
+          {usd(r.costMicroUsd)} at list price, {(r.latencyMs.total / 1000).toFixed(0)} seconds, written ahead of time for no wait.
         </p>
       </Panel>
 
       <Panel title="Guardrail feed">
         <ul className="space-y-2">
           <li>
-            <span className="font-medium">Screen.</span> {data.screen.screened} of {data.screen.items} untrusted items screened{data.screen.model ? ` by ${data.screen.model}` : ""}. {data.screen.quarantined} quarantined before the brief model read the day.
+            <span className="font-medium">Screen.</span> {data.screen.screened} of {data.screen.items} untrusted items screened{data.screen.model ? ` by ${data.screen.model}` : ""}. {data.screen.quarantined} quarantined before today’s brief model read through the day.
           </li>
           <li>
             <span className="font-medium">Output filter.</span> Any address not in the material is stripped. It removed {r.guardrails.filter((g) => g.layer === "output filter").length ? "something" : "nothing"} this morning.
@@ -54,7 +54,7 @@ export function EngineRoom({ data }: { data: DeskData }) {
       {sc ? (
         <Panel title={`Scorecard, ${sc.cases} cases`}>
           <p className="mb-3 text-white/60">
-            Paula’s rubric, graded on her own cases. Counts, not percentages.{sc.judgesCalibrated ? "" : " The judges are not yet calibrated against her labels."}
+            PM’s rubric, graded on her own cases against live models. Counts, not percentages.{sc.judgesCalibrated ? "" : " The judges are not yet calibrated against her labels."}
           </p>
           <div className="space-y-4">
             {sc.models.map((m) => {

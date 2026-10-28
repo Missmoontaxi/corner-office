@@ -61,6 +61,8 @@ export function loadDesk() {
     buildersCalls,
     // What this morning's precomputed AI cost, at list price: the brief plus every prompt-key answer.
     morningCostMicroUsd: Receipt.parse(recorded.receipt).costMicroUsd + asks.reduce((t, a) => t + a.receipt.costMicroUsd, 0),
+    // Emails a brief line can open as context. A quarantined item never reaches the page.
+    inbox: day.inbox.filter((m) => !quarantined.some((q) => q.kind === "email" && q.id === m.id)).map(({ id, from, subject, received, body }) => ({ id, from, subject, received, body })),
     calendar: day.calendar,
     kpis: day.kpis,
     tasks: day.tasks,

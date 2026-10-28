@@ -47,8 +47,10 @@ for (const [width, height, label] of SIZES) {
     expect(m.vw).toBe(width);
     expect(m.vh).toBe(height);
 
-    // The scene sits on the bottom edge and is never cropped at the sides.
-    expect(m.scene.bottom).toBeCloseTo(height, 0);
+    // The scene sits just under the top bar, or on the bottom edge of a screen too short for that, and is never
+    // cropped at the sides.
+    expect(m.scene.bottom).toBeLessThanOrEqual(height + EPS);
+    expect(Math.abs(m.scene.top - m.topBar.bottom) < 1 || Math.abs(m.scene.bottom - height) < 1, "scene under the top bar or on the bottom edge").toBe(true);
     expect(m.scene.left).toBeGreaterThanOrEqual(-EPS);
     expect(m.scene.right).toBeLessThanOrEqual(width + EPS);
 

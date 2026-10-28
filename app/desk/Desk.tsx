@@ -24,17 +24,18 @@ const art = (w: number, ext: string) => `/art/office-phone-${manifest.version}-$
 type Tab = "brief" | "ask" | "calendar" | "kpis";
 type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" } | { kind: "art"; id: string };
 
-// What each live object does on 10/22. Anything not listed is set dressing, painted but not a button.
-const ACTIONS: Record<string, { label: string; open: Open }> = {
-  monitor: { label: "Open today's brief", open: { kind: "monitor", tab: "brief" } },
-  mouse: { label: "Open today's brief", open: { kind: "monitor", tab: "brief" } },
-  calendar: { label: "Alex's calendar", open: { kind: "monitor", tab: "calendar" } },
-  letter_tray: { label: "The numbers, in the letter tray", open: { kind: "monitor", tab: "kpis" } },
-  keyboard: { label: "Ask one of six questions", open: { kind: "monitor", tab: "ask" } },
-  frame_large: { label: "The painting \u201cgm\u201d on the wall", open: { kind: "art", id: "gm" } },
-  frame_small: { label: "The painting \u201ccheers\u201d on the wall", open: { kind: "art", id: "cheers" } },
-  coffee: { label: "What this morning's AI cost", open: { kind: "coffee" } },
-  drawer_pull: { label: "Open the Engine Room", open: { kind: "engine" } },
+// What each live object does, in the order "What's on the desk" lists them (Paula's names, Tue 10/27).
+// Anything not listed is set dressing, painted but not a button. The mouse opens the brief too but is not listed.
+const ACTIONS: Record<string, { name: string; label: string; open: Open }> = {
+  monitor: { name: "Monitor", label: "Open today\u2019s brief", open: { kind: "monitor", tab: "brief" } },
+  calendar: { name: "Calendar", label: "Alex\u2019s calendar", open: { kind: "monitor", tab: "calendar" } },
+  letter_tray: { name: "Letter Tray", label: "CareBird by the numbers", open: { kind: "monitor", tab: "kpis" } },
+  keyboard: { name: "Keyboard", label: "Ask one of today\u2019s questions", open: { kind: "monitor", tab: "ask" } },
+  coffee: { name: "Coffee", label: "What this morning\u2019s AI cost", open: { kind: "coffee" } },
+  drawer_pull: { name: "Drawer Pull", label: "Open Engine Room", open: { kind: "engine" } },
+  frame_large: { name: "Top Frame", label: "Rotating Art", open: { kind: "art", id: "gm" } },
+  frame_small: { name: "Bottom Frame", label: "Rotating Art", open: { kind: "art", id: "cheers" } },
+  mouse: { name: "Mouse", label: "Open today\u2019s brief", open: { kind: "monitor", tab: "brief" } },
 };
 
 const reduceMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -153,7 +154,7 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
             <button
               key={t.id}
               type="button"
-              aria-label={a.label}
+              aria-label={`${a.name}, ${a.label}`}
               data-testid={`hit-${t.id}`}
               onClick={() => go(a.open)}
               className="absolute rounded-md focus-visible:outline-4 focus-visible:outline-sky-300 hover:bg-white/5"
@@ -170,13 +171,13 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
       </div>
 
       <header className="absolute inset-x-0 top-0 flex h-14 items-center justify-between bg-gradient-to-b from-black/60 to-transparent px-4">
-        <h1 className="text-base font-semibold tracking-tight">Corner Office</h1>
+        <h1 className={`${headlineFont.className} text-2xl font-bold tracking-tight drop-shadow`}>Corner Office</h1>
         <button type="button" onClick={() => go({ kind: "list" })} className="min-h-11 rounded-full bg-white/10 px-4 text-sm font-medium backdrop-blur hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-300">
           What’s on the desk
         </button>
       </header>
 
-      <nav aria-label="Desk" className="absolute inset-x-0 flex items-center justify-center gap-2 bg-gradient-to-t from-black/70 to-transparent px-4 pb-[env(safe-area-inset-bottom)]" style={{ top: l.dock.top, height: h - l.dock.top }}>
+      <nav aria-label="Desk" className="absolute inset-x-0 flex items-center justify-center gap-2 bg-gradient-to-t from-black/70 to-transparent px-4" style={{ top: l.dock.top, height: l.dock.height }}>
         <DockButton onClick={() => go({ kind: "monitor", tab: "brief" })}>Today’s Brief</DockButton>
         <DockButton onClick={() => go({ kind: "engine" })}>Engine Room</DockButton>
       </nav>
@@ -221,7 +222,7 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
               .map(([id, a]) => (
                 <li key={id}>
                   <button type="button" onClick={() => setOpen(a.open)} className="flex min-h-12 w-full items-center justify-between gap-3 py-2 text-left hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-sky-300">
-                    <span className="font-medium capitalize">{id.replace("_", " ")}</span>
+                    <span className="font-medium">{a.name}</span>
                     <span className="text-white/60">{a.label}</span>
                   </button>
                 </li>

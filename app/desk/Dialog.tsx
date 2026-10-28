@@ -17,7 +17,7 @@ export function Dialog({ open, onClose, label, className = "", children }: { ope
       aria-label={label}
       onClose={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
-      className={`m-auto max-h-[100dvh] max-w-[100vw] overflow-hidden bg-transparent p-0 backdrop:bg-black/70 ${className}`}
+      className={`m-auto max-h-[100dvh] max-w-[100vw] overflow-clip bg-transparent p-0 backdrop:bg-black/70 ${className}`}
     >
       {open ? children : null}
     </dialog>
@@ -26,7 +26,7 @@ export function Dialog({ open, onClose, label, className = "", children }: { ope
 
 export function CloseButton({ onClose, label = "Close" }: { onClose: () => void; label?: string }) {
   return (
-    <button type="button" onClick={onClose} className="min-h-11 min-w-11 rounded-full px-3 text-sm font-medium text-white/80 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
+    <button type="button" onClick={onClose} className="min-h-9 min-w-11 rounded-full border border-sky-300 px-4 text-sm font-medium text-sky-200 hover:bg-sky-300/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300">
       {label}
     </button>
   );

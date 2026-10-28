@@ -1,6 +1,6 @@
 // Phone scene layout over Paula's locked painting (scene/manifest.json, art-v1).
 // Phones show a crop of the wide painting plus a band of desk front below it. The canvas fits the
-// screen's width and sits on the bottom edge, and scales down only if a screen is too short for it.
+// screen's width and sits just under the top bar, and scales down only if a screen is too short for it.
 // Hit areas are padded to 44 points, then kept clear of the top bar and the dock band.
 import manifest from "@/scene/manifest.json";
 
@@ -70,7 +70,9 @@ export function layoutScene(width: number, height: number): SceneLayout {
     sceneH = height / safeShare;
     sceneW = sceneH / ASPECT;
   }
-  const scene: Rect = { left: (width - sceneW) / 2, top: height - sceneH, width: sceneW, height: sceneH };
+  // Paula's note, Tue 10/27: the room sits just under the top bar, so the gap is below the dock instead of above
+  // the ceiling. A screen too short for that keeps the room on its bottom edge.
+  const scene: Rect = { left: (width - sceneW) / 2, top: Math.min(TOP_BAR_HEIGHT, height - sceneH), width: sceneW, height: sceneH };
 
   const safeFrame = toRect(z.safe_frame, scene);
   const dock = toRect({ x0: 0, x1: 100, y0: z.dock_band.y0, y1: z.dock_band.y1 }, scene);

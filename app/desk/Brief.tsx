@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import type { DeskData } from "@/lib/desk/data";
+import { dollars, plainDay, twelveHour } from "@/lib/desk/shared";
 
 const STATUS: Record<string, string> = { green: "bg-emerald-500", yellow: "bg-amber-400", red: "bg-rose-500" };
 const usd = (micro: number) => `$${(micro / 1e6).toFixed(micro < 10_000 ? 4 : 3)}`;
@@ -17,11 +18,59 @@ function Section({ title, onReceipt, children }: { title: string; onReceipt: () 
       <div className="mb-2 flex items-center justify-between gap-2">
         <h3 className="text-xs font-semibold tracking-wide text-white/60 uppercase">{title}</h3>
         <button type="button" onClick={onReceipt} className="min-h-11 rounded-full px-3 text-xs font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
-          How
+          How?
         </button>
       </div>
       {children}
     </section>
+  );
+}
+
+// Each kind of calendar note gets its own color, so a glance tells a conflict from a note.
+const KIND: Record<string, string> = { conflict: "text-rose-300", prep: "text-sky-300", note: "text-amber-200", change: "text-emerald-300" };
+
+const capFirst = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+// A personal line can open the email, event or task it rests on, so Alex sees the context in one tap.
+function SourcePeek({ ids, data }: { ids: string[]; data: DeskData }) {
+  const [open, setOpen] = useState<string | null>(null);
+  const items = ids
+    .map((id) => {
+      const m = data.inbox.find((x) => x.id === id);
+      if (m) return { id, kind: "Email", title: m.subject, meta: `${m.from}, ${twelveHour(plainDay(m.received))}`, body: m.body };
+      const e = data.calendar.find((x) => x.id === id);
+      if (e) return { id, kind: "Calendar", title: e.title, meta: `${twelveHour(e.start.replace(/^D0 /, ""))} to ${twelveHour(e.end)}`, body: e.notes ?? "" };
+      const t = data.tasks.find((x) => x.id === id);
+      if (t) return { id, kind: "Task", title: t.task, meta: `${t.owner}, ${t.status}`, body: "" };
+      return null;
+    })
+    .filter((x): x is NonNullable<typeof x> => !!x);
+  if (!items.length) return null;
+  const shown = items.find((x) => x.id === open);
+  return (
+    <span className="mt-1 block">
+      <span className="flex flex-wrap gap-1.5">
+        {items.map((x) => (
+          <button
+            key={x.id}
+            type="button"
+            aria-expanded={open === x.id}
+            onClick={() => setOpen(open === x.id ? null : x.id)}
+            className="min-h-8 rounded-full border border-white/20 px-2.5 text-xs text-sky-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300"
+          >
+            {open === x.id ? "Hide" : "See"} the {x.kind.toLowerCase()}
+          </button>
+        ))}
+      </span>
+      {shown ? (
+        <span className="mt-2 block rounded-lg bg-[#f7f3ea] p-3 text-[#1d1b18]">
+          <span className="block text-[0.65rem] font-semibold tracking-wide text-black/50 uppercase">{shown.kind}</span>
+          <span className="block font-medium">{shown.title}</span>
+          <span className="block text-xs text-black/60">{shown.meta}</span>
+          {shown.body ? <span className="mt-2 block text-sm whitespace-pre-line">{shown.body}</span> : null}
+        </span>
+      ) : null}
+    </span>
   );
 }
 
@@ -74,16 +123,19 @@ function BriefBody({ data }: { data: DeskData }) {
       </Section>
 
       <Section title="Top priorities" onReceipt={show("Top priorities")}>
-        <ol className="space-y-2 text-sm">
+        <ul className="space-y-2 text-sm">
           {b.priorities.map((p, i) => (
-            <li key={i}>
-              <span className="font-medium">{p.title}</span>
-              <span className="text-white/75"> {p.why}</span>
-              <span className="block text-white/60">Next: {p.next_step}</span>
-              <Cites ids={p.source_ids} sources={data.sources} />
+            <li key={i} className="flex gap-2.5">
+              <span aria-hidden className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-sky-300/70" />
+              <span>
+                <span className="font-medium">{p.title}</span>
+                <span className="text-white/75"> {p.why}</span>
+                <span className="block text-white/60">Next: {p.next_step}</span>
+                <Cites ids={p.source_ids} sources={data.sources} />
+              </span>
             </li>
           ))}
-        </ol>
+        </ul>
       </Section>
 
       <Section title="Decisions" onReceipt={show("Decisions")}>
@@ -92,7 +144,7 @@ function BriefBody({ data }: { data: DeskData }) {
             <li key={i}>
               <span className="font-medium">{d.question}</span>
               <span className="block text-white/60">
-                {d.owner}, {d.due}
+                {d.owner}, {twelveHour(plainDay(d.due))}
                 {d.carried_over ? " · carried over" : ""}
               </span>
               <Cites ids={d.source_ids} sources={data.sources} />
@@ -106,16 +158,16 @@ function BriefBody({ data }: { data: DeskData }) {
           <p className="text-xs font-semibold tracking-wide text-amber-200 uppercase">Builder&apos;s call, by Paula McMahon</p>
           <p className="mt-1 text-sm font-medium">{c.question}</p>
           <p className="mt-1 text-sm text-white/80">{c.call}</p>
-          <p className="mt-2 text-xs text-white/50">Paula&apos;s own judgment, outside CareBird&apos;s voice. No model wrote it, and the brief never saw it.</p>
+          <p className="mt-2 text-xs text-white/50">PM&apos;s own judgement outside of the brief and CareBird&apos;s voice.</p>
         </aside>
       ))}
 
       <Section title="Calendar" onReceipt={show("Calendar")}>
-        <ul className="space-y-1 text-sm">
+        <ul className="divide-y divide-white/10 text-sm">
           {b.calendar.map((c, i) => (
-            <li key={i}>
-              <span className="mr-1 text-xs text-white/50 uppercase">{c.kind}</span>
-              {c.line}
+            <li key={i} className="py-2 first:pt-0 last:pb-0">
+              <span className={`mr-1.5 text-xs font-semibold tracking-wide uppercase ${KIND[c.kind] ?? "text-white/50"}`}>{c.kind}</span>
+              {twelveHour(c.line)}
               <Cites ids={c.event_ids} sources={data.sources} />
             </li>
           ))}
@@ -123,15 +175,27 @@ function BriefBody({ data }: { data: DeskData }) {
       </Section>
 
       <Section title="Business health" onReceipt={show("Business health")}>
-        <ul className="space-y-1 text-sm">
-          {b.business_health.map((h, i) => (
-            <li key={i} className="flex items-baseline gap-2">
-              <span className={`inline-block size-2 shrink-0 rounded-full ${STATUS[h.status]}`} aria-label={h.status} role="img" />
-              <span className="text-white/60 capitalize">{h.area}</span>
-              <span>{h.line}</span>
-            </li>
-          ))}
-        </ul>
+        <table className="w-full border-collapse overflow-hidden rounded-md text-left text-sm outline outline-1 outline-white/15">
+          <thead className="sr-only">
+            <tr>
+              <th>Area</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {b.business_health.map((h, i) => (
+              <tr key={i} className="border-t border-white/15 first:border-t-0">
+                <td className="w-[40%] border-r border-white/15 px-2.5 py-2 align-top">
+                  <span className="flex items-center gap-2">
+                    <span className={`inline-block size-2 shrink-0 rounded-full ${STATUS[h.status]}`} aria-label={h.status} role="img" />
+                    <span className="text-white/75">{capFirst(h.area)}</span>
+                  </span>
+                </td>
+                <td className="px-2.5 py-2 align-top">{dollars(h.line)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </Section>
 
       <Section title="Personal" onReceipt={show("Personal")}>
@@ -140,6 +204,7 @@ function BriefBody({ data }: { data: DeskData }) {
             <li key={i}>
               {p.private ? <span className="mr-1 rounded bg-white/10 px-1 text-[0.65rem] text-white/60">private</span> : null}
               {p.line}
+              <SourcePeek ids={p.source_ids} data={data} />
             </li>
           ))}
         </ul>
@@ -261,6 +326,7 @@ export function ReceiptSheet({
   return (
     <div className="space-y-3 text-sm">
       <button type="button" onClick={onBack} className="min-h-11 rounded-full px-3 text-sm font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
+        <span aria-hidden>‹ </span>
         {backLabel}
       </button>
       <h2 className="text-lg font-semibold">How {section} was made</h2>
