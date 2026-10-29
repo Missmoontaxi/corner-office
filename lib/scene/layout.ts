@@ -1,4 +1,5 @@
-// Phone scene layout over Paula's locked painting (scene/manifest.json, art-v1).
+// Scene layout over Paula's locked painting (scene/manifest.json, art-v1).
+// Desktops and landscape tablets show the whole wide painting, fit between the top bar and the dock.
 // Phones show a crop of the wide painting plus a band of desk front below it. The canvas fits the screen's
 // width and is centered between the top bar and the dock, which sits below the painting near the bottom edge
 // (Paula's note, Tue 10/27). A screen too short for that shrinks the canvas instead of overlapping either.
@@ -21,8 +22,12 @@ type ManifestObject = { id: string; live: string; box: Box; hit?: Box };
 
 export type HitArea = { id: string; live: string; object: Rect; hit: Rect };
 
+// "wide" is the whole painting, "phone" is the phone crop with its desk-front band.
+export type Frame = "phone" | "wide";
+
 export type SceneLayout = {
   viewport: { width: number; height: number };
+  frame: Frame;
   scene: Rect;
   safeFrame: Rect;
   topBar: Rect;
@@ -36,9 +41,17 @@ export type SceneLayout = {
 const ASPECT = manifest.canvas.height / manifest.canvas.width;
 const { crop_x0, crop_x1 } = manifest.phone;
 const PAINT_SHARE = manifest.source.height / manifest.canvas.height;
+const WIDE_ASPECT = manifest.source.height / manifest.source.width;
+// The wide painting needs a landscape screen at least this wide. Anything narrower or taller keeps the phone crop.
+export const WIDE_MIN_WIDTH = 768;
 
-// Source-image percent to phone-canvas percent.
-export function toCanvas(b: Box): Box {
+export function frameFor(width: number, height: number): Frame {
+  return width >= WIDE_MIN_WIDTH && width > height ? "wide" : "phone";
+}
+
+// Source-image percent to scene percent. The wide frame is the source itself.
+export function toCanvas(b: Box, frame: Frame = "phone"): Box {
+  if (frame === "wide") return b;
   const x = (v: number) => ((v - crop_x0) / (crop_x1 - crop_x0)) * 100;
   const y = (v: number) => v * PAINT_SHARE;
   return { x0: x(b.x0), x1: x(b.x1), y0: y(b.y0), y1: y(b.y1) };
@@ -46,10 +59,10 @@ export function toCanvas(b: Box): Box {
 
 // Everything that gets a button on phones. The phone on the desk is set dressing, and the door and the
 // wall screen sit outside the phone crop, so phones reach those through the button row instead.
-export function liveTargets(): { id: string; live: string; box: Box; hit: Box }[] {
+export function liveTargets(frame: Frame = "phone"): { id: string; live: string; box: Box; hit: Box }[] {
   return (manifest.objects as ManifestObject[])
     .filter((o) => o.live !== "set dressing")
-    .map((o) => ({ id: o.id, live: o.live, box: toCanvas(o.box), hit: toCanvas(o.hit ?? o.box) }));
+    .map((o) => ({ id: o.id, live: o.live, box: toCanvas(o.box, frame), hit: toCanvas(o.hit ?? o.box, frame) }));
 }
 
 function toRect(b: Box, scene: Rect): Rect {
@@ -71,6 +84,7 @@ export function layoutScene(width: number, height: number): SceneLayout {
   const z = manifest.zones;
   const safeShare = (z.safe_frame.y1 - z.safe_frame.y0) / 100;
 
+  const frame = frameFor(width, height);
   const topBar: Rect = { left: 0, top: 0, width, height: TOP_BAR_HEIGHT };
   const room = height - TOP_BAR_HEIGHT - DOCK_HEIGHT;
   const fullH = width * ASPECT;
@@ -78,7 +92,14 @@ export function layoutScene(width: number, height: number): SceneLayout {
   let scene: Rect;
   let dock: Rect;
   let dockMode: SceneLayout["dockMode"];
-  if (fullH * safeShare <= room) {
+  if (frame === "wide") {
+    // The whole painting, as large as fits between the top bar and the dock, centered both ways.
+    const sceneW = Math.min(width, room / WIDE_ASPECT);
+    const sceneH = sceneW * WIDE_ASPECT;
+    scene = { left: (width - sceneW) / 2, top: TOP_BAR_HEIGHT + (room - sceneH) / 2, width: sceneW, height: sceneH };
+    dock = { left: 0, top: height - DOCK_HEIGHT, width, height: DOCK_HEIGHT };
+    dockMode = "below";
+  } else if (fullH * safeShare <= room) {
     // Room for both. The painting is centered between the top bar and the dock below it.
     scene = { left: 0, top: TOP_BAR_HEIGHT + (room - fullH) / 2, width, height: fullH };
     dock = { left: 0, top: height - DOCK_HEIGHT, width, height: DOCK_HEIGHT };
@@ -96,12 +117,12 @@ export function layoutScene(width: number, height: number): SceneLayout {
     dock = toRect({ x0: 0, x1: 100, y0: z.dock_band.y0, y1: z.dock_band.y1 }, scene);
     dockMode = "over";
   }
-  const safeFrame = toRect(z.safe_frame, scene);
+  const safeFrame = frame === "wide" ? scene : toRect(z.safe_frame, scene);
 
   const minTop = topBar.top + topBar.height + CHROME_GAP;
   const maxBottom = dock.top - CHROME_GAP;
 
-  const hits = liveTargets().map(({ id, live, box, hit: hitBox }) => {
+  const hits = liveTargets(frame).map(({ id, live, box, hit: hitBox }) => {
     const object = toRect(box, scene);
     const h = toRect(hitBox, scene);
     const [l, r] = padAxis(h.left, h.width);
@@ -118,5 +139,5 @@ export function layoutScene(width: number, height: number): SceneLayout {
     return { id, live, object, hit: { left: l, top: t, width: r - l, height: b - t } };
   });
 
-  return { viewport: { width, height }, scene, safeFrame, topBar, dock, dockMode, hits };
+  return { viewport: { width, height }, frame, scene, safeFrame, topBar, dock, dockMode, hits };
 }

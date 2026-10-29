@@ -12,22 +12,25 @@ const readSize = () => `${window.innerWidth}x${window.innerHeight}`;
 
 const px = (r: Rect) => ({ left: r.left, top: r.top, width: r.width, height: r.height });
 const art = (w: number, ext: string) => `/art/office-phone-${manifest.version}-${w}.${ext}`;
+// The whole painting for desktops and landscape tablets, 2960 by 1648.
+const WIDE_ART = `/art/office-wide-${manifest.version}.webp`;
 
-// The phone scene over Paula's painting with live hit areas drawn on top, for the viewport matrix.
+// The scene over Paula's painting, the phone crop or the whole painting, with live hit areas drawn on top, for the viewport matrix.
 export default function SceneBench() {
   const size = useSyncExternalStore(subscribe, readSize, () => "");
   if (!size) return null;
   const [w, h] = size.split("x").map(Number) as [number, number];
   const l = layoutScene(w, h);
+  const wide = l.frame === "wide";
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-neutral-900" data-testid="viewport">
-      <picture>
-        <source type="image/avif" srcSet={`${art(750, "avif")} 750w, ${art(1080, "avif")} 1080w, ${art(1170, "avif")} 1170w`} sizes="100vw" />
+      <picture key={l.frame}>
+        {wide ? null : <source type="image/avif" srcSet={`${art(750, "avif")} 750w, ${art(1080, "avif")} 1080w, ${art(1170, "avif")} 1170w`} sizes="100vw" />}
         <img
-          src={art(1170, "webp")}
-          srcSet={`${art(750, "webp")} 750w, ${art(1080, "webp")} 1080w, ${art(1170, "webp")} 1170w`}
-          sizes="100vw"
+          src={wide ? WIDE_ART : art(1170, "webp")}
+          srcSet={wide ? undefined : `${art(750, "webp")} 750w, ${art(1080, "webp")} 1080w, ${art(1170, "webp")} 1170w`}
+          sizes={wide ? undefined : "100vw"}
           alt="A corner office with a walnut desk and a dark monitor, floor-to-ceiling windows onto an autumn Hudson Valley forest"
           className="absolute"
           style={px(l.scene)}

@@ -10,6 +10,9 @@ const SIZES: [number, number, string][] = [
   [412, 780, "large Android"],
   [390, 844, "full iPhone screen"],
   [412, 870, "tall Android, Chrome"],
+  [1280, 720, "laptop, the whole painting"],
+  [1440, 900, "MacBook, the whole painting"],
+  [1920, 1080, "desktop monitor, the whole painting"],
 ];
 
 type Box = { left: number; top: number; right: number; bottom: number; width: number; height: number };

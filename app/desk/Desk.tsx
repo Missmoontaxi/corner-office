@@ -20,6 +20,8 @@ function subscribe(onChange: () => void) {
 const readSize = () => `${window.innerWidth}x${window.innerHeight}`;
 const px = (r: Rect) => ({ left: r.left, top: r.top, width: r.width, height: r.height });
 const art = (w: number, ext: string) => `/art/office-phone-${manifest.version}-${w}.${ext}`;
+// The whole painting for desktops and landscape tablets, 2960 by 1648.
+const WIDE_ART = `/art/office-wide-${manifest.version}.webp`;
 
 type Tab = "brief" | "ask" | "calendar" | "kpis";
 type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" } | { kind: "art"; id: string };
@@ -95,6 +97,7 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
   if (!size) return <div className="fixed inset-0 bg-neutral-950" />;
   const [w, h] = size.split("x").map(Number) as [number, number];
   const l = layoutScene(w, h);
+  const wide = l.frame === "wide";
   const monitor = l.hits.find((x) => x.id === "monitor")!.object;
   const origin = `${monitor.left + monitor.width / 2}px ${monitor.top + monitor.height * 0.4}px`;
   // The painted screen sits in the upper part of the monitor box.
@@ -102,7 +105,7 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
   const roomy = screen.width > 200;
   // Each wall piece sits in its frame's canvas opening, measured from the master painting.
   const openingOf = (frame: keyof typeof manifest.openings): Rect => {
-    const op = toCanvas(manifest.openings[frame]);
+    const op = toCanvas(manifest.openings[frame], l.frame);
     return { left: l.scene.left + (op.x0 / 100) * l.scene.width, top: l.scene.top + (op.y0 / 100) * l.scene.height, width: ((op.x1 - op.x0) / 100) * l.scene.width, height: ((op.y1 - op.y0) / 100) * l.scene.height };
   };
   const piece = open?.kind === "art" ? wall.pieces.find((p) => p.id === open.id) : undefined;
@@ -113,15 +116,15 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
         className="absolute inset-0 motion-safe:animate-[settle_900ms_ease-out]"
         style={{ transformOrigin: origin, transform: zoom ? "scale(2.4)" : "scale(1)", transition: zoom ? "transform 400ms ease-in" : undefined }}
       >
-        {/* Tall phones show more height than the painting has, so a soft copy of it fills the space above. */}
-        <img aria-hidden src={art(750, "webp")} alt="" className="absolute inset-0 h-full w-full scale-110 object-cover object-top opacity-60 blur-2xl select-none" draggable={false} />
+        {/* Tall phones show more height than the painting has, and wide screens more width, so a soft copy of it fills the space. */}
+        <img aria-hidden src={wide ? WIDE_ART : art(750, "webp")} alt="" className="absolute inset-0 h-full w-full scale-110 object-cover object-top opacity-60 blur-2xl select-none" draggable={false} />
         <div aria-hidden className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent" style={{ height: l.scene.top + 40 }} />
-        <picture>
-          <source type="image/avif" srcSet={`${art(750, "avif")} 750w, ${art(1080, "avif")} 1080w, ${art(1170, "avif")} 1170w`} sizes="100vw" />
+        <picture key={l.frame}>
+          {wide ? null : <source type="image/avif" srcSet={`${art(750, "avif")} 750w, ${art(1080, "avif")} 1080w, ${art(1170, "avif")} 1170w`} sizes="100vw" />}
           <img
-            src={art(1170, "webp")}
-            srcSet={`${art(750, "webp")} 750w, ${art(1080, "webp")} 1080w, ${art(1170, "webp")} 1170w`}
-            sizes="100vw"
+            src={wide ? WIDE_ART : art(1170, "webp")}
+            srcSet={wide ? undefined : `${art(750, "webp")} 750w, ${art(1080, "webp")} 1080w, ${art(1170, "webp")} 1170w`}
+            sizes={wide ? undefined : "100vw"}
             alt="Alex Ellery's corner office. A walnut desk with a monitor, keyboard and mouse, a desk calendar, a letter tray and a coffee cup, with floor-to-ceiling windows onto an autumn Hudson Valley forest"
             className="absolute select-none"
             style={px(l.scene)}
