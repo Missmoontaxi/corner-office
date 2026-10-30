@@ -3,7 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import manifest from "@/scene/manifest.json";
 import wall from "@/scene/wall.json";
-import { layoutScene, toCanvas, type Rect } from "@/lib/scene/layout";
+import { layoutScene, toCanvas, type Frame, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
 import { BUILT_BY, COFFEE, coffeeComparison, type DeepLink } from "@/lib/desk/shared";
 import { headlineFont } from "../fonts";
@@ -73,6 +73,39 @@ function useWake() {
   return awake;
 }
 
+// The blank calendar page's corners, from the manifest, in screen pixels. The date is drawn on a 100 by 100 box
+// mapped onto the page with an affine transform from three corners, so it tilts with the paper.
+type Pt = { x: number; y: number };
+function calendarPage(scene: Rect, frame: Frame) {
+  const at = ([x, y]: number[]): Pt => {
+    const b = toCanvas({ x0: x!, x1: x!, y0: y!, y1: y! }, frame);
+    return { x: scene.left + (b.x0 / 100) * scene.width, y: scene.top + (b.y0 / 100) * scene.height };
+  };
+  const c = manifest.pages.calendar;
+  return { tl: at(c.tl), tr: at(c.tr), bl: at(c.bl) };
+}
+
+// Today's date in New York, drawn on the painted page. The paper stays blank in the art, so it is never wrong.
+function CalendarDate({ page }: { page: { tl: Pt; tr: Pt; bl: Pt } }) {
+  const d = new Date();
+  const part = (o: Intl.DateTimeFormatOptions) => d.toLocaleDateString("en-US", { timeZone: "America/New_York", ...o });
+  const { tl, tr, bl } = page;
+  const matrix = `matrix(${(tr.x - tl.x) / 100}, ${(tr.y - tl.y) / 100}, ${(bl.x - tl.x) / 100}, ${(bl.y - tl.y) / 100}, ${tl.x}, ${tl.y})`;
+  return (
+    <div aria-hidden className="pointer-events-none absolute top-0 left-0 size-[100px] origin-top-left select-none" style={{ transform: matrix }}>
+      <div className="absolute inset-x-[4px] top-[10px] flex h-[19px] items-center justify-center rounded-[1px] bg-[#b23a2e] text-[11px] font-bold tracking-[0.18em] text-white">
+        {part({ month: "short" }).toUpperCase()}
+      </div>
+      <div className={`${headlineFont.className} absolute inset-x-0 top-[30px] text-center text-[50px] leading-none font-semibold text-[#1d1b18] tabular-nums`}>
+        {part({ day: "numeric" })}
+      </div>
+      <div className="absolute inset-x-0 top-[84px] text-center text-[9px] font-semibold tracking-[0.14em] text-[#1d1b18]/60 uppercase">
+        {part({ weekday: "long" })}
+      </div>
+    </div>
+  );
+}
+
 // What each deep link opens. Only the names in DEEP_LINK_NAMES exist, and nothing from the address is ever
 // written into the page.
 const DEEP_LINKS: Record<DeepLink, Exclude<Open, null>> = {
@@ -122,13 +155,22 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
   const wide = l.frame === "wide";
   const monitor = l.hits.find((x) => x.id === "monitor")!.object;
   const origin = `${monitor.left + monitor.width / 2}px ${monitor.top + monitor.height * 0.4}px`;
-  // The painted screen sits in the upper part of the monitor box.
-  const screen: Rect = { left: monitor.left + monitor.width * 0.06, top: monitor.top + monitor.height * 0.05, width: monitor.width * 0.88, height: monitor.height * 0.62 };
-  // Each wall piece sits in its frame's canvas opening, measured from the master painting.
+  // Each wall piece sits in its frame's canvas opening, and the monitor's text on its painted glass, all measured
+  // from the master painting.
   const openingOf = (frame: keyof typeof manifest.openings): Rect => {
     const op = toCanvas(manifest.openings[frame], l.frame);
     return { left: l.scene.left + (op.x0 / 100) * l.scene.width, top: l.scene.top + (op.y0 / 100) * l.scene.height, width: ((op.x1 - op.x0) / 100) * l.scene.width, height: ((op.y1 - op.y0) / 100) * l.scene.height };
   };
+  const screen = openingOf("screen");
+  // A frame partly behind the monitor shows its piece only where the frame is visible. The monitor covers the
+  // frame's lower left corner, so the clip keeps everything above the monitor and the strip to its right.
+  const clipBehind = (frame: keyof typeof manifest.openings, r: Rect) => {
+    if (!("behind" in manifest.openings[frame])) return undefined;
+    const right = Math.min(r.width, Math.max(0, monitor.left + monitor.width - r.left));
+    const top = Math.min(r.height, Math.max(0, monitor.top - r.top));
+    return `polygon(0 0, 100% 0, 100% 100%, ${right}px 100%, ${right}px ${top}px, 0 ${top}px)`;
+  };
+  const page = calendarPage(l.scene, l.frame);
   const piece = open?.kind === "art" ? wall.pieces.find((p) => p.id === open.id) : undefined;
 
   return (
@@ -153,15 +195,20 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
           />
         </picture>
 
-        {/* The sleeping monitor. Nothing on it scrolls or animates. */}
-        {wall.pieces.map((p) => (
-          <picture key={p.id}>
-            <source type="image/avif" srcSet={`/art/wall/${p.id}-frame.avif`} />
-            <img src={`/art/wall/${p.id}-frame.webp`} alt="" aria-hidden className="pointer-events-none absolute object-cover select-none" style={px(openingOf(p.frame as keyof typeof manifest.openings))} draggable={false} />
-          </picture>
-        ))}
+        {wall.pieces.map((p) => {
+          const frame = p.frame as keyof typeof manifest.openings;
+          const r = openingOf(frame);
+          return (
+            <picture key={p.id}>
+              <source type="image/avif" srcSet={`/art/wall/${p.id}-frame.avif`} />
+              <img src={`/art/wall/${p.id}-frame.webp`} alt="" aria-hidden className="pointer-events-none absolute object-cover select-none" style={{ ...px(r), clipPath: clipBehind(frame, r) }} draggable={false} />
+            </picture>
+          );
+        })}
 
-        {/* Sizes use the screen's own width (cqw), so both lines scale with the painted monitor. The top line never wraps. */}
+        <CalendarDate page={page} />
+
+        {/* The sleeping monitor. Sizes use the screen's own width (cqw), so both lines scale with the painted monitor. The top line never wraps. */}
         <div className="absolute flex flex-col items-center justify-center gap-1 overflow-hidden rounded-sm text-center [container-type:inline-size]" style={px(screen)}>
           {awake ? (
             <>

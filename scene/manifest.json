@@ -1,46 +1,94 @@
 {
-  "version": "art-v1",
+  "version": "art-v2",
   "source": {
-    "file": "CornerOfficeA.png",
+    "file": "CornerOfficeC.png",
     "width": 2960,
     "height": 1648,
-    "note": "Paula's locked painting, Fri 10/16. Kept outside git in art/source/. Object boxes are percent of this image. On phones the mouse, cards, mug and calendar draw smaller than the gray-box 160-pixel rule; Paula accepted this Sun 10/18, since every tap area is 44 points or more."
+    "note": "Paula's second painting, Fri 10/30, with a larger monitor and more detail on the calendar, phone, coffee and letter tray. Kept outside git in art/source/. Object boxes are percent of this image, measured on a 1 percent grid. The bigger monitor partly covers the bottom frame, as Paula chose."
   },
   "phone": {
-    "crop_x0": 26.4,
-    "crop_x1": 73.5,
+    "crop_x0": 24.5,
+    "crop_x1": 76.0,
     "extend_bottom_px": 143,
-    "note": "Phones show this crop, plus a band repeating the desk front edge under the painting so the dock never covers the drawer pull."
+    "note": "Phones show this crop, plus a band repeating the desk front edge under the painting so the dock never covers the drawer pull. Widened for art-v2 so the mug at 25.9 and the cards at 73.4 stay whole."
   },
   "canvas": {
-    "width": 1395,
+    "width": 1524,
     "height": 1791,
     "units": "the phone canvas, in pixels of the source"
   },
   "zones": {
-    "safe_frame": { "x0": 0, "x1": 100, "y0": 0, "y1": 100, "note": "the whole phone canvas" },
-    "dock_band": { "y0": 92, "y1": 100, "note": "percent of the phone canvas, nothing live" }
+    "safe_frame": {
+      "x0": 0,
+      "x1": 100,
+      "y0": 0,
+      "y1": 100,
+      "note": "the whole phone canvas"
+    },
+    "dock_band": {
+      "y0": 92,
+      "y1": 100,
+      "note": "percent of the phone canvas, nothing live"
+    }
   },
   "objects": [
-    { "id": "frame_large", "live": "10/22", "box": { "x0": 55.0, "x1": 62.3, "y0": 12.6, "y1": 27.6 } },
-    { "id": "frame_small", "live": "10/22", "box": { "x0": 55.0, "x1": 62.3, "y0": 29.7, "y1": 43.4 } },
-    { "id": "monitor", "live": "10/22", "box": { "x0": 40.5, "x1": 59.3, "y0": 47.1, "y1": 74.1 } },
-    { "id": "lamp", "live": "10/30", "box": { "x0": 32.2, "x1": 38.3, "y0": 45.8, "y1": 73.5 }, "hit": { "x0": 32.2, "x1": 38.3, "y0": 45.8, "y1": 66.6 } },
-    { "id": "calendar", "live": "10/22", "box": { "x0": 34.3, "x1": 40.1, "y0": 67.1, "y1": 77.2 }, "hit": { "x0": 34.2, "x1": 40.1, "y0": 67.0, "y1": 77.4 } },
-    { "id": "letter_tray", "live": "10/22", "box": { "x0": 56.9, "x1": 68.6, "y0": 64.3, "y1": 76.1 }, "hit": { "x0": 59.6, "x1": 68.6, "y0": 64.3, "y1": 76.1 } },
-    { "id": "keyboard", "live": "10/22", "box": { "x0": 40.3, "x1": 61.1, "y0": 78.3, "y1": 83.3 }, "hit": { "x0": 40.3, "x1": 61.1, "y0": 76.2, "y1": 86.6 } },
-    { "id": "mouse", "live": "10/22", "box": { "x0": 63.1, "x1": 66.0, "y0": 79.7, "y1": 83.1 }, "hit": { "x0": 61.3, "x1": 67.2, "y0": 76.2, "y1": 86.6 } },
-    { "id": "cards", "live": "10/30", "box": { "x0": 67.1, "x1": 71.4, "y0": 76.5, "y1": 80.8 }, "hit": { "x0": 67.4, "x1": 73.3, "y0": 76.2, "y1": 86.6 } },
-    { "id": "coffee", "live": "10/22", "box": { "x0": 28.3, "x1": 32.4, "y0": 75.0, "y1": 84.8 }, "hit": { "x0": 26.6, "x1": 32.5, "y0": 74.6, "y1": 85.0 } },
-    { "id": "phone", "live": "set dressing", "box": { "x0": 35.0, "x1": 39.1, "y0": 83.0, "y1": 88.4 } },
-    { "id": "drawer_pull", "live": "10/22", "box": { "x0": 45.8, "x1": 54.1, "y0": 89.6, "y1": 94.5 }, "hit": { "x0": 45.8, "x1": 54.1, "y0": 86.8, "y1": 97.2 } }
+    { "id": "frame_large", "live": "10/22", "box": { "x0": 56.1, "x1": 63.6, "y0": 8.2, "y1": 25.0 } },
+    { "id": "frame_small", "live": "10/22", "box": { "x0": 56.1, "x1": 63.6, "y0": 27.2, "y1": 43.9 }, "hit": { "x0": 56.1, "x1": 63.6, "y0": 26.4, "y1": 37.6 }, "note": "The monitor covers its lower left, so the tap area is the part above the monitor" },
+    { "id": "monitor", "live": "10/22", "box": { "x0": 38.8, "x1": 61.7, "y0": 37.6, "y1": 63.5 }, "hit": { "x0": 38.8, "x1": 61.7, "y0": 38.4, "y1": 63.5 } },
+    { "id": "lamp", "live": "10/30", "box": { "x0": 31.7, "x1": 38.3, "y0": 44.8, "y1": 66.0 }, "hit": { "x0": 31.7, "x1": 38.3, "y0": 44.8, "y1": 58.0 } },
+    { "id": "calendar", "live": "10/22", "box": { "x0": 32.4, "x1": 41.0, "y0": 65.6, "y1": 79.2 }, "hit": { "x0": 33.4, "x1": 41.0, "y0": 65.6, "y1": 79.2 } },
+    { "id": "letter_tray", "live": "10/22", "box": { "x0": 56.6, "x1": 70.8, "y0": 64.7, "y1": 79.6 }, "hit": { "x0": 56.6, "x1": 70.8, "y0": 64.7, "y1": 76.2 } },
+    { "id": "keyboard", "live": "10/22", "box": { "x0": 40.2, "x1": 62.2, "y0": 81.2, "y1": 87.6 }, "hit": { "x0": 41.2, "x1": 62.3, "y0": 77.4, "y1": 87.0 } },
+    { "id": "mouse", "live": "10/22", "box": { "x0": 64.0, "x1": 67.0, "y0": 83.0, "y1": 87.1 }, "hit": { "x0": 62.5, "x1": 68.4, "y0": 79.0, "y1": 88.4 } },
+    { "id": "cards", "live": "10/30", "box": { "x0": 68.8, "x1": 73.4, "y0": 80.3, "y1": 83.9 }, "hit": { "x0": 68.7, "x1": 74.9, "y0": 79.0, "y1": 88.4 } },
+    { "id": "coffee", "live": "10/22", "box": { "x0": 25.9, "x1": 33.2, "y0": 76.0, "y1": 89.5 } },
+    { "id": "phone", "live": "set dressing", "box": { "x0": 32.0, "x1": 38.4, "y0": 83.2, "y1": 92.2 } },
+    { "id": "drawer_pull", "live": "10/22", "box": { "x0": 46.0, "x1": 54.8, "y0": 94.0, "y1": 98.8 }, "hit": { "x0": 46.0, "x1": 54.8, "y0": 92.0, "y1": 99.5 } }
   ],
   "desktop_only": [
-    { "id": "door", "live": "11/20", "box": { "x0": 66.75, "x1": 76.75, "y0": 17.0, "y1": 67.0 } },
-    { "id": "wall_screen", "live": "idea", "box": { "x0": 81.3, "x1": 95.3, "y0": 20.0, "y1": 46.9 }, "note": "Paula's idea: the right-wall frame doubles as a screen on desktop, after the freeze" }
+    {
+      "id": "door",
+      "live": "11/20",
+      "box": { "x0": 67.0, "x1": 79.3, "y0": 10.0, "y1": 70.5 }
+    },
+    {
+      "id": "wall_screen",
+      "live": "idea",
+      "box": { "x0": 83.3, "x1": 98.2, "y0": 15.5, "y1": 45.5 },
+      "note": "Paula's idea: the right-wall frame doubles as a screen on desktop, after the freeze"
+    }
   ],
   "openings": {
-    "frame_large": { "x0": 55.524, "x1": 61.943, "y0": 13.319, "y1": 26.972, "note": "The canvas opening inside the black liner, measured from the master's pixels Thu 10/22. Wall pieces are drawn here, over the painting." },
-    "frame_small": { "x0": 55.389, "x1": 61.875, "y0": 30.492, "y1": 42.688, "note": "Measured the same way, Thu 10/22." }
+    "frame_large": {
+      "x0": 56.35,
+      "x1": 63.06,
+      "y0": 9.0,
+      "y1": 24.15,
+      "note": "The canvas opening inside the black liner, measured Fri 10/30. Wall pieces are drawn here, over the painting."
+    },
+    "frame_small": {
+      "x0": 56.35,
+      "x1": 63.06,
+      "y0": 28.06,
+      "y1": 43.1,
+      "note": "Measured the same way. The monitor covers its lower left, so the piece is clipped at the monitor's edge.",
+      "behind": "monitor"
+    },
+    "screen": {
+      "x0": 39.2,
+      "x1": 61.2,
+      "y0": 38.4,
+      "y1": 62.1,
+      "note": "The monitor's dark glass inside the bezel. The time, headline and Tap to open are drawn here."
+    }
+  },
+  "pages": {
+    "calendar": {
+      "tl": [33.6, 66.65],
+      "tr": [39.65, 65.7],
+      "bl": [34.5, 75.65],
+      "br": [40.72, 74.39],
+      "note": "Corners of the blank calendar page, x and y in percent of the source. Today's date is drawn on it, below the rings."
+    }
   }
 }
