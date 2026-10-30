@@ -82,6 +82,9 @@ for (const c of load("household/calls.json").calls) {
   if (c.turns.some((t) => t.speaker === "member")) fail("calls", `${c.id} an agent talks to the member`);
   if (!c.release_on_file) fail("calls", `${c.id} called without a release on file`);
   if (!providerIds.has(c.provider)) fail("calls", `${c.id} missing provider ${c.provider}`);
+  // A call never claims a booking the office has not confirmed, and an open request names its retry.
+  if (!/^(requested, not confirmed|confirmed by the office)$/.test(c.outcome)) fail("calls", `${c.id} outcome must be "requested, not confirmed" or "confirmed by the office"`);
+  if (c.outcome === "requested, not confirmed" && !/\bD[0+-]\d*\s+\d{1,2}:\d{2}\b/.test(c.next ?? "")) fail("calls", `${c.id} open request has no retry time`);
 }
 
 // Every email has a body, and the planted item is marked
