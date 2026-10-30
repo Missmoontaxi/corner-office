@@ -7,7 +7,7 @@ export type Scorecard = {
   runAt: string;
   cases: number;
   judgesCalibrated: boolean;
-  models: { model: string; graded: number; criteria: { id: string; label: string; mustPass: boolean; checkedBy: string; passed: number }[] }[];
+  models: { model: string; graded: number; ungraded?: { case: string; reason: string }[]; criteria: { id: string; label: string; mustPass: boolean; checkedBy: string; passed: number }[] }[];
 };
 export type Provider = { id: string; name: string; type: string; scope: string; verified_on: string; notes?: string };
 export type Call = { id: string; task: string; provider: string; when: string; channel: string; outcome: string; next: string; turns: { speaker: string; text: string }[] };

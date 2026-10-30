@@ -7,7 +7,7 @@ import { loadRubric } from "../evals/lib";
 import { route } from "../lib/engine/router";
 
 type Component = { pass: boolean; assertion?: { metric?: string } };
-type Result = { provider: { label?: string; id: string }; vars: { case_id: string }; gradingResult?: { componentResults?: Component[] } };
+type Result = { provider: { label?: string; id: string }; vars: { case_id: string }; error?: string; gradingResult?: { componentResults?: Component[] } };
 
 const file = process.argv.slice(2).find((a) => a.endsWith(".json")) ?? path.join("evals", "results", "local", "latest.json");
 const data = JSON.parse(fs.readFileSync(file, "utf8"));
@@ -19,14 +19,19 @@ const scorecard = {
   kind: "scorecard",
   runAt: data.results.timestamp ?? new Date(fs.statSync(file).mtimeMs).toISOString(),
   cases: new Set(results.map((r) => r.vars.case_id)).size,
-  // Labels land Mon 10/26 and the calibration report Thu 10/29. Until then the judges are not calibrated.
+  // Paula's labels land Mon 11/2 and the calibration review is Thu 11/5. Until then the judges are not calibrated.
   judgesCalibrated: false,
   models: models.map((model) => {
     const graded = results.filter((r) => (r.provider.label ?? r.provider.id) === model && r.gradingResult);
     const judge = route("judge.ci", { judgedModel: model }).chain[0]!;
+    // Cases the model never answered, so nothing was graded. The panel names them instead of hiding them.
+    const ungraded = results
+      .filter((r) => (r.provider.label ?? r.provider.id) === model && !r.gradingResult)
+      .map((r) => ({ case: r.vars.case_id, reason: /timeout|timed out/i.test(r.error ?? "") ? "timed out" : "errored" }));
     return {
       model,
       graded: graded.length,
+      ungraded,
       criteria: rubric.map((c) => ({
         id: c.id,
         label: c.criterion,

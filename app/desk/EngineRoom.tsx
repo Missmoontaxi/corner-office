@@ -3,6 +3,8 @@
 import type { DeskData } from "@/lib/desk/data";
 
 const usd = (micro: number) => `$${(micro / 1e6).toFixed(3)}`;
+// The eval run's date in New York, such as "Fri, Oct 30, 2026".
+const runDate = (iso: string) => new Date(iso).toLocaleDateString("en-US", { timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric" });
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -56,6 +58,7 @@ export function EngineRoom({ data }: { data: DeskData }) {
           <p className="mb-3 text-white/60">
             PM’s rubric, graded on her own cases against live models. Counts, not percentages.{sc.judgesCalibrated ? "" : " The judges are not yet calibrated against her labels."}
           </p>
+          <p className="mb-3 text-xs text-white/50">Run {runDate(sc.runAt)}.</p>
           <div className="space-y-4">
             {sc.models.map((m) => {
               // Code-checked criteria lead, then the judged ones, each labeled with who checked it.
@@ -63,6 +66,11 @@ export function EngineRoom({ data }: { data: DeskData }) {
               return (
                 <div key={m.model}>
                   <h4 className="mb-1 font-medium">{m.model}</h4>
+                  {m.ungraded?.length ? (
+                    <p className="mb-1 text-xs text-amber-200/80">
+                      {m.ungraded.map((u) => `${u.case} ${u.reason}`).join(", ")}, so {m.graded} of {sc.cases} cases were graded.
+                    </p>
+                  ) : null}
                   <table className="w-full text-left">
                     <thead className="sr-only">
                       <tr>
