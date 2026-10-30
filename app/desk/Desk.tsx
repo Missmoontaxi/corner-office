@@ -54,15 +54,7 @@ function useNewYorkTime() {
 }
 
 // The entry cue (a friend's note, Fri 10/30). The sleeping monitor wakes for about a second and a half, then
-// asks to be opened, with a pulsing dot. A "Start here" label points at it until the visitor opens it once.
-const SEEN_KEY = "co-monitor-opened";
-const readSeen = () => {
-  try {
-    return localStorage.getItem(SEEN_KEY) === "1";
-  } catch {
-    return false;
-  }
-};
+// asks to be opened, with a bright pulsing dot. Paula dropped the "Start here" label Fri 10/30 as duplicative.
 const fineSubscribe = (onChange: () => void) => {
   const mq = window.matchMedia("(pointer: fine)");
   mq.addEventListener("change", onChange);
@@ -71,21 +63,14 @@ const fineSubscribe = (onChange: () => void) => {
 const readFine = () => window.matchMedia("(pointer: fine)").matches;
 
 function useWake() {
-  // The scene renders only on the client (its size comes from the window), so these read the browser directly.
+  // The scene renders only on the client (its size comes from the window), so this reads the browser directly.
   const [awake, setAwake] = useState(reduceMotion);
-  const [seen, setSeen] = useState(() => typeof window === "undefined" || readSeen());
   useEffect(() => {
     if (awake) return;
     const id = setTimeout(() => setAwake(true), 1500);
     return () => clearTimeout(id);
   }, [awake]);
-  const markSeen = () => {
-    setSeen(true);
-    try {
-      localStorage.setItem(SEEN_KEY, "1");
-    } catch {}
-  };
-  return { awake, seen, markSeen };
+  return awake;
 }
 
 // What each deep link opens. Only the names in DEEP_LINK_NAMES exist, and nothing from the address is ever
@@ -107,7 +92,7 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
   const [zoom, setZoom] = useState(false);
   const [steam, setSteam] = useState(false);
   const time = useNewYorkTime();
-  const { awake, seen, markSeen } = useWake();
+  const awake = useWake();
   const fine = useSyncExternalStore(fineSubscribe, readFine, () => false);
 
   const decisions = data.brief.decisions.length;
@@ -117,7 +102,6 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
 
   // The wake zoom. The room scales toward the monitor for about 400ms, then the monitor opens. Instant under reduced motion.
   const go = (next: Open) => {
-    if (next?.kind === "monitor") markSeen();
     if (next?.kind === "coffee") {
       setSteam(true);
       setTimeout(() => setSteam(false), 5000);
@@ -188,9 +172,9 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
               </span>
               <span className={`${headlineFont.className} text-[clamp(0.8rem,13cqw,1.6rem)] leading-tight font-semibold tracking-tight`}>{headline}</span>
               <span className="mt-[2cqw] inline-flex items-center gap-[3cqw] rounded-full bg-sky-300/20 px-[5cqw] py-[1.5cqw] text-[clamp(0.45rem,6.5cqw,0.85rem)] font-semibold whitespace-nowrap text-sky-100 ring-1 ring-sky-200/40">
-                <span aria-hidden className="relative flex size-[clamp(0.35rem,4cqw,0.55rem)]">
-                  <span className="absolute inset-0 rounded-full bg-sky-200 opacity-75 motion-safe:animate-ping" />
-                  <span className="relative size-full rounded-full bg-sky-200" />
+                <span aria-hidden className="relative flex size-[clamp(0.4rem,4.5cqw,0.6rem)]">
+                  <span className="absolute inset-0 rounded-full bg-lime-300 motion-safe:animate-ping" />
+                  <span className="relative size-full rounded-full bg-lime-300 shadow-[0_0_8px_2px_rgba(190,242,100,0.85)]" />
                 </span>
                 {fine ? "Click to open" : "Tap to open"}
               </span>
@@ -205,17 +189,6 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
             </span>
           )}
         </div>
-
-        {awake && !seen ? (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute flex -translate-x-1/2 -translate-y-full flex-col items-center motion-safe:animate-bounce"
-            style={{ left: monitor.left + monitor.width / 2, top: monitor.top - 6 }}
-          >
-            <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold whitespace-nowrap text-neutral-900 shadow-lg">Start here</span>
-            <span className="size-0 border-x-[6px] border-t-[7px] border-x-transparent border-t-white" />
-          </div>
-        ) : null}
 
         {l.hits.map((t) => {
           const a = ACTIONS[t.id];
