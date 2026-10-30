@@ -53,6 +53,41 @@ function useNewYorkTime() {
   return now;
 }
 
+// The entry cue (a friend's note, Fri 10/30). The sleeping monitor wakes for about a second and a half, then
+// asks to be opened, with a pulsing dot. A "Start here" label points at it until the visitor opens it once.
+const SEEN_KEY = "co-monitor-opened";
+const readSeen = () => {
+  try {
+    return localStorage.getItem(SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+const fineSubscribe = (onChange: () => void) => {
+  const mq = window.matchMedia("(pointer: fine)");
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+};
+const readFine = () => window.matchMedia("(pointer: fine)").matches;
+
+function useWake() {
+  // The scene renders only on the client (its size comes from the window), so these read the browser directly.
+  const [awake, setAwake] = useState(reduceMotion);
+  const [seen, setSeen] = useState(() => typeof window === "undefined" || readSeen());
+  useEffect(() => {
+    if (awake) return;
+    const id = setTimeout(() => setAwake(true), 1500);
+    return () => clearTimeout(id);
+  }, [awake]);
+  const markSeen = () => {
+    setSeen(true);
+    try {
+      localStorage.setItem(SEEN_KEY, "1");
+    } catch {}
+  };
+  return { awake, seen, markSeen };
+}
+
 // What each deep link opens. Only the names in DEEP_LINK_NAMES exist, and nothing from the address is ever
 // written into the page.
 const DEEP_LINKS: Record<DeepLink, Exclude<Open, null>> = {
@@ -72,6 +107,8 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
   const [zoom, setZoom] = useState(false);
   const [steam, setSteam] = useState(false);
   const time = useNewYorkTime();
+  const { awake, seen, markSeen } = useWake();
+  const fine = useSyncExternalStore(fineSubscribe, readFine, () => false);
 
   const decisions = data.brief.decisions.length;
   const headline = `Today: ${decisions} Decision${decisions === 1 ? "" : "s"}`;
@@ -80,6 +117,7 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
 
   // The wake zoom. The room scales toward the monitor for about 400ms, then the monitor opens. Instant under reduced motion.
   const go = (next: Open) => {
+    if (next?.kind === "monitor") markSeen();
     if (next?.kind === "coffee") {
       setSteam(true);
       setTimeout(() => setSteam(false), 5000);
@@ -142,13 +180,42 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
 
         {/* Sizes use the screen's own width (cqw), so both lines scale with the painted monitor. The top line never wraps. */}
         <div className="absolute flex flex-col items-center justify-center gap-1 overflow-hidden rounded-sm text-center [container-type:inline-size]" style={px(screen)}>
-          <span className="text-[clamp(0.4rem,5.6cqw,0.9rem)] whitespace-nowrap text-white/60 tabular-nums">
-            {time ? `${time} in New York` : ""}
-            {time && weatherLine ? ` \u00b7 ${weatherLine}` : ""}
-          </span>
-          <span className={`${headlineFont.className} text-[clamp(0.8rem,13cqw,1.6rem)] leading-tight font-semibold tracking-tight`}>{headline}</span>
-          {roomy ? <span className="px-2 text-[0.6rem] text-white/50">{data.honesty} <em>{BUILT_BY}</em></span> : null}
+          {awake ? (
+            <>
+              <span className="text-[clamp(0.4rem,5.6cqw,0.9rem)] whitespace-nowrap text-white/60 tabular-nums">
+                {time ? `${time} in New York` : ""}
+                {time && weatherLine ? ` \u00b7 ${weatherLine}` : ""}
+              </span>
+              <span className={`${headlineFont.className} text-[clamp(0.8rem,13cqw,1.6rem)] leading-tight font-semibold tracking-tight`}>{headline}</span>
+              <span className="mt-[2cqw] inline-flex items-center gap-[3cqw] rounded-full bg-sky-300/20 px-[5cqw] py-[1.5cqw] text-[clamp(0.45rem,6.5cqw,0.85rem)] font-semibold whitespace-nowrap text-sky-100 ring-1 ring-sky-200/40">
+                <span aria-hidden className="relative flex size-[clamp(0.35rem,4cqw,0.55rem)]">
+                  <span className="absolute inset-0 rounded-full bg-sky-200 opacity-75 motion-safe:animate-ping" />
+                  <span className="relative size-full rounded-full bg-sky-200" />
+                </span>
+                {fine ? "Click to open" : "Tap to open"}
+              </span>
+              {roomy ? <span className="px-2 text-[0.6rem] text-white/50">{data.honesty} <em>{BUILT_BY}</em></span> : null}
+            </>
+          ) : (
+            <span className="flex w-[70%] flex-col items-center gap-[3cqw] text-[clamp(0.4rem,5.6cqw,0.85rem)] tracking-wide text-white/60">
+              Waking up
+              <span className="h-[clamp(2px,1.6cqw,5px)] w-full overflow-hidden rounded-full bg-white/15">
+                <span className="block h-full w-full origin-left animate-[wake_1.4s_ease-out_forwards] rounded-full bg-sky-200/80" />
+              </span>
+            </span>
+          )}
         </div>
+
+        {awake && !seen ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute flex -translate-x-1/2 -translate-y-full flex-col items-center motion-safe:animate-bounce"
+            style={{ left: monitor.left + monitor.width / 2, top: monitor.top - 6 }}
+          >
+            <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold whitespace-nowrap text-neutral-900 shadow-lg">Start here</span>
+            <span className="size-0 border-x-[6px] border-t-[7px] border-x-transparent border-t-white" />
+          </div>
+        ) : null}
 
         {l.hits.map((t) => {
           const a = ACTIONS[t.id];

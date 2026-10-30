@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import type { DeskData } from "@/lib/desk/data";
-import { dollars, plainDay, twelveHour } from "@/lib/desk/shared";
+import { headlineFont } from "../fonts";
+import { dollars, modelName, plainDay, plainReceipt, twelveHour } from "@/lib/desk/shared";
 
 const STATUS: Record<string, string> = { green: "bg-emerald-500", yellow: "bg-amber-400", red: "bg-rose-500" };
 const usd = (micro: number) => `$${(micro / 1e6).toFixed(micro < 10_000 ? 4 : 3)}`;
@@ -12,24 +13,43 @@ const nyTime = (iso: string) =>
 const noSubscribe = () => () => {};
 const todayInNewYork = () => new Date().toLocaleDateString("en-US", { timeZone: "America/New_York", weekday: "long", month: "long", day: "numeric" });
 
-function Section({ title, onReceipt, children }: { title: string; onReceipt: () => void; children: React.ReactNode }) {
+function Section({ title, onReceipt, children, className = "bg-white/[0.06]" }: { title: string; onReceipt: () => void; children: React.ReactNode; className?: string }) {
   return (
-    <section className="rounded-xl bg-white/[0.06] p-4">
+    <section className={`rounded-xl p-4 ${className}`}>
       <div className="mb-2 flex items-center justify-between gap-2">
         <h3 className="text-xs font-semibold tracking-wide text-white/60 uppercase">{title}</h3>
-        <button type="button" onClick={onReceipt} className="min-h-11 rounded-full px-3 text-xs font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
-          How?
-        </button>
+        <HowButton onClick={onReceipt} />
       </div>
       {children}
     </section>
   );
 }
 
+// Every section links to the receipt. A visible pill, so a first-time reader finds it (a friend's note, Fri 10/30).
+function HowButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-full border border-sky-300/40 bg-sky-300/10 px-3 text-xs font-medium text-sky-200 hover:bg-sky-300/20 focus-visible:outline-2 focus-visible:outline-sky-300"
+    >
+      <span aria-hidden className="grid size-4 place-items-center rounded-full border border-sky-200/70 text-[0.6rem] leading-none font-bold">
+        i
+      </span>
+      How was this made?
+    </button>
+  );
+}
+
+const Chip = ({ children, tone = "bg-white/10 text-white/75" }: { children: React.ReactNode; tone?: string }) => (
+  <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${tone}`}>{children}</span>
+);
+
 // Each kind of calendar note gets its own color, so a glance tells a conflict from a note.
 const KIND: Record<string, string> = { conflict: "text-rose-300", prep: "text-sky-300", note: "text-amber-200", change: "text-emerald-300" };
 
 const capFirst = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const lowerFirst = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
 
 // A personal line can open the email, event or task it rests on, so Alex sees the context in one tap.
 function SourcePeek({ ids, data }: { ids: string[]; data: DeskData }) {
@@ -97,15 +117,19 @@ function BriefBody({ data }: { data: DeskData }) {
   // The visitor's real date in New York, filled in after load so the static page never shows a stale one.
   const today = useSyncExternalStore(noSubscribe, todayInNewYork, () => "");
 
-  if (receipt) return <ReceiptSheet data={data} section={`the ${receipt.toLowerCase()}`} onBack={() => setReceipt(null)} />;
+  // Every section comes from the same run, so each "How was this made?" opens the brief's one receipt.
+  if (receipt) return <ReceiptSheet data={data} section="this brief" onBack={() => setReceipt(null)} />;
 
   return (
     <div className="space-y-3">
-      <div className="flex items-baseline justify-between gap-3 text-sm text-white/60">
-        <p>
-          {today ? `${today}. ` : ""}Board meeting in 3 days.
-          {b.date.observances.length ? ` ${b.date.observances.join(", ")}.` : ""}
-        </p>
+      <div className="flex items-end justify-between gap-3 text-sm text-white/60">
+        <div>
+          <p className={`${headlineFont.className} min-h-7 text-2xl leading-tight font-semibold tracking-tight text-white`}>{today}</p>
+          <p>
+            Board meeting in 3 days.
+            {b.date.observances.length ? ` ${b.date.observances.join(", ")}.` : ""}
+          </p>
+        </div>
         {wx && wx.high != null && wx.low != null ? (
           <p className="shrink-0 text-right whitespace-nowrap tabular-nums" aria-label={`High ${wx.high}, low ${wx.low}, ${wx.sky}`}>
             {wx.emoji} <b className="text-white">{wx.high}</b>&deg; / <b className="text-white">{wx.low}</b>&deg;
@@ -113,41 +137,49 @@ function BriefBody({ data }: { data: DeskData }) {
         ) : null}
       </div>
 
-      <Section title="Headline" onReceipt={show("Headline")}>
-        <h2 className="text-lg leading-snug font-semibold">{b.headline.title.replace(/\*\*/g, "")}</h2>
-        <p className="mt-1 text-sm text-white/80">{b.headline.context}</p>
-        <p className="mt-2 text-sm font-medium text-amber-200">
-          {b.headline.action}
-          <Cites ids={b.headline.source_ids} sources={data.sources} />
-        </p>
+      <Section title="Headline" onReceipt={show("Headline")} className="bg-gradient-to-br from-amber-200/[0.14] via-white/[0.06] to-white/[0.04] ring-1 ring-amber-200/20">
+        <h2 className={`${headlineFont.className} text-2xl leading-tight font-semibold tracking-tight text-balance`}>{b.headline.title.replace(/\*\*/g, "")}</h2>
+        <p className="mt-2 text-sm leading-relaxed text-white/80">{b.headline.context}</p>
+        <div className="mt-3 rounded-lg bg-black/25 px-3 py-2.5">
+          <p className="text-[0.65rem] font-semibold tracking-wide text-amber-200/80 uppercase">Next step</p>
+          <p className="text-sm font-medium text-amber-100">
+            {b.headline.action}
+            <Cites ids={b.headline.source_ids} sources={data.sources} />
+          </p>
+        </div>
       </Section>
 
       <Section title="Top priorities" onReceipt={show("Top priorities")}>
-        <ul className="space-y-2 text-sm">
+        <ol className="space-y-3 text-sm">
           {b.priorities.map((p, i) => (
-            <li key={i} className="flex gap-2.5">
-              <span aria-hidden className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-sky-300/70" />
-              <span>
-                <span className="font-medium">{p.title}</span>
-                <span className="text-white/75"> {p.why}</span>
-                <span className="block text-white/60">Next: {p.next_step}</span>
+            <li key={i} className="flex gap-3">
+              <span aria-hidden className={`${headlineFont.className} grid size-7 shrink-0 place-items-center rounded-full bg-sky-300/15 text-sm font-semibold text-sky-200 tabular-nums`}>
+                {i + 1}
+              </span>
+              <span className="min-w-0">
+                <span className="block font-semibold">{p.title}</span>
+                <span className="block text-white/75">{p.why}</span>
+                <span className="mt-1 block text-white/60">
+                  <span className="font-medium text-white/80">Next.</span> {p.next_step}
+                </span>
                 <Cites ids={p.source_ids} sources={data.sources} />
               </span>
             </li>
           ))}
-        </ul>
+        </ol>
       </Section>
 
       <Section title="Decisions" onReceipt={show("Decisions")}>
         <ul className="space-y-2 text-sm">
           {b.decisions.map((d, i) => (
-            <li key={i}>
-              <span className="font-medium">{d.question}</span>
-              <span className="block text-white/60">
-                {d.owner}, {twelveHour(plainDay(d.due))}
-                {d.carried_over ? " · carried over" : ""}
+            <li key={i} className="rounded-lg border border-white/10 bg-black/20 p-3">
+              <span className="block font-medium">{d.question}</span>
+              <span className="mt-2 flex flex-wrap items-center gap-1.5">
+                <Chip>{d.owner}</Chip>
+                <Chip>Due {lowerFirst(twelveHour(plainDay(d.due)))}</Chip>
+                {d.carried_over ? <Chip tone="bg-amber-300/15 text-amber-200">Carried over</Chip> : null}
+                <Cites ids={d.source_ids} sources={data.sources} />
               </span>
-              <Cites ids={d.source_ids} sources={data.sources} />
             </li>
           ))}
         </ul>
@@ -166,7 +198,7 @@ function BriefBody({ data }: { data: DeskData }) {
         <ul className="divide-y divide-white/10 text-sm">
           {b.calendar.map((c, i) => (
             <li key={i} className="py-2 first:pt-0 last:pb-0">
-              <span className={`mr-1.5 text-xs font-semibold tracking-wide uppercase ${KIND[c.kind] ?? "text-white/50"}`}>{c.kind}</span>
+              <span className={`mr-2 inline-block rounded-full bg-white/[0.08] px-2 py-0.5 text-[0.65rem] font-semibold tracking-wide uppercase ${KIND[c.kind] ?? "text-white/50"}`}>{c.kind}</span>
               {twelveHour(c.line)}
               <Cites ids={c.event_ids} sources={data.sources} />
             </li>
@@ -225,7 +257,7 @@ function BriefBody({ data }: { data: DeskData }) {
       ) : null}
 
       <p className="text-xs text-white/50">
-        {data.receipt.runKind === "live" ? "Ran live" : "Recorded"} {nyTime(data.recordedAt)} New York time by {data.receipt.route.model}, {usd(data.receipt.costMicroUsd)}.
+        {data.receipt.runKind === "live" ? "Ran live" : "Written"} {nyTime(data.recordedAt)} New York time by {modelName(data.receipt.route.model)}, for {usd(data.receipt.costMicroUsd)}.
       </p>
     </div>
   );
@@ -323,6 +355,7 @@ export function ReceiptSheet({
 }) {
   const r = receipt ?? data.receipt;
   const ck = checks ?? data.checks;
+  const plain = plainReceipt(r, section);
   return (
     <div className="space-y-3 text-sm">
       <button type="button" onClick={onBack} className="min-h-11 rounded-full px-3 text-sm font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-300">
@@ -331,76 +364,106 @@ export function ReceiptSheet({
       </button>
       <h2 className="text-lg font-semibold">How {section} was made</h2>
 
-      <div className="rounded-xl bg-white/[0.06] p-4">
-        <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Which model and why</h3>
-        <p>
-          <span className="font-medium">{r.route.model}</span>, {r.route.effort} effort, through the {r.route.driver}.
-        </p>
-        <p className="mt-1 text-white/70">{r.route.reason}</p>
-        <ul className="mt-2 text-white/60">
-          {r.route.attempts.map((a, i) => (
-            <li key={i}>
-              Attempt {i + 1}, {a.model}, {a.outcome}, {(a.ms / 1000).toFixed(1)}s
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-xl bg-white/[0.06] p-4">
-          <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Cost</h3>
-          <p className="text-lg font-semibold">{usd(r.costMicroUsd)}</p>
-          <p className="text-white/60">
-            {r.usage.input.toLocaleString()} in, {r.usage.output.toLocaleString()} out
-          </p>
-        </div>
-        <div className="rounded-xl bg-white/[0.06] p-4">
-          <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Time</h3>
-          <p className="text-lg font-semibold">{(r.latencyMs.total / 1000).toFixed(1)}s</p>
-          <p className="text-white/60">first event {(r.latencyMs.firstEvent / 1000).toFixed(1)}s</p>
-        </div>
+      <div className="space-y-2 rounded-xl bg-white/[0.06] p-4 text-[0.95rem] leading-relaxed">
+        <p>{plain.used}</p>
+        <p className="text-white/75">{plain.why}</p>
+        <p className="text-white/75">{plain.cost}</p>
       </div>
 
       <div className="rounded-xl bg-white/[0.06] p-4">
-        <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Checked in code</h3>
-        <ul className="space-y-1">
+        <h3 className="mb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">What was double-checked</h3>
+        <ul className="space-y-1.5">
           {CODE_CHECKS.map((c) => {
             const v = ck[c.key];
             return (
-              <li key={c.key}>
-                <span className={v?.passed ? "text-emerald-300" : "text-rose-300"}>{v?.passed ? "Pass" : "Fail"}</span> {c.plain}.
-                {v && v.detail !== c.plain ? <span className="text-white/50"> {v.detail}</span> : null}
+              <li key={c.key} className="flex gap-2">
+                <span aria-hidden className={v?.passed ? "text-emerald-300" : "text-rose-300"}>{v?.passed ? "\u2713" : "\u2717"}</span>
+                <span>
+                  <span className="sr-only">{v?.passed ? "Passed. " : "Failed. "}</span>
+                  {c.plain}.
+                </span>
               </li>
             );
           })}
-        </ul>
-        <p className="mt-2 text-white/50">Judged criteria are scored in the Engine Room on Paula’s ten cases.</p>
-      </div>
-
-      <div className="rounded-xl bg-white/[0.06] p-4">
-        <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Guardrails that acted</h3>
-        <ul className="space-y-2">
-          {r.guardrails.map((g, i) => (
-            <li key={i}>
-              <span className="font-medium">
-                {g.owasp} {g.layer}, {g.action}
-              </span>
-              {g.detail ? <span className="block text-white/60">{g.detail}</span> : null}
+          {plain.safety.map((line, i) => (
+            <li key={`s${i}`} className="flex gap-2">
+              <span aria-hidden className="text-emerald-300">{"\u2713"}</span>
+              <span>{line}</span>
             </li>
           ))}
-          <li>
-            <span className="font-medium">LLM03 capability, nothing to hijack</span>
-            <span className="block text-white/60">The desk has no send, forward or buy tool, so no email can make it act.</span>
-          </li>
         </ul>
+        <p className="mt-2 text-white/50">Paula also grades the briefs against her own rubric. The scores are in the Engine Room.</p>
       </div>
 
-      <div className="rounded-xl bg-white/[0.06] p-4">
-        <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Versions</h3>
-        <p className="text-white/60">
-          Prompt {r.promptVersion}. Policy {r.policyVersion}. Trace {r.traceId.slice(0, 8)}.
-        </p>
-      </div>
+      <details className="group rounded-xl border border-white/10 p-4 [&_summary::-webkit-details-marker]:hidden">
+        <summary className="flex min-h-8 cursor-pointer items-center justify-between gap-2 text-xs font-semibold tracking-wide text-white/60 uppercase focus-visible:outline-2 focus-visible:outline-sky-300">
+          For builders, the technical receipt
+          <span aria-hidden className="transition-transform group-open:rotate-90">›</span>
+        </summary>
+        <div className="mt-3 space-y-3">
+          <div>
+            <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Which model and why</h3>
+            <p>
+              <span className="font-medium">{r.route.model}</span>, {r.route.effort} effort, through the {r.route.driver}.
+            </p>
+            <p className="mt-1 text-white/70">{r.route.reason}</p>
+            <ul className="mt-2 text-white/60">
+              {r.route.attempts.map((a, i) => (
+                <li key={i}>
+                  Attempt {i + 1}, {a.model}, {a.outcome}, {(a.ms / 1000).toFixed(1)}s
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Cost</h3>
+              <p className="font-semibold tabular-nums">{usd(r.costMicroUsd)}</p>
+              <p className="text-white/60 tabular-nums">
+                {r.usage.input.toLocaleString()} tokens in, {r.usage.output.toLocaleString()} out
+              </p>
+            </div>
+            <div>
+              <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Time</h3>
+              <p className="font-semibold tabular-nums">{(r.latencyMs.total / 1000).toFixed(1)}s</p>
+              <p className="text-white/60 tabular-nums">first event {(r.latencyMs.firstEvent / 1000).toFixed(1)}s</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Checks in code</h3>
+            <ul className="space-y-1 text-white/70">
+              {CODE_CHECKS.map((c) => {
+                const v = ck[c.key];
+                return (
+                  <li key={c.key}>
+                    {v?.passed ? "Pass" : "Fail"}, {c.key}{v && v.detail !== c.plain ? `. ${v.detail}` : ""}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div>
+            <h3 className="mb-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Guardrails that acted</h3>
+            <ul className="space-y-2">
+              {r.guardrails.map((g, i) => (
+                <li key={i}>
+                  <span className="font-medium">
+                    {g.owasp} {g.layer}, {g.action}
+                  </span>
+                  {g.detail ? <span className="block break-words text-white/60">{g.detail}</span> : null}
+                </li>
+              ))}
+              <li>
+                <span className="font-medium">LLM03 capability, nothing to hijack</span>
+                <span className="block text-white/60">No send, forward or buy tool exists.</span>
+              </li>
+            </ul>
+          </div>
+          <p className="text-white/60">
+            Prompt {r.promptVersion}. Policy {r.policyVersion}. Trace {r.traceId.slice(0, 8)}.
+          </p>
+        </div>
+      </details>
     </div>
   );
 }

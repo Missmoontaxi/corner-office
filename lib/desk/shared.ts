@@ -88,3 +88,47 @@ export function dollars(text: string) {
     return v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : m;
   });
 }
+
+// Receipts in plain words, for a reader who is not an engineer (a friend's note, Fri 10/30). The technical
+// receipt still sits underneath, behind "For builders".
+const MODEL_NAMES: Record<string, string> = {
+  "gpt-6.1-sol": "GPT-6.1 Sol from OpenAI",
+  "gpt-6-luna": "GPT-6 Luna from OpenAI",
+  "claude-sonnet-5-5": "Claude Sonnet 5.5 from Anthropic",
+  "claude-haiku-5-5": "Claude Haiku 5.5 from Anthropic",
+  "claude-opus-5-5": "Claude Opus 5.5 from Anthropic",
+};
+export const modelName = (id: string) => MODEL_NAMES[id] ?? id;
+
+// Why each kind of job goes to its model. text.brief is ADR 0005.
+const WHY: Record<string, string> = {
+  "text.brief": "Paula chose it for the morning brief after it scored best on her tests for keeping personal matters private and leaving out what should not be said.",
+  "text.mid": "It is the everyday model for short, careful answers. Fast, and strong at following the house rules.",
+};
+
+export type PlainReceiptInput = {
+  runKind: string;
+  route: { alias: string; model: string; effort: string; attempts: { model: string; outcome: string }[] };
+  costMicroUsd: number;
+  latencyMs: { total: number };
+  guardrails: { layer: string; action: string }[];
+};
+
+export function plainReceipt(r: PlainReceiptInput, what: string) {
+  const when = r.runKind === "live" ? "just now, live" : "early this morning, so nobody had to wait";
+  const used = `Corner Office wrote ${what} with ${modelName(r.route.model)}, at ${r.route.effort} effort, ${when}.`;
+  const first = r.route.attempts[0];
+  const fellBack = r.route.attempts.length > 1 && first ? ` The first choice, ${modelName(first.model)}, did not answer, so the backup took over.` : "";
+  const why = (WHY[r.route.alias] ?? "It is the model Corner Office's routing rules assign to this job.") + fellBack;
+  const seconds = Math.max(1, Math.round(r.latencyMs.total / 1000));
+  const usd = r.costMicroUsd / 1e6;
+  const cost = `It took ${seconds} second${seconds === 1 ? "" : "s"} and cost $${usd.toFixed(usd < 0.01 ? 4 : 3)}, ${coffeeComparison(usd)}.`;
+  const caught = r.guardrails.filter((g) => g.layer === "screen" && g.action === "quarantined").length;
+  const stripped = r.guardrails.filter((g) => g.action === "stripped").length;
+  const safety = [
+    caught ? `${caught === 1 ? "One email" : `${caught} emails`} tried to give the assistant orders. Corner Office set ${caught === 1 ? "it" : "them"} aside and never followed ${caught === 1 ? "it" : "them"}.` : "",
+    stripped ? "An address that is not on the approved list was removed before anyone saw it." : "",
+    "Nothing on this desk can send, forward or buy anything, so no email can make it act.",
+  ].filter(Boolean);
+  return { used, why, cost, safety };
+}

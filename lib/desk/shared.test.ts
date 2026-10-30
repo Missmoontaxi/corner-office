@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
-import { COFFEE, DEEP_LINK_NAMES, coffeeComparison, dollars, parseWeather, plainDay, twelveHour } from "./shared";
+import { COFFEE, DEEP_LINK_NAMES, coffeeComparison, dollars, modelName, parseWeather, plainDay, plainReceipt, twelveHour } from "./shared";
 
 const cup = COFFEE.pricePerPound / COFFEE.cupsPerPound;
 
@@ -49,5 +49,35 @@ describe("display tidying", () => {
     expect(dollars("Company ARR: 18000000 USD.")).toBe("Company ARR: $18.0M.");
     expect(dollars("$2,900,000 new ARR")).toBe("$2.9M new ARR");
     expect(dollars("150 people, 18000000 rows")).toBe("150 people, 18000000 rows");
+  });
+});
+
+describe("plain receipt", () => {
+  const base = {
+    runKind: "precomputed",
+    route: { alias: "text.brief", model: "gpt-6.1-sol", effort: "medium", attempts: [{ model: "gpt-6.1-sol", outcome: "ok" }] },
+    costMicroUsd: 33304,
+    latencyMs: { total: 29645 },
+    guardrails: [{ layer: "screen", action: "quarantined" }],
+  };
+
+  it("names the model the way a person would", () => {
+    const p = plainReceipt(base, "this brief");
+    expect(p.used).toBe("Corner Office wrote this brief with GPT-6.1 Sol from OpenAI, at medium effort, early this morning, so nobody had to wait.");
+    expect(p.why).toMatch(/^Paula chose it/);
+    expect(p.cost).toBe("It took 30 seconds and cost $0.033, less than a quarter of the cost of a cup of coffee.");
+    expect(p.safety[0]).toBe("One email tried to give the assistant orders. Corner Office set it aside and never followed it.");
+  });
+
+  it("says when the backup wrote it, and never shows a model id it knows", () => {
+    const p = plainReceipt({ ...base, runKind: "live", route: { ...base.route, attempts: [{ model: "gpt-6.1-sol", outcome: "timeout" }, { model: "claude-sonnet-5-5", outcome: "ok" }] } }, "this brief");
+    expect(p.used).toContain("just now, live");
+    expect(p.why).toContain("The first choice, GPT-6.1 Sol from OpenAI, did not answer");
+    expect(modelName("claude-sonnet-5-5")).toBe("Claude Sonnet 5.5 from Anthropic");
+  });
+
+  it("uses plain words with no colons or dashes", () => {
+    const p = plainReceipt(base, "this brief");
+    for (const line of [p.used, p.why, p.cost, ...p.safety]) expect(line).not.toMatch(/[:–—]/);
   });
 });

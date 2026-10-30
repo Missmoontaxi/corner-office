@@ -7,3 +7,4 @@ body { background: var(--bg); color: var(--ink); }
 /* The settle on load, a few percent into place. The wake zoom and steam use transform and opacity only. */
 @keyframes settle { from { transform: scale(1.03); opacity: 0.6; } to { transform: scale(1); opacity: 1; } }
 @keyframes steam { 0% { opacity: 0; transform: translate(-50%, 8px) scale(0.8); } 20% { opacity: 0.8; } 100% { opacity: 0; transform: translate(-50%, -28px) scale(1.4); } }
+@keyframes wake { from { transform: scaleX(0); } to { transform: scaleX(1); } }
