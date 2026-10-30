@@ -49,6 +49,31 @@ export function parseWeather(text?: string | null): Weather | null {
   return { high: high ? Number(high) : null, low: low ? Number(low) : null, sky, emoji: SKY.find(([r]) => r.test(sky))?.[1] ?? "" };
 }
 
+// Today's live forecast for the Flatiron office, from Open-Meteo's daily high, low and WMO weather code.
+// Anything missing or malformed reads as null, and the desk keeps the seed's line.
+const WMO: [number, string][] = [
+  [0, "Clear"],
+  [2, "Partly cloudy"],
+  [3, "Cloudy"],
+  [48, "Fog"],
+  [57, "Drizzle"],
+  [67, "Rain"],
+  [77, "Snow"],
+  [82, "Rain showers"],
+  [86, "Snow showers"],
+  [99, "Thunderstorms"],
+];
+export function wmoSky(code: number): string {
+  return WMO.find(([max]) => code <= max)?.[1] ?? "";
+}
+export function parseOpenMeteo(body: unknown): Weather | null {
+  const d = (body as { daily?: { temperature_2m_max?: unknown[]; temperature_2m_min?: unknown[]; weather_code?: unknown[] } })?.daily;
+  const [high, low, code] = [d?.temperature_2m_max?.[0], d?.temperature_2m_min?.[0], d?.weather_code?.[0]];
+  if (typeof high !== "number" || typeof low !== "number" || typeof code !== "number") return null;
+  const sky = wmoSky(code);
+  return { high: Math.round(high), low: Math.round(low), sky, emoji: SKY.find(([r]) => r.test(sky))?.[1] ?? "" };
+}
+
 // The coffee cup's comparison (Paula's wording, Thu 10/22). The price is BLS series APU0000717311, 100% ground
 // roast coffee per pound, U.S. city average, refreshed by hand when BLS publishes a new month. The per-cup cost
 // uses the Specialty Coffee Association's ratio of 55 grams per liter: 453.6 g brews 8.25 L, about 34.9 cups of

@@ -12,6 +12,7 @@ import { BriefView } from "./Brief";
 import { CloseButton, Dialog } from "./Dialog";
 import { CalendarDoc, KpiDoc } from "./Documents";
 import { EngineRoom } from "./EngineRoom";
+import { useWeather } from "./useWeather";
 
 function subscribe(onChange: () => void) {
   window.addEventListener("resize", onChange);
@@ -54,14 +55,8 @@ function useNewYorkTime() {
 }
 
 // The entry cue (a friend's note, Fri 10/30). The sleeping monitor wakes for about a second and a half, then
-// asks to be opened, with a bright pulsing dot. Paula dropped the "Start here" label Fri 10/30 as duplicative.
-const fineSubscribe = (onChange: () => void) => {
-  const mq = window.matchMedia("(pointer: fine)");
-  mq.addEventListener("change", onChange);
-  return () => mq.removeEventListener("change", onChange);
-};
-const readFine = () => window.matchMedia("(pointer: fine)").matches;
-
+// asks to be opened, with a bright pulsing dot. Paula dropped the "Start here" label Fri 10/30 as duplicative, and
+// asked for "Tap to open" on every device the same day.
 function useWake() {
   // The scene renders only on the client (its size comes from the window), so this reads the browser directly.
   const [awake, setAwake] = useState(reduceMotion);
@@ -126,11 +121,10 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
   const [steam, setSteam] = useState(false);
   const time = useNewYorkTime();
   const awake = useWake();
-  const fine = useSyncExternalStore(fineSubscribe, readFine, () => false);
 
   const decisions = data.brief.decisions.length;
   const headline = `Today: ${decisions} Decision${decisions === 1 ? "" : "s"}`;
-  const wx = data.weather;
+  const wx = useWeather(data.weather);
   const weatherLine = wx && wx.high != null && wx.low != null ? `${wx.emoji} ${wx.high}\u00b0/${wx.low}\u00b0` : "";
 
   // The wake zoom. The room scales toward the monitor for about 400ms, then the monitor opens. Instant under reduced motion.
@@ -208,23 +202,24 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
 
         <CalendarDate page={page} />
 
-        {/* The sleeping monitor. Sizes use the screen's own width (cqw), so both lines scale with the painted monitor. The top line never wraps. */}
-        <div className="absolute flex flex-col items-center justify-center gap-1 overflow-hidden rounded-sm text-center [container-type:inline-size]" style={px(screen)}>
+        {/* The sleeping monitor. Sizes and gaps use the screen's own width (cqw), so the three lines scale with the painted monitor and stay centered. The top line never wraps. */}
+        <div className="absolute flex flex-col items-center justify-center overflow-hidden rounded-sm text-center [container-type:inline-size]" style={px(screen)}>
           {awake ? (
-            <>
-              <span className="text-[clamp(0.4rem,5.6cqw,0.9rem)] whitespace-nowrap text-white/60 tabular-nums">
+            // The gaps sit on this inner column, since cqw on the container itself would measure the page instead.
+            <div className="flex w-full flex-col items-center gap-[5cqw] px-[4cqw]">
+              <span className="block w-full text-center text-[clamp(0.4rem,5.6cqw,0.9rem)] whitespace-nowrap text-white/60 tabular-nums">
                 {time ? `${time} in New York` : ""}
                 {time && weatherLine ? ` \u00b7 ${weatherLine}` : ""}
               </span>
-              <span className={`${headlineFont.className} text-[clamp(0.8rem,13cqw,1.6rem)] leading-tight font-semibold tracking-tight`}>{headline}</span>
-              <span className="mt-[2cqw] inline-flex items-center gap-[3cqw] rounded-full bg-sky-300/20 px-[5cqw] py-[1.5cqw] text-[clamp(0.45rem,6.5cqw,0.85rem)] font-semibold whitespace-nowrap text-sky-100 ring-1 ring-sky-200/40">
+              <span className={`${headlineFont.className} block w-full text-center text-[clamp(0.8rem,13cqw,1.6rem)] leading-none font-semibold tracking-tight`}>{headline}</span>
+              <span className="inline-flex items-center gap-[3cqw] rounded-full bg-sky-300/20 px-[5cqw] py-[1.5cqw] text-[clamp(0.45rem,6.5cqw,0.85rem)] font-semibold whitespace-nowrap text-sky-100 ring-1 ring-sky-200/40">
                 <span aria-hidden className="relative flex size-[clamp(0.4rem,4.5cqw,0.6rem)]">
                   <span className="absolute inset-0 rounded-full bg-lime-300 motion-safe:animate-ping" />
                   <span className="relative size-full rounded-full bg-lime-300 shadow-[0_0_8px_2px_rgba(190,242,100,0.85)]" />
                 </span>
-                {fine ? "Click to open" : "Tap to open"}
+                Tap to open
               </span>
-            </>
+            </div>
           ) : (
             <span className="flex w-[70%] flex-col items-center gap-[3cqw] text-[clamp(0.4rem,5.6cqw,0.85rem)] tracking-wide text-white/60">
               Waking up

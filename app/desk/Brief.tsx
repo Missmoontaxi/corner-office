@@ -3,6 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import type { DeskData } from "@/lib/desk/data";
 import { headlineFont } from "../fonts";
+import { useWeather } from "./useWeather";
 import { dollars, modelName, plainDay, plainReceipt, twelveHour } from "@/lib/desk/shared";
 
 const STATUS: Record<string, string> = { green: "bg-emerald-500", yellow: "bg-amber-400", red: "bg-rose-500" };
@@ -113,7 +114,7 @@ function BriefBody({ data }: { data: DeskData }) {
   const show = (section: string) => () => setReceipt(section);
   const suspicious = b.flagged.filter((f) => f.kind === "suspicious");
   const verify = b.flagged.filter((f) => f.kind === "verify");
-  const wx = data.weather;
+  const wx = useWeather(data.weather);
   // The visitor's real date in New York, filled in after load so the static page never shows a stale one.
   const today = useSyncExternalStore(noSubscribe, todayInNewYork, () => "");
 

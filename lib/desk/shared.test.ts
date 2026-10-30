@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import fs from "node:fs";
-import { COFFEE, DEEP_LINK_NAMES, coffeeComparison, dollars, modelName, parseWeather, plainDay, plainReceipt, twelveHour } from "./shared";
+import { COFFEE, DEEP_LINK_NAMES, coffeeComparison, dollars, modelName, parseOpenMeteo, parseWeather, plainDay, plainReceipt, twelveHour } from "./shared";
 
 const cup = COFFEE.pricePerPound / COFFEE.cupsPerPound;
 
@@ -25,6 +25,20 @@ describe("weather line", () => {
   it("reads the seed's weather into numbers and an emoji", () => {
     expect(parseWeather("High 58 Low 42 Sunny")).toMatchObject({ high: 58, low: 42, sky: "Sunny", emoji: "☀️" });
     expect(parseWeather("")).toBeNull();
+  });
+
+  it("reads Open-Meteo's daily forecast, rounded, with a sky from the WMO code", () => {
+    const day = (max: unknown, min: unknown, code: unknown) => ({ daily: { temperature_2m_max: [max], temperature_2m_min: [min], weather_code: [code] } });
+    expect(parseOpenMeteo(day(61.4, 47.6, 61))).toEqual({ high: 61, low: 48, sky: "Rain", emoji: "🌧️" });
+    expect(parseOpenMeteo(day(70, 55, 0))).toMatchObject({ sky: "Clear", emoji: "☀️" });
+    expect(parseOpenMeteo(day(70, 55, 2))).toMatchObject({ sky: "Partly cloudy", emoji: "⛅" });
+    expect(parseOpenMeteo(day(70, 55, 95))).toMatchObject({ sky: "Thunderstorms", emoji: "⛈️" });
+  });
+
+  it("returns null for anything malformed, so the seed line stays", () => {
+    expect(parseOpenMeteo(null)).toBeNull();
+    expect(parseOpenMeteo({ error: true, reason: "x" })).toBeNull();
+    expect(parseOpenMeteo({ daily: { temperature_2m_max: [null], temperature_2m_min: [40], weather_code: [1] } })).toBeNull();
   });
 });
 
