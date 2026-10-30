@@ -124,7 +124,6 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
   const origin = `${monitor.left + monitor.width / 2}px ${monitor.top + monitor.height * 0.4}px`;
   // The painted screen sits in the upper part of the monitor box.
   const screen: Rect = { left: monitor.left + monitor.width * 0.06, top: monitor.top + monitor.height * 0.05, width: monitor.width * 0.88, height: monitor.height * 0.62 };
-  const roomy = screen.width > 200;
   // Each wall piece sits in its frame's canvas opening, measured from the master painting.
   const openingOf = (frame: keyof typeof manifest.openings): Rect => {
     const op = toCanvas(manifest.openings[frame], l.frame);
@@ -178,7 +177,6 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
                 </span>
                 {fine ? "Click to open" : "Tap to open"}
               </span>
-              {roomy ? <span className="px-2 text-[0.6rem] text-white/50">{data.honesty} <em>{BUILT_BY}</em></span> : null}
             </>
           ) : (
             <span className="flex w-[70%] flex-col items-center gap-[3cqw] text-[clamp(0.4rem,5.6cqw,0.85rem)] tracking-wide text-white/60">
