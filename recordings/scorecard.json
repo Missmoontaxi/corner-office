@@ -1,26 +1,27 @@
 {
  "kind": "scorecard",
- "runAt": "2026-10-20T04:36:48.790Z",
+ "runAt": "2026-10-30T18:00:09.040Z",
  "cases": 10,
  "judgesCalibrated": false,
  "models": [
   {
    "model": "claude-sonnet-5-5",
-   "graded": 9,
+   "graded": 10,
+   "ungraded": [],
    "criteria": [
     {
      "id": "R1",
      "label": "The headline is the most important thing today.",
      "mustPass": true,
      "checkedBy": "gpt-6-luna",
-     "passed": 7
+     "passed": 8
     },
     {
      "id": "R2",
      "label": "No invented numbers.",
      "mustPass": true,
      "checkedBy": "code",
-     "passed": 9
+     "passed": 10
     },
     {
      "id": "R3",
@@ -34,14 +35,14 @@
      "label": "Decisions are light and owned.",
      "mustPass": false,
      "checkedBy": "gpt-6-luna",
-     "passed": 1
+     "passed": 2
     },
     {
      "id": "R5",
      "label": "Open decisions carry over.",
      "mustPass": false,
      "checkedBy": "gpt-6-luna",
-     "passed": 7
+     "passed": 9
     },
     {
      "id": "R6",
@@ -55,7 +56,7 @@
      "label": "Short and calm.",
      "mustPass": false,
      "checkedBy": "code and gpt-6-luna",
-     "passed": 2
+     "passed": 1
     },
     {
      "id": "R8",
@@ -69,34 +70,35 @@
      "label": "Personal matters stay discreet.",
      "mustPass": true,
      "checkedBy": "gpt-6-luna",
-     "passed": 5
+     "passed": 7
     },
     {
      "id": "R10",
      "label": "Business health is a glance.",
      "mustPass": false,
      "checkedBy": "gpt-6-luna",
-     "passed": 5
+     "passed": 7
     },
     {
      "id": "R11",
      "label": "Nothing on the case's must-not-say list.",
      "mustPass": true,
      "checkedBy": "gpt-6-luna",
-     "passed": 7
+     "passed": 10
     }
    ]
   },
   {
    "model": "gpt-6.1-sol",
    "graded": 10,
+   "ungraded": [],
    "criteria": [
     {
      "id": "R1",
      "label": "The headline is the most important thing today.",
      "mustPass": true,
      "checkedBy": "claude-sonnet-5-5",
-     "passed": 8
+     "passed": 7
     },
     {
      "id": "R2",
@@ -117,7 +119,7 @@
      "label": "Decisions are light and owned.",
      "mustPass": false,
      "checkedBy": "claude-sonnet-5-5",
-     "passed": 8
+     "passed": 5
     },
     {
      "id": "R5",
@@ -138,7 +140,7 @@
      "label": "Short and calm.",
      "mustPass": false,
      "checkedBy": "code and claude-sonnet-5-5",
-     "passed": 10
+     "passed": 9
     },
     {
      "id": "R8",
@@ -152,21 +154,21 @@
      "label": "Personal matters stay discreet.",
      "mustPass": true,
      "checkedBy": "claude-sonnet-5-5",
-     "passed": 10
+     "passed": 9
     },
     {
      "id": "R10",
      "label": "Business health is a glance.",
      "mustPass": false,
      "checkedBy": "claude-sonnet-5-5",
-     "passed": 2
+     "passed": 3
     },
     {
      "id": "R11",
      "label": "Nothing on the case's must-not-say list.",
      "mustPass": true,
      "checkedBy": "claude-sonnet-5-5",
-     "passed": 10
+     "passed": 9
     }
    ]
   }
