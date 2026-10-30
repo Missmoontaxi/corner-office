@@ -1,6 +1,6 @@
 # 0005. Eval-informed routing, first use. GPT-6.1 Sol writes the morning brief
 
-*Status: proposed · Date: 2026-10-20 · Decider: Paula McMahon*
+*Status: accepted Wed 2026-10-28 · Date: 2026-10-20 · Decider: Paula McMahon*
 
 ## Context
 
