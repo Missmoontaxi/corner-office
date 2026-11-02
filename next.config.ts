@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 // Until the public flip on 10/29, every response carries noindex.
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // The cron reads Paula's rubric for the promote gate, which the bundler cannot see from a path built at run time.
+  outputFileTracingIncludes: { "/api/cron/precompute": ["./evals/digest/rubric.csv"] },
   // ?open=calendar on the desk serves the prebuilt /office/calendar page, so deep links stay static and cached.
   // It runs before the page check, because "/" is itself a page and would otherwise win.
   async rewrites() {
