@@ -41,12 +41,18 @@ export function filterText(text: string, allow: Allowlist): { text: string; stri
   return { text: out, stripped };
 }
 
-// Applies the filter to every string in the brief and reports what it removed.
+// The desk renders plain text, so markdown a model adds anyway (**bold**, __bold__, `code`) would show as
+// literal marks. The pairs are removed and their words kept. Single asterisks are left alone.
+export function plainText(text: string): string {
+  return text.replace(/\*\*(.+?)\*\*/gs, "$1").replace(/__(.+?)__/gs, "$1").replace(/`([^`]+)`/g, "$1").replace(/\*\*|__/g, "");
+}
+
+// Applies the filter to every string in the brief, after removing markdown, and reports what it removed.
 export function filterBrief(brief: BriefV1, allow: Allowlist): { brief: BriefV1; stripped: string[] } {
   const stripped: string[] = [];
   const walk = (v: unknown): unknown => {
     if (typeof v === "string") {
-      const r = filterText(v, allow);
+      const r = filterText(plainText(v), allow);
       stripped.push(...r.stripped);
       return r.text;
     }
