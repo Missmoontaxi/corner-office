@@ -1,9 +1,11 @@
-// Everything the desk renders, read at build time from committed recordings and the seed. No model runs on a
-// page load. The brief and receipt are the recorded guarded run, the documents are seeded and rendered by code.
+// Everything the desk renders. No model runs on a page load. The brief, receipt and prompt-key answers come from
+// the morning's promoted snapshot when there is one, and from the committed recordings otherwise. The documents
+// are seeded and rendered by code.
 import fs from "node:fs";
 import path from "node:path";
 import { AskV1, BriefV1, Receipt } from "@/lib/engine/contracts";
 import { loadVerdicts, untrustedItems, verdictKey } from "@/lib/engine/guard/screen";
+import type { Snapshot } from "@/lib/engine/snapshot";
 import { loadShowDay } from "@/lib/engine/sources/seed";
 
 const ROOT = process.cwd();
@@ -12,14 +14,18 @@ const readJson = <T,>(...p: string[]): T => JSON.parse(fs.readFileSync(path.join
 
 import { parseWeather, type Call, type Check, type Provider, type Scorecard } from "./shared";
 
-export function loadDesk() {
+export function loadDesk(snapshot: Snapshot | null = null) {
   const day = loadShowDay();
-  const recorded = readJson<{ recordedAt: string; checks: Record<string, Check>; brief: unknown; receipt: unknown }>("recordings", "brief-show-day.json");
+  const recorded = snapshot
+    ? { recordedAt: snapshot.runAt, ...snapshot.brief }
+    : readJson<{ recordedAt: string; checks: Record<string, Check>; brief: unknown; receipt: unknown }>("recordings", "brief-show-day.json");
   const replayFile = fs.readdirSync(path.join(ROOT, "recordings")).filter((f) => f.startsWith("screen-off.")).sort().at(-1);
   const replay = replayFile ? readJson<{ recordedAt: string; modelFlaggedIt: boolean; filterStripped: number; addressReachedPage: boolean; receipt: unknown }>("recordings", replayFile) : null;
   // The six prompt keys, precomputed with pnpm asks. Absent until the first recording exists.
   const asksFile = path.join(ROOT, "recordings", "asks-show-day.json");
-  const asks = fs.existsSync(asksFile)
+  const asks = snapshot
+    ? snapshot.asks
+    : fs.existsSync(asksFile)
     ? readJson<{ answers: { key: number; question: string; answer: unknown; checks: Record<string, Check>; receipt: unknown }[] }>("recordings", "asks-show-day.json").answers.map((a) => ({
         key: a.key,
         question: a.question,

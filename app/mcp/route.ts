@@ -5,6 +5,7 @@ import { z } from "zod";
 import recorded from "@/recordings/brief-show-day.json";
 import { BriefV1, Receipt } from "@/lib/engine/contracts";
 import { briefForMcp } from "@/lib/engine/projection";
+import { readSnapshot } from "@/lib/engine/snapshot";
 
 const handler = createMcpHandler(
   (server) => {
@@ -33,9 +34,11 @@ const handler = createMcpHandler(
         inputSchema: z.object({}),
         annotations: { readOnlyHint: true, openWorldHint: false },
       },
-      async () => ({
-        content: [{ type: "text", text: JSON.stringify(briefForMcp(BriefV1.parse(recorded.brief), Receipt.parse(recorded.receipt)), null, 1) }],
-      }),
+      async () => {
+        // The morning's snapshot when there is one, the committed recording otherwise.
+        const b = (await readSnapshot())?.brief ?? recorded;
+        return { content: [{ type: "text", text: JSON.stringify(briefForMcp(BriefV1.parse(b.brief), Receipt.parse(b.receipt)), null, 1) }] };
+      },
     );
   },
   { serverInfo: { name: "corner-office", version: "0.0.2" } },
