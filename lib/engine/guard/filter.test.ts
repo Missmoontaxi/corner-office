@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { BriefV1 } from "../contracts";
-import { allowlistFor, filterBrief, filterText, REMOVED } from "./filter";
+import { allowlistFor, filterBrief, filterText, plainText, REMOVED } from "./filter";
 import { loadShowDay } from "../sources/seed";
 import { quarantine, screenDay } from "./screen";
 
@@ -33,5 +33,12 @@ describe("output filter", () => {
     const list = allowlistFor(quarantine(day, await screenDay(day, { live: false, client: "ci" })));
     expect(list.emails.has(day.planted!.attacker_address)).toBe(false);
     expect(list.domains.has("carebird.example")).toBe(true);
+  });
+
+  it("removes markdown marks a model adds, keeping the words", () => {
+    expect(plainText("**Choose a launch CareBird can staff before 10:30.**")).toBe("Choose a launch CareBird can staff before 10:30.");
+    expect(plainText("Ask __Jordan__ about `D1` today")).toBe("Ask Jordan about D1 today");
+    expect(plainText("A stray ** mark")).toBe("A stray  mark");
+    expect(plainText("3 * 4 stays")).toBe("3 * 4 stays");
   });
 });
