@@ -22,3 +22,6 @@ evals/results/local/
 
 # Paula's owner link carries her secret. Never in git.
 .owner-link
+
+# Personal links carry their own tokens. Never in git.
+.personal-links
