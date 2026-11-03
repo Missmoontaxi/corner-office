@@ -25,3 +25,6 @@ evals/results/local/
 
 # Personal links carry their own tokens. Never in git.
 .personal-links
+
+# Eval gate scratch output in CI
+.eval-gate/

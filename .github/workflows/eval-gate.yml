@@ -1,0 +1,88 @@
+name: Eval gate
+# Runs on same-repo PRs that touch the prompts, the policy files, the persona or the evals (never the results
+# folder, so a results PR can never start an eval run). A smoke run on the PR is compared with the same run on
+# main, and the scorecard is posted on the PR. Main's run is cached by its commit, so it is paid for once.
+on:
+  pull_request:
+    paths:
+      - "prompts/**"
+      - "lib/engine/policy/**"
+      - "persona/**"
+      - "evals/**"
+      - "!evals/results/**"
+      - "scripts/eval-gate.ts"
+      - ".github/workflows/eval-gate.yml"
+permissions:
+  contents: read
+  pull-requests: write
+concurrency: { group: "eval-gate-${{ github.event.pull_request.number }}", cancel-in-progress: true }
+jobs:
+  gate:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      DRIVER: direct
+      ANTHROPIC_EVAL_KEY: ${{ secrets.ANTHROPIC_EVAL_KEY }}
+      OPENAI_EVAL_KEY: ${{ secrets.OPENAI_EVAL_KEY }}
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0 }
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Check every must-surface fact is in its day file
+        run: pnpm eval:check-days
+      - name: Smoke run on this PR
+        run: |
+          pnpm eval
+          mkdir -p .eval-gate && cp evals/results/local/latest.json .eval-gate/pr.json
+      - name: Restore main's smoke run
+        id: main-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .eval-gate/main.json
+          key: eval-gate-main-${{ github.event.pull_request.base.sha }}-v1
+      - name: Smoke run on main, once per main commit
+        if: steps.main-cache.outputs.cache-hit != 'true'
+        run: |
+          git worktree add "$RUNNER_TEMP/main" "$BASE_SHA"
+          cd "$RUNNER_TEMP/main"
+          pnpm install --frozen-lockfile
+          pnpm eval
+          cp evals/results/local/latest.json "$GITHUB_WORKSPACE/.eval-gate/main.json"
+      - name: Compare
+        id: compare
+        run: |
+          set +e
+          pnpm exec tsx scripts/eval-gate.ts .eval-gate/pr.json .eval-gate/main.json .eval-gate/gate.md
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          cat .eval-gate/gate.md >> "$GITHUB_STEP_SUMMARY"
+      # The results bot posts when Paula has created it. Until then the workflow's own token does.
+      - name: Results bot token
+        id: bot
+        if: vars.RESULTS_BOT_APP_ID != ''
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ vars.RESULTS_BOT_APP_ID }}
+          private-key: ${{ secrets.RESULTS_BOT_APP_KEY }}
+      - name: Post or update the scorecard comment
+        env:
+          GH_TOKEN: ${{ steps.bot.outputs.token || github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate --jq '.[] | select(.body | contains("<!-- corner-office-eval-gate -->")) | .id' | tail -1)
+          if [ -n "$id" ]; then gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@.eval-gate/gate.md >/dev/null
+          else gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -F body=@.eval-gate/gate.md >/dev/null; fi
+      - name: Gate
+        run: test "${{ steps.compare.outputs.code }}" = "0"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: eval-gate
+          path: .eval-gate/
+          if-no-files-found: ignore
