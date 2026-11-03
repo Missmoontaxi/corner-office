@@ -36,6 +36,7 @@
     "eval:check-days": "tsx scripts/eval-check-days.ts",
     "eval:sheet": "tsx scripts/eval-day-sheet.ts",
     "eval:scorecard": "tsx scripts/eval-scorecard.ts",
+    "eval:calibrate": "tsx --env-file-if-exists=.env.local scripts/eval-calibrate.ts",
     "eval:labeling-page": "tsx scripts/eval-labeling-page.ts",
     "eval:labeling-set": "tsx --env-file-if-exists=.env.local scripts/eval-labeling-set.ts",
     "guard:screen": "tsx --env-file-if-exists=.env.local scripts/guard-screen.ts",
