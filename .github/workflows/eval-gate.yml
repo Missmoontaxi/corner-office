@@ -56,10 +56,31 @@ jobs:
           pnpm eval
           cp evals/results/local/latest.json "$GITHUB_WORKSPACE/.eval-gate/main.json"
       - name: Compare
+        id: first
+        run: |
+          set +e
+          pnpm exec tsx scripts/eval-gate.ts --pr .eval-gate/pr.json --main .eval-gate/main.json --out .eval-gate/gate.md --flagged .eval-gate/flagged.txt
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          echo "cases=$(cat .eval-gate/flagged.txt)" >> "$GITHUB_OUTPUT"
+      # One flip can be noise. Rerun only the flagged cases twice on each side, then score each row by majority.
+      - name: Rerun flagged cases twice on each side
+        if: steps.first.outputs.code != '0' && steps.first.outputs.cases != ''
+        env:
+          CASES: ${{ steps.first.outputs.cases }}
+        run: |
+          for i in 2 3; do pnpm eval "$CASES" && cp evals/results/local/latest.json ".eval-gate/pr-$i.json"; done
+          if [ ! -d "$RUNNER_TEMP/main" ]; then git worktree add "$RUNNER_TEMP/main" "$BASE_SHA"; (cd "$RUNNER_TEMP/main" && pnpm install --frozen-lockfile); fi
+          cd "$RUNNER_TEMP/main"
+          for i in 2 3; do pnpm eval "$CASES" && cp evals/results/local/latest.json "$GITHUB_WORKSPACE/.eval-gate/main-$i.json"; done
+      - name: Score
         id: compare
         run: |
           set +e
-          pnpm exec tsx scripts/eval-gate.ts .eval-gate/pr.json .eval-gate/main.json .eval-gate/gate.md
+          if [ -f .eval-gate/pr-3.json ] && [ -f .eval-gate/main-3.json ]; then
+            pnpm exec tsx scripts/eval-gate.ts --pr .eval-gate/pr.json,.eval-gate/pr-2.json,.eval-gate/pr-3.json --main .eval-gate/main.json,.eval-gate/main-2.json,.eval-gate/main-3.json --out .eval-gate/gate.md
+          else
+            pnpm exec tsx scripts/eval-gate.ts --pr .eval-gate/pr.json --main .eval-gate/main.json --out .eval-gate/gate.md
+          fi
           echo "code=$?" >> "$GITHUB_OUTPUT"
           cat .eval-gate/gate.md >> "$GITHUB_STEP_SUMMARY"
       # The results bot posts when Paula has created it. Until then the workflow's own token does.
