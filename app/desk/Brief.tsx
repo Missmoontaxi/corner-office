@@ -264,26 +264,43 @@ function BriefBody({ data }: { data: DeskData }) {
   );
 }
 
-type Owner = { owner: boolean; paused?: boolean; spentMicroUsd?: number; capMicroUsd?: number; unavailable?: boolean };
-type LiveState = { phase: "idle" } | { phase: "running" } | { phase: "done"; brief: DeskData["brief"]; receipt: DeskData["receipt"]; checks: DeskData["checks"] } | { phase: "refused"; why: string };
+type LinkInfo = { name?: string; runsLeft?: number; expires?: number; open?: boolean; unavailable?: boolean };
+type Owner = { owner: boolean; paused?: boolean; spentMicroUsd?: number; capMicroUsd?: number; unavailable?: boolean; link?: LinkInfo };
+type LiveState =
+  | { phase: "idle" }
+  | { phase: "confirm" }
+  | { phase: "running" }
+  | { phase: "done"; brief: DeskData["brief"]; receipt: DeskData["receipt"]; checks: DeskData["checks"] }
+  | { phase: "refused"; why: string };
 
 const REFUSED: Record<string, string> = {
   paused: "Live runs are paused by the kill switch. This is the recorded run.",
   capped: "Today's live budget is used up. This is the recorded run.",
   unavailable: "The live budget can't be checked right now, so nothing ran. This is the recorded run.",
   failed: "The live run didn't finish. Nothing was lost, and this is the recorded run.",
-  not_owner: "Live runs are open to Paula's phone only until personal links arrive.",
+  not_allowed: "Live runs are open to personal links only. This is the recorded run.",
+  unknown: "This link isn't recognized, so nothing ran. This is the recorded run.",
+  expired: "This link has ended, so nothing ran. This is the recorded run.",
+  spent: "Your live runs are used up. Thanks for trying them. This is the recorded run.",
+  slow_down: "That was quick. Give it a minute, then try again.",
+  busy: "Lots of live runs just now, so they're paused for a few minutes. This is the recorded run.",
 };
 
-// The brief, recorded by default. Paula's phone also gets Run it live, which swaps in a fresh run with its receipt.
+const runs = (n: number) => `${n} live run${n === 1 ? "" : "s"} left`;
+const until = (ms: number) => new Date(ms).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
+
+// The brief, recorded by default. Paula's phone and personal links also get Run it live, which swaps in a fresh
+// run with its receipt. A personal link sees its runs left and confirms before each run, never dollars.
 export function BriefView({ data }: { data: DeskData }) {
   const [owner, setOwner] = useState<Owner | null>(null);
   const [live, setLive] = useState<LiveState>({ phase: "idle" });
-  useEffect(() => {
+  const refresh = () =>
     fetch("/api/owner", { cache: "no-store" })
       .then((r) => r.json())
       .then((o: Owner) => setOwner(o))
-      .catch(() => setOwner({ owner: false }));
+      .catch(() => setOwner((o) => o ?? { owner: false }));
+  useEffect(() => {
+    refresh();
   }, []);
 
   const run = async () => {
@@ -293,38 +310,70 @@ export function BriefView({ data }: { data: DeskData }) {
       const j = await r.json();
       if (j.status === "ok") setLive({ phase: "done", brief: j.brief, receipt: j.receipt, checks: j.checks });
       else setLive({ phase: "refused", why: REFUSED[j.status] ?? REFUSED.failed! });
-      fetch("/api/owner", { cache: "no-store" }).then((x) => x.json()).then(setOwner).catch(() => {});
     } catch {
       setLive({ phase: "refused", why: REFUSED.failed! });
     }
+    refresh();
   };
 
+  const link = owner?.link;
+  const canRun = owner?.owner || (link && !link.unavailable && link.open);
+  const left = link?.runsLeft ?? 0;
+  const idle = owner?.owner
+    ? owner.paused
+      ? "Live runs are paused."
+      : owner.unavailable
+        ? "Live budget unavailable."
+        : `Live budget today, $${((owner.spentMicroUsd ?? 0) / 1e6).toFixed(2)} of $${((owner.capMicroUsd ?? 0) / 1e6).toFixed(2)} used.`
+    : link?.unavailable
+      ? "Your live runs can't be checked right now."
+      : link && !link.open
+        ? `Prepared for ${link.name}. This link has ended, and the recorded brief stays.`
+        : link
+          ? `Prepared for ${link.name}. ${owner?.paused ? "Live runs are paused." : runs(left)}, until ${until(link.expires ?? 0)}.`
+          : "";
+  const message =
+    live.phase === "running"
+      ? "Running live now, about ten seconds."
+      : live.phase === "confirm"
+        ? `Run a fresh brief now? It uses one of your ${runs(left).replace(" left", "")}.`
+        : live.phase === "refused"
+          ? live.why
+          : live.phase === "done"
+            ? link ? `This brief just ran live. ${runs(left)}.` : "This brief just ran live."
+            : idle;
+  const disabled = live.phase === "running" || !!owner?.paused || (!owner?.owner && left < 1);
+
   const shown = live.phase === "done" ? { ...data, brief: live.brief, receipt: live.receipt, checks: live.checks, recordedAt: live.receipt.runAt } : data;
+  const button = "min-h-11 rounded-full px-4 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-sky-100 disabled:opacity-50";
   return (
     <div className="space-y-3">
-      {owner?.owner ? (
+      {owner?.owner || link ? (
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-sky-300/30 bg-sky-300/[0.06] px-4 py-2 text-sm">
-          <span className="text-white/70">
-            {live.phase === "running"
-              ? "Running live now, about ten seconds."
-              : live.phase === "refused"
-                ? live.why
-                : live.phase === "done"
-                  ? "This brief just ran live."
-                  : owner.paused
-                    ? "Live runs are paused."
-                    : owner.unavailable
-                      ? "Live budget unavailable."
-                      : `Live budget today, $${((owner.spentMicroUsd ?? 0) / 1e6).toFixed(2)} of $${((owner.capMicroUsd ?? 0) / 1e6).toFixed(2)} used.`}
+          <span className="text-white/70" aria-live="polite">
+            {message}
           </span>
-          <button
-            type="button"
-            onClick={run}
-            disabled={live.phase === "running" || owner.paused}
-            className="min-h-11 rounded-full bg-sky-300 px-4 text-sm font-semibold text-neutral-950 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-sky-100"
-          >
-            {live.phase === "running" ? "Running\u2026" : "Run it live"}
-          </button>
+          {canRun ? (
+            live.phase === "confirm" ? (
+              <span className="flex gap-2">
+                <button type="button" onClick={() => setLive({ phase: "idle" })} className={`${button} border border-white/30 text-white/80`}>
+                  Not now
+                </button>
+                <button type="button" onClick={run} className={`${button} bg-sky-300 text-neutral-950`}>
+                  Run it
+                </button>
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={owner?.owner ? run : () => setLive({ phase: "confirm" })}
+                disabled={disabled}
+                className={`${button} bg-sky-300 text-neutral-950`}
+              >
+                {live.phase === "running" ? "Running\u2026" : "Run it live"}
+              </button>
+            )
+          ) : null}
         </div>
       ) : null}
       <BriefBody data={shown} />

@@ -1,8 +1,10 @@
 # Budget limits in USD. The ledger counts whole micro-dollars in Redis (lands with the live-run work).
-version: 2026-10-17.1
+version: 2026-11-03.1
 visitor_monthly_cap: 25
 owner_monthly: 5
 envelopes: { standard: 1.00, vip: 3.00 }
+# Personal links (plan 3.7). Days until expiry and live runs a minute. The envelope sets how many runs.
+links: { days: 21, per_minute: 6 }
 run_worst_case: 0.14
 daily_breaker: 0.50
 velocity: { usd: 1.00, minutes: 10, pause_minutes: 30 }
