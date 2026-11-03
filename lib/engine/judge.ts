@@ -3,9 +3,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { z } from "zod";
 import type { BriefV1, DayV1, Receipt } from "./contracts";
+import { wordCount } from "./checks";
 import { runStructured } from "./run";
 
-export const JUDGE_PROMPT_VERSION = "judge.v1";
+export const JUDGE_PROMPT_VERSION = "judge.v4";
 const Verdict = z.object({ passed: z.boolean(), reason: z.string() });
 
 export type JudgeInput = {
@@ -28,7 +29,7 @@ export async function judge(input: JudgeInput) {
     `<expectations>\n${JSON.stringify(input.expectations, null, 1)}\n</expectations>`,
     ...(input.openBefore?.length ? [`<open_before_today>\nDecisions that were open yesterday. Some were settled since. Only those the material still shows as open should carry over.\n${JSON.stringify(input.openBefore)}\n</open_before_today>`] : []),
     `<material>\n${JSON.stringify(material)}\n</material>`,
-    `<brief>\n${JSON.stringify(input.brief, null, 1)}\n</brief>`,
+    `<brief words="${wordCount(input.brief)}">\n${JSON.stringify(input.brief, null, 1)}\n</brief>`,
   ].join("\n\n");
   const { output, receipt } = await runStructured({
     task: "judge.ci",

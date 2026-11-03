@@ -1,6 +1,6 @@
 # Task routing. Caps include thinking tokens. The brief and screen caps are the measured p95 times 1.5
 # from the 2026-10-14 spike (docs/spikes/2026-10-14-models-and-structured-output.md), approved by Paula Sun 10/18.
-version: 2026-10-20.1
+version: 2026-11-02.1
 modes: { fast: text.small, balanced: text.mid, deep: text.frontier }
 limits: { max_input_tokens: 20000 }
 tasks:
@@ -9,7 +9,7 @@ tasks:
   desk.ask.precompute:   { alias: text.mid,   effort: low,    max_output: 1200 }
   guard.screen:          { alias: text.small, effort: low,    max_output: 600, schema: ScreenVerdict }
   judge.online:          { alias: text.small, cross_vendor: true, effort: low, max_output: 600 }
-  judge.ci:              { alias: text.small, cross_vendor: true, judge_for: { openai: claude-sonnet-5-5 }, effort: low, max_output: 1600, total_ms: 60000 }  # offline. Haiku misread GPT briefs (Paula, Mon 10/19)
+  judge.ci:              { alias: text.small, cross_vendor: true, judge_for: { openai: claude-sonnet-5-5, anthropic: gpt-6.1-sol }, effort: low, max_output: 1600, total_ms: 60000 }  # offline. Haiku misread GPT briefs (Paula, Mon 10/19). Luna misread Claude briefs in tuning, so Sol (Paula, Mon 11/2)
   eval.fixture:          { alias: text.frontier, effort: medium, max_output: 14000, total_ms: 240000 }  # offline, never visitor-facing; dense crisis days need room
 timeouts:
   first_event_ms: 8000     # floor; measured p95 was 5.1s (Opus)

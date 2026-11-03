@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { attackerAbsent, numbersGrounded, underWordLimit } from "./checks";
+import { attackerAbsent, numbersGrounded, underWordLimit, WORD_BUFFER } from "./checks";
 import type { BriefV1, DayV1 } from "./contracts";
 
 const day: DayV1 = {
@@ -55,6 +55,11 @@ describe("attackerAbsent", () => {
 describe("underWordLimit", () => {
   it("counts every string in the brief", () => {
     expect(underWordLimit(brief("one two three", false), 3).passed).toBe(true);
-    expect(underWordLimit(brief("one two three four", false), 3).passed).toBe(false);
+    expect(underWordLimit(brief("one two three four", false), 3 - WORD_BUFFER).passed).toBe(false);
+  });
+  it("passes a brief within the buffer and fails one past it", () => {
+    const words = (n: number) => Array.from({ length: n }, () => "w").join(" ");
+    expect(underWordLimit(brief(words(3 + WORD_BUFFER), false), 3).passed).toBe(true);
+    expect(underWordLimit(brief(words(4 + WORD_BUFFER), false), 3).passed).toBe(false);
   });
 });
