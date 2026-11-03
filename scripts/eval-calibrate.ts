@@ -84,7 +84,7 @@ async function main() {
     const md = [
       "# Judge calibration",
       "",
-      `Scored once on the held-out half (H01 to H20) with ${JUDGE_PROMPT_VERSION}, on ${new Date().toISOString().slice(0, 10)}. The judges were tuned on the tuning half only.`,
+      `Scored once on the held-out half (H01 to H20) with ${JUDGE_PROMPT_VERSION}, on ${new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" })}. The judges were tuned on the tuning half only.`,
       "",
       `On the held-out 20, the judges agreed with ${overall.passes} of Paula's passes and ${overall.fails} of her fails. An output passes only if every labeled criterion passes. With this few fails, each one moves the fail-side figure a lot.`,
       "",
