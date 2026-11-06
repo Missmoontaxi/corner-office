@@ -37,13 +37,19 @@ const texts = [];
   }
 })(ROOT);
 
+// Public terms live here. Private ones (retired working names, real companies) live one per line in .denylist,
+// which stays outside git so the list itself never goes public.
+const denylist = ["peptide", "sandwich generation"];
+if (fs.existsSync(".denylist"))
+  denylist.push(...fs.readFileSync(".denylist", "utf8").split("\n").map((l) => l.trim()).filter((l) => l && !l.startsWith("#")));
+
 const kpiIds = new Set(data.kpis.map((k) => k.id));
 for (const [p, t] of texts) {
   if (/[–—]/.test(t)) fail(p, "contains an em or en dash");
   for (const m of t.matchAll(/[\w.+-]+@([\w-]+(?:\.[\w-]+)+)/g)) if (!m[1].endsWith(".example")) fail(p, `address not on .example: ${m[0]}`);
   for (const m of t.matchAll(/https?:\/\/([\w.-]+)/g)) if (!m[1].endsWith(".example")) fail(p, `URL not on .example: ${m[0]}`);
   for (const m of t.matchAll(/\bK\d{2}\b/g)) if (!kpiIds.has(m[0])) fail(p, `refers to missing KPI ${m[0]}`);
-  for (const word of ["Carimore", "peptide", "sandwich generation"]) if (t.toLowerCase().includes(word.toLowerCase())) fail(p, `denylisted term "${word}"`);
+  for (const word of denylist) if (t.toLowerCase().includes(word.toLowerCase())) fail(p, `denylisted term "${word}"`);
 }
 
 // Relative dates only

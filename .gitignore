@@ -28,3 +28,4 @@ evals/results/local/
 
 # Eval gate scratch output in CI
 .eval-gate/
+.denylist
