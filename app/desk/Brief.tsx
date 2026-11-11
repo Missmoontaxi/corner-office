@@ -5,6 +5,7 @@ import type { DeskData } from "@/lib/desk/data";
 import { headlineFont } from "../fonts";
 import { useWeather } from "./useWeather";
 import { dollars, modelName, plainDay, plainReceipt, twelveHour } from "@/lib/desk/shared";
+import { linkLine, runs } from "@/lib/live/copy";
 
 const STATUS: Record<string, string> = { green: "bg-emerald-500", yellow: "bg-amber-400", red: "bg-rose-500" };
 const usd = (micro: number) => `$${(micro / 1e6).toFixed(micro < 10_000 ? 4 : 3)}`;
@@ -286,8 +287,6 @@ const REFUSED: Record<string, string> = {
   busy: "Lots of live runs just now, so they're paused for a few minutes. This is the recorded run.",
 };
 
-const runs = (n: number) => `${n} live run${n === 1 ? "" : "s"} left`;
-const until = (ms: number) => new Date(ms).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
 
 // The brief, recorded by default. Paula's phone and personal links also get Run it live, which swaps in a fresh
 // run with its receipt. A personal link sees its runs left and confirms before each run, never dollars.
@@ -330,7 +329,7 @@ export function BriefView({ data }: { data: DeskData }) {
       : link && !link.open
         ? `Prepared for ${link.name}. This link has ended, and the recorded brief stays.`
         : link
-          ? `Prepared for ${link.name}. ${owner?.paused ? "Live runs are paused." : runs(left)}, until ${until(link.expires ?? 0)}.`
+          ? linkLine(link, !!owner?.paused)
           : "";
   const message =
     live.phase === "running"
