@@ -33,6 +33,9 @@ def clean(v):
     if isinstance(v, str):
         v = v.strip()
         return v or None
+    # Google Sheets saves whole numbers as floats (46.0). Keep them whole so the seed and its diffs stay clean.
+    if isinstance(v, float) and v.is_integer():
+        return int(v)
     return v
 
 
