@@ -1,6 +1,6 @@
 # 0006. CareBird's mark appears inside the fiction, never on the frame
 
-*Status: proposed · Date: 2026-11-13 · Decider: Paula McMahon*
+*Status: accepted Fri 2026-11-13 · Date: 2026-11-13 · Decider: Paula McMahon*
 
 ## Context
 
