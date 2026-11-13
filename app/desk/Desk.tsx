@@ -5,7 +5,7 @@ import manifest from "@/scene/manifest.json";
 import wall from "@/scene/wall.json";
 import { layoutScene, toCanvas, MIN_HIT, TOP_BAR_HEIGHT, type Frame, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
-import { BUILT_BY, COFFEE, coffeeComparison, type DeepLink } from "@/lib/desk/shared";
+import { BUILT_BY, CAREBIRD_URL, COFFEE, coffeeComparison, type DeepLink } from "@/lib/desk/shared";
 import { headlineFont } from "../fonts";
 import { AskView } from "./Ask";
 import { BriefView } from "./Brief";
@@ -271,7 +271,7 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
           style={wide ? undefined : { top: TITLE_ROW_BOTTOM, lineHeight: `${Math.max(l.scene.top, TOP_BAR_HEIGHT) - TITLE_ROW_BOTTOM}px` }}
         >
           <span className="sm:hidden">An AI chief of staff demo by Paula McMahon</span>
-          <span className="hidden sm:inline">A working AI chief of staff for CareBird, a made-up company. Built by Paula McMahon.</span>
+          <span className="hidden sm:inline">A working AI chief of staff for <CareBirdLink />, a made-up company. Built by Paula McMahon.</span>
         </p>
       </header>
 
@@ -347,7 +347,7 @@ function DockButton({ onClick, children }: { onClick: () => void; children: Reac
 }
 
 // Monitor mode. A thin bezel frames every document on every device.
-function Frame({ title, onClose, honesty, tabs, children }: { title: string; onClose: () => void; honesty: string; tabs?: React.ReactNode; children: React.ReactNode }) {
+function Frame({ title, onClose, honesty, tabs, children }: { title: React.ReactNode; onClose: () => void; honesty: string; tabs?: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="flex h-full max-h-[100dvh] flex-col border-[6px] border-neutral-800 bg-neutral-900 text-white sm:max-h-[92dvh] sm:rounded-2xl">
       <div className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-1">
@@ -357,7 +357,7 @@ function Frame({ title, onClose, honesty, tabs, children }: { title: string; onC
       {tabs}
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4 [container-type:inline-size]">{children}</div>
       <p className="border-t border-white/10 px-4 py-2 text-[0.7rem] text-white/50">
-        {honesty} <em>{BUILT_BY}</em>
+        <WithCareBirdLink text={honesty} /> <em>{BUILT_BY}</em>
       </p>
     </div>
   );
@@ -372,7 +372,7 @@ function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; set
   ];
   return (
     <Frame
-      title={data.persona.name}
+      title={<PersonaTitle persona={data.persona} />}
       onClose={onClose}
       honesty={data.honesty}
       tabs={
@@ -419,3 +419,39 @@ function Placard({ piece }: { piece: (typeof wall.pieces)[number] }) {
   );
 }
 
+
+// Alex's name and role, then the company with its mark. The CareBird bird sits on a brand-teal tile, since brand
+// teal alone is too dark to read on the frame. Only in-world documents carry CareBird's look (ADR 0006). Phones
+// drop the role so the line stays on one row beside Close.
+function PersonaTitle({ persona }: { persona: DeskData["persona"] }) {
+  return (
+    <span className="flex items-center whitespace-nowrap">
+      <span className="mr-1.5">{persona.name},</span>
+      <span className="mr-1.5 hidden font-normal text-white/60 sm:inline">{persona.role},</span>
+      <span aria-hidden className="inline-block h-[1.15rem] w-[1.15rem] flex-none rounded-[4px] bg-[#376B65] bg-[url(/brand/carebird/symbol-ivory.svg)] bg-[length:125%] bg-center bg-no-repeat" />
+      <CareBirdLink name={persona.company} className="ml-1 font-normal text-white/80" />
+    </span>
+  );
+}
+
+// The word CareBird, linked to the company's site in a new tab. Underlined only on hover so it stays quiet.
+function CareBirdLink({ name = "CareBird", className = "" }: { name?: string; className?: string }) {
+  return (
+    <a href={CAREBIRD_URL} target="_blank" rel="noopener" className={`underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-sky-300 ${className}`}>
+      {name}
+    </a>
+  );
+}
+
+// The first CareBird in a line of copy becomes the link, the rest of the text stays as written.
+function WithCareBirdLink({ text }: { text: string }) {
+  const at = text.indexOf("CareBird");
+  if (at < 0) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, at)}
+      <CareBirdLink className="text-white/70" />
+      {text.slice(at + "CareBird".length)}
+    </>
+  );
+}
