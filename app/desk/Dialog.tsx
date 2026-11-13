@@ -2,22 +2,28 @@
 
 import { useEffect, useRef } from "react";
 
-// A native modal dialog. Escape closes it, focus returns to the opener, and the page behind is inert.
+// A native modal dialog. Escape closes it, focus returns to the opener, and the page behind is inert. On open, focus
+// goes to the dialog itself rather than its first link or button, so nothing shows a focus ring until the visitor
+// presses Tab, and a screen reader announces the dialog's label first.
 export function Dialog({ open, onClose, label, className = "", children }: { open: boolean; onClose: () => void; label: string; className?: string; children: React.ReactNode }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const d = ref.current;
     if (!d) return;
-    if (open && !d.open) d.showModal();
+    if (open && !d.open) {
+      d.showModal();
+      d.focus();
+    }
     if (!open && d.open) d.close();
   }, [open]);
   return (
     <dialog
       ref={ref}
       aria-label={label}
+      tabIndex={-1}
       onClose={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
-      className={`m-auto max-h-[100dvh] max-w-[100vw] overflow-clip bg-transparent p-0 backdrop:bg-black/70 ${className}`}
+      className={`m-auto max-h-[100dvh] max-w-[100vw] overflow-clip bg-transparent p-0 outline-none backdrop:bg-black/70 ${className}`}
     >
       {open ? children : null}
     </dialog>
