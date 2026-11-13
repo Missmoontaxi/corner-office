@@ -2,6 +2,8 @@
 
 // Paula's credit, shown in italics after the honesty line on every view.
 export const BUILT_BY = "Built by Paula McMahon";
+// The fictional company's own site. The word CareBird links here from the brief header, the byline and every footer.
+export const CAREBIRD_URL = "https://carebird.moontaxilab.com/";
 export type Check = { passed: boolean; detail: string };
 export type Scorecard = {
   runAt: string;
