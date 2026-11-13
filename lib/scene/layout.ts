@@ -7,8 +7,8 @@
 import manifest from "@/scene/manifest.json";
 
 export const MIN_HIT = 44;
-// One row of 44-point controls plus 6 points of scrim above and below.
-export const TOP_BAR_HEIGHT = 56;
+// One row of 44-point controls, the one-line byline under it, and a little scrim above and below.
+export const TOP_BAR_HEIGHT = 72;
 // The dock below the painting. One row of 44-point buttons plus room above and below. The phone's own
 // bottom inset is added in CSS, below this.
 export const DOCK_HEIGHT = 68;

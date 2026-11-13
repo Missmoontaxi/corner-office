@@ -3,7 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import manifest from "@/scene/manifest.json";
 import wall from "@/scene/wall.json";
-import { layoutScene, toCanvas, type Frame, type Rect } from "@/lib/scene/layout";
+import { layoutScene, toCanvas, TOP_BAR_HEIGHT, type Frame, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
 import { BUILT_BY, COFFEE, coffeeComparison, type DeepLink } from "@/lib/desk/shared";
 import { headlineFont } from "../fonts";
@@ -253,11 +253,19 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
         ) : null}
       </div>
 
-      <header className="absolute inset-x-0 top-0 flex h-14 items-center justify-between bg-gradient-to-b from-black/60 to-transparent px-4">
-        <h1 className={`${headlineFont.className} text-2xl font-bold tracking-tight drop-shadow`}>Corner Office</h1>
-        <button type="button" onClick={() => go({ kind: "list" })} className="min-h-11 rounded-full bg-white/10 px-4 text-sm font-medium backdrop-blur hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-300">
-          What’s on the desk
-        </button>
+      {/* The title row, then one line that says what this is and who built it, so a first-time visitor knows
+          before tapping anything. Phones get the short version so it stays on one line. */}
+      <header className="absolute inset-x-0 top-0 flex flex-col justify-center bg-gradient-to-b from-black/70 to-transparent px-4" style={{ height: TOP_BAR_HEIGHT }}>
+        <div className="flex items-center justify-between">
+          <h1 className={`${headlineFont.className} text-2xl font-bold tracking-tight drop-shadow`}>Corner Office</h1>
+          <button type="button" onClick={() => go({ kind: "list" })} className="min-h-11 rounded-full bg-white/10 px-4 text-sm font-medium backdrop-blur hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-300">
+            What’s on the desk
+          </button>
+        </div>
+        <p className="truncate text-[0.72rem] leading-tight text-white/80 drop-shadow">
+          <span className="sm:hidden">An AI chief of staff demo by Paula McMahon</span>
+          <span className="hidden sm:inline">A working AI chief of staff for CareBird, a made-up company. Built by Paula McMahon.</span>
+        </p>
       </header>
 
       {/* The dock sits below the painting, near the thumb, with the phone's bottom inset added under it. On a
