@@ -3,7 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import manifest from "@/scene/manifest.json";
 import wall from "@/scene/wall.json";
-import { layoutScene, toCanvas, TOP_BAR_HEIGHT, type Frame, type Rect } from "@/lib/scene/layout";
+import { layoutScene, toCanvas, MIN_HIT, TOP_BAR_HEIGHT, type Frame, type Rect } from "@/lib/scene/layout";
 import type { DeskData } from "@/lib/desk/data";
 import { BUILT_BY, COFFEE, coffeeComparison, type DeepLink } from "@/lib/desk/shared";
 import { headlineFont } from "../fonts";
@@ -23,6 +23,8 @@ const px = (r: Rect) => ({ left: r.left, top: r.top, width: r.width, height: r.h
 const art = (w: number, ext: string) => `/art/office-phone-${manifest.version}-${w}.${ext}`;
 // The whole painting for desktops and landscape tablets, 2960 by 1648.
 const WIDE_ART = `/art/office-wide-${manifest.version}.webp`;
+// The title row is 8 points of padding plus one 44-point row. The byline sits below it.
+const TITLE_ROW_BOTTOM = 8 + MIN_HIT;
 
 type Tab = "brief" | "ask" | "calendar" | "kpis";
 type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" } | { kind: "art"; id: string };
@@ -254,15 +256,20 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
       </div>
 
       {/* The title row, then one line that says what this is and who built it, so a first-time visitor knows
-          before tapping anything. Phones get the short version so it stays on one line. */}
-      <header className="absolute inset-x-0 top-0 flex flex-col justify-center bg-gradient-to-b from-black/70 to-transparent px-4" style={{ height: TOP_BAR_HEIGHT }}>
+          before tapping anything. Phones get the short version so it stays on one line. On a tall phone the
+          painting sits lower than the top bar, so the line centers in the gap between the title row and the
+          painting's top edge rather than hugging the title. */}
+      <header className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/70 to-transparent px-4 pt-2" style={{ height: TOP_BAR_HEIGHT }}>
         <div className="flex items-center justify-between">
           <h1 className={`${headlineFont.className} text-2xl font-bold tracking-tight drop-shadow`}>Corner Office</h1>
           <button type="button" onClick={() => go({ kind: "list" })} className="min-h-11 rounded-full bg-white/10 px-4 text-sm font-medium backdrop-blur hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-300">
             What’s on the desk
           </button>
         </div>
-        <p className="truncate text-[0.72rem] leading-tight text-white/80 drop-shadow">
+        <p
+          className={`truncate text-[0.72rem] leading-tight text-white/80 drop-shadow ${wide ? "" : "pointer-events-none absolute inset-x-4"}`}
+          style={wide ? undefined : { top: TITLE_ROW_BOTTOM, lineHeight: `${Math.max(l.scene.top, TOP_BAR_HEIGHT) - TITLE_ROW_BOTTOM}px` }}
+        >
           <span className="sm:hidden">An AI chief of staff demo by Paula McMahon</span>
           <span className="hidden sm:inline">A working AI chief of staff for CareBird, a made-up company. Built by Paula McMahon.</span>
         </p>
