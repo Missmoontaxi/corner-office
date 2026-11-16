@@ -63,6 +63,7 @@ jobs:
           echo "code=$?" >> "$GITHUB_OUTPUT"
           echo "cases=$(cat .eval-gate/flagged.txt)" >> "$GITHUB_OUTPUT"
       # One flip can be noise. Rerun only the flagged cases twice on each side, then score each row by majority.
+      # A row main itself splits on is reported as unstable and does not fail the PR.
       - name: Rerun flagged cases twice on each side
         if: steps.first.outputs.code != '0' && steps.first.outputs.cases != ''
         env:
