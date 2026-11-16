@@ -83,6 +83,15 @@ jobs:
           fi
           echo "code=$?" >> "$GITHUB_OUTPUT"
           cat .eval-gate/gate.md >> "$GITHUB_STEP_SUMMARY"
+      # The rollout scorecard for this PR's run, every model side by side with cost per brief, on the run's summary
+      # page. The PR comment links to it. It never touches the committed Engine Room recording.
+      - name: Rollout scorecard
+        # A scorecard problem must never change the gate's verdict or stop the comment.
+        continue-on-error: true
+        run: |
+          pnpm eval:scorecard .eval-gate/pr.json --md .eval-gate/scorecard.md --json .eval-gate/scorecard.json
+          cat .eval-gate/scorecard.md >> "$GITHUB_STEP_SUMMARY"
+          printf '\nFull rollout scorecard, with cost per brief: %s/%s/actions/runs/%s\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> .eval-gate/gate.md
       # The results bot posts when Paula has created it. Until then the workflow's own token does.
       - name: Results bot token
         id: bot
