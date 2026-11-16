@@ -11,6 +11,8 @@ export const ModelEntry = z.object({
   in: z.number(),
   out: z.number(),
   no_retire_before: z.union([z.string(), z.date()]).optional(),
+  // A model on trial. Candidates run only in evals and Compare, and never serve a live route until Paula promotes them.
+  roles: z.array(z.enum(["candidate", "compare"])).optional(),
 });
 export const ModelsPolicy = z.object({
   version: z.string(),
