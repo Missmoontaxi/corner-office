@@ -1,11 +1,12 @@
 # Admission to Compare. Paula approves every change to this file. The gate computer (evals/admission.ts) only
 # counts against it and prints pass or fail per threshold. Admitting a model is still Paula's call on the results PR.
 # Source, Desk Addendum section 4.4.
-version: 2026-11-16.1
+version: 2026-11-16.2
 compare:
   # Every case returns a valid brief. A schema failure, an error or a timeout all count as a miss here.
   every_case_answers: true
-  # The must-pass criteria a case has to clear, all of them, to count.
-  must_pass: [R1, R2, R8]
+  # The must-pass criteria a case has to clear, all of them, to count. All five of the rubric's must-pass rows, the
+  # same set the PR eval gate uses (Paula, Mon 11/16). The addendum named R1, R2 and R8 before R9 and R11 existed.
+  must_pass: [R1, R2, R8, R9, R11]
   # How many cases may miss at least one must-pass criterion and the model still clear the bar.
   max_cases_missing: 2
