@@ -40,7 +40,11 @@ jobs:
       - name: Summary
         if: always()
         run: |
-          if [ -f evals/results/local/latest.json ]; then pnpm exec tsx scripts/eval-view.ts --markdown >> "$GITHUB_STEP_SUMMARY"; fi
+          if [ -f evals/results/local/latest.json ]; then
+            pnpm exec tsx scripts/eval-view.ts --markdown >> "$GITHUB_STEP_SUMMARY"
+            pnpm eval:scorecard evals/results/local/latest.json --md evals/results/local/scorecard.md --json evals/results/local/scorecard.json
+            cat evals/results/local/scorecard.md >> "$GITHUB_STEP_SUMMARY"
+          fi
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
         with:
