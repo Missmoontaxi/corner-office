@@ -116,4 +116,6 @@ jobs:
         with:
           name: eval-gate
           path: .eval-gate/
+          # The folder name starts with a dot, and upload-artifact skips hidden files unless told otherwise.
+          include-hidden-files: true
           if-no-files-found: ignore
