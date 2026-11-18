@@ -1,14 +1,26 @@
 // Runs today's guarded brief on the seed's show day, prints it with its receipt and code checks, and saves it
 // as the recorded brief the desk and MCP serve until the precompute cron publishes a fresher one.
-// Usage: pnpm brief [fast|balanced|deep]
+// "compare" runs the same day pinned to the brief's fallback model and saves it as Compare's recording.
+// Usage: pnpm brief [fast|balanced|deep|compare]
 import fs from "node:fs";
 import path from "node:path";
 import { loadShowDay } from "../lib/engine/sources/seed";
 import { BRIEF_PROMPT_VERSION, runGuardedBrief } from "../lib/engine/brief";
 import { attackerAbsent, numbersGrounded, underWordLimit } from "../lib/engine/checks";
+import { publishable, runCompareBrief } from "../lib/engine/compare";
 import type { Mode } from "../lib/engine/router";
 
+async function compare() {
+  const side = await runCompareBrief(loadShowDay(), { client: "ci" });
+  console.log(JSON.stringify({ model: side.receipt.route.model, costUsd: side.receipt.costMicroUsd / 1e6, latencyMs: side.receipt.latencyMs, checks: side.checks }, null, 2));
+  if (!publishable(side)) throw new Error("The planted-attack check failed, so this run is not saved.");
+  const file = path.join(process.cwd(), "recordings", "brief-compare-show-day.json");
+  fs.writeFileSync(file, JSON.stringify({ kind: "brief-compare", promptVersion: BRIEF_PROMPT_VERSION, recordedAt: side.receipt.runAt, ...side }, null, 1) + "\n");
+  console.log(`Saved ${file}`);
+}
+
 async function main() {
+  if (process.argv[2] === "compare") return compare();
   const mode = (process.argv[2] ?? "balanced") as Mode;
   const day = loadShowDay();
   const task = mode === "balanced" ? "desk.brief.precompute" : "desk.brief.live";

@@ -6,7 +6,8 @@
 import { list, put } from "@vercel/blob";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { z } from "zod";
-import { AskV1, BriefV1, Receipt } from "./contracts";
+import { BriefSide } from "./compare";
+import { AskV1, Receipt } from "./contracts";
 
 const PREFIX = "snapshots/snapshot";
 const Check = z.object({ passed: z.boolean(), detail: z.string() });
@@ -15,7 +16,10 @@ export const Snapshot = z.object({
   kind: z.literal("snapshot"),
   version: z.literal(1),
   runAt: z.string(),
-  brief: z.object({ brief: BriefV1, receipt: Receipt, checks: z.record(z.string(), Check) }),
+  brief: BriefSide,
+  // The same day pinned to the brief's fallback model, for Compare. Absent on snapshots from before 11/18, or
+  // when that run failed, and then Compare shows the committed recording.
+  compare: z.array(BriefSide).optional(),
   asks: z.array(z.object({ key: z.number(), question: z.string(), answer: AskV1, checks: z.record(z.string(), Check), receipt: Receipt })),
   gate: z.object({ passed: z.literal(true), results: z.array(z.object({ id: z.string(), passed: z.boolean(), detail: z.string() })) }),
 });
