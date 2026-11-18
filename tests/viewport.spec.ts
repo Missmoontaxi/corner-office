@@ -96,3 +96,30 @@ for (const [width, height, label] of SIZES) {
     expect(overlaps, "overlapping hit areas").toEqual([]);
   });
 }
+
+// The model drawer and Compare, on the narrowest phones and a laptop. Every monitor tab fits without a scroll,
+// nothing in an open dialog spills past the screen, and Compare shows both briefs.
+for (const [width, height] of [
+  [360, 640],
+  [375, 548],
+  [1280, 720],
+] as const) {
+  for (const view of ["compare", "engine"] as const) {
+    test(`${view} at ${width}x${height}`, async ({ page }) => {
+      await page.setViewportSize({ width, height });
+      await page.goto(`/office/${view}`);
+      const dialog = page.locator("dialog[open]");
+      await dialog.waitFor();
+      const m = await dialog.evaluate((d) => {
+        const tabs = d.querySelector('[role="tablist"]');
+        const wide = [...d.querySelectorAll("*")].filter((el) => el.getBoundingClientRect().right > window.innerWidth + 0.5 && el.getClientRects().length).length;
+        return { page: document.documentElement.scrollWidth, tabs: tabs ? tabs.scrollWidth - tabs.clientWidth : 0, wide };
+      });
+      expect(m.page, "no sideways page scroll").toBeLessThanOrEqual(width);
+      expect(m.tabs, "every tab fits").toBeLessThanOrEqual(0);
+      expect(m.wide, "nothing spills past the screen").toBe(0);
+      if (view === "compare") await expect(dialog.getByRole("article")).toHaveCount(2);
+      else await expect(dialog.getByRole("heading", { name: /^Models, \d+ in the registry$/ })).toBeVisible();
+    });
+  }
+}

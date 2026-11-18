@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       beforeFiles: [
         {
           source: "/",
-          has: [{ type: "query", key: "open", value: "(?<view>brief|ask|calendar|numbers|engine|coffee|gm|cheers)" }],
+          has: [{ type: "query", key: "open", value: "(?<view>brief|ask|calendar|numbers|compare|engine|coffee|gm|cheers)" }],
           destination: "/office/:view",
         },
       ],
