@@ -96,7 +96,7 @@ export function coffeeComparison(costUsd: number): string {
 
 // The deep-link names, such as ?open=calendar. Each is a prebuilt page under /office/<name>. The rewrite in
 // next.config.ts lists the same names, and a test keeps the two in step.
-export const DEEP_LINK_NAMES = ["brief", "ask", "calendar", "numbers", "engine", "coffee", "gm", "cheers"] as const;
+export const DEEP_LINK_NAMES = ["brief", "ask", "calendar", "numbers", "compare", "engine", "coffee", "gm", "cheers"] as const;
 export type DeepLink = (typeof DEEP_LINK_NAMES)[number];
 
 // The brief writes calendar times on the 24-hour clock. On the desk they read as 9:00 AM and 3:30 PM.

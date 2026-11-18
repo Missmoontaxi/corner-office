@@ -10,6 +10,7 @@ import { headlineFont } from "../fonts";
 import { AskView } from "./Ask";
 import { BriefView } from "./Brief";
 import { CloseButton, Dialog } from "./Dialog";
+import { CompareView } from "./Compare";
 import { CalendarDoc, KpiDoc } from "./Documents";
 import { EngineRoom } from "./EngineRoom";
 import { useWeather } from "./useWeather";
@@ -26,7 +27,7 @@ const WIDE_ART = `/art/office-wide-${manifest.version}.webp`;
 // The title row is 8 points of padding plus one 44-point row. The byline sits below it.
 const TITLE_ROW_BOTTOM = 8 + MIN_HIT;
 
-type Tab = "brief" | "ask" | "calendar" | "kpis";
+type Tab = "brief" | "ask" | "calendar" | "kpis" | "compare";
 type Open = null | { kind: "monitor"; tab: Tab } | { kind: "engine" } | { kind: "list" } | { kind: "coffee" } | { kind: "art"; id: string };
 
 // What each live object does, in the order "What's on the desk" lists them (Paula's names, Tue 10/27).
@@ -110,6 +111,7 @@ const DEEP_LINKS: Record<DeepLink, Exclude<Open, null>> = {
   ask: { kind: "monitor", tab: "ask" },
   calendar: { kind: "monitor", tab: "calendar" },
   numbers: { kind: "monitor", tab: "kpis" },
+  compare: { kind: "monitor", tab: "compare" },
   engine: { kind: "engine" },
   coffee: { kind: "coffee" },
   gm: { kind: "art", id: "gm" },
@@ -144,6 +146,8 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
     } else setOpen(next);
   };
   const close = () => setOpen(null);
+  // The Engine Room can hand off to Compare. Its dialog then closes on its own, and that close must not undo the hand-off.
+  const leaveEngine = () => setOpen((o) => (o?.kind === "engine" ? null : o));
 
   if (!size) return <div className="fixed inset-0 bg-neutral-950" />;
   const [w, h] = size.split("x").map(Number) as [number, number];
@@ -290,9 +294,9 @@ export function Desk({ data, initial }: { data: DeskData; initial?: string }) {
         {open?.kind === "monitor" ? <Monitor data={data} tab={open.tab} setTab={(tab) => setOpen({ kind: "monitor", tab })} onClose={close} /> : null}
       </Dialog>
 
-      <Dialog open={open?.kind === "engine"} onClose={close} label="Engine Room" className="h-[100dvh] w-[100vw] sm:h-[92dvh] sm:w-[min(760px,96vw)] sm:rounded-2xl">
+      <Dialog open={open?.kind === "engine"} onClose={leaveEngine} label="Engine Room" className="h-[100dvh] w-[100vw] sm:h-[92dvh] sm:w-[min(760px,96vw)] sm:rounded-2xl">
         <Frame title="Engine Room" onClose={close} honesty={data.honesty}>
-          <EngineRoom data={data} />
+          <EngineRoom data={data} onCompare={() => setOpen({ kind: "monitor", tab: "compare" })} />
         </Frame>
       </Dialog>
 
@@ -369,6 +373,7 @@ function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; set
     ["ask", "Ask"],
     ["calendar", "Calendar"],
     ["kpis", "Numbers"],
+    ["compare", "Compare"],
   ];
   return (
     <Frame
@@ -376,7 +381,7 @@ function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; set
       onClose={onClose}
       honesty={data.honesty}
       tabs={
-        <div role="tablist" aria-label="Monitor" className="flex gap-1 border-b border-white/10 px-2">
+        <div role="tablist" aria-label="Monitor" className="flex gap-0.5 overflow-x-auto border-b sm:gap-1 border-white/10 px-2">
           {tabs.map(([id, label]) => (
             <button
               key={id}
@@ -384,7 +389,7 @@ function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; set
               type="button"
               aria-selected={tab === id}
               onClick={() => setTab(id)}
-              className={`min-h-11 px-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-sky-300 ${tab === id ? "border-b-2 border-sky-300 text-white" : "text-white/60"}`}
+              className={`min-h-11 min-w-11 shrink-0 px-2 text-sm font-medium focus-visible:outline-2 sm:px-3 focus-visible:outline-sky-300 ${tab === id ? "border-b-2 border-sky-300 text-white" : "text-white/60"}`}
             >
               {label}
             </button>
@@ -397,6 +402,7 @@ function Monitor({ data, tab, setTab, onClose }: { data: DeskData; tab: Tab; set
         {tab === "calendar" ? <CalendarDoc data={data} /> : null}
         {tab === "kpis" ? <KpiDoc data={data} /> : null}
         {tab === "ask" ? <AskView data={data} /> : null}
+        {tab === "compare" ? <CompareView data={data} /> : null}
       </div>
     </Frame>
   );
